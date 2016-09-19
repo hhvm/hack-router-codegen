@@ -1,0 +1,7 @@
+{
+    "require": {
+        "fredemmott/hack-router": "^1.0.0rc2",
+        "facebook/hack-codegen": "^1.1",
+        "fredemmott/definition-finder": "^1.2"
+    }
+}

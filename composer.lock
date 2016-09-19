@@ -1,0 +1,232 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "hash": "c85c5776291246a48170f5f80021b66b",
+    "content-hash": "86e68d3287008480335454d287c5a61b",
+    "packages": [
+        {
+            "name": "facebook/hack-codegen",
+            "version": "v1.1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/facebook/hack-codegen.git",
+                "reference": "aa7af566faa123b1ab39dd168d40890e2af7fe31"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/facebook/hack-codegen/zipball/aa7af566faa123b1ab39dd168d40890e2af7fe31",
+                "reference": "aa7af566faa123b1ab39dd168d40890e2af7fe31",
+                "shasum": ""
+            },
+            "require": {
+                "hhvm": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "lib/utils.php",
+                    "lib/Str.php",
+                    "lib/StrBuffer.php",
+                    "lib/Filesystem.php",
+                    "src/SignedSourceBase.php",
+                    "src/SignedSource.php",
+                    "src/PartiallyGeneratedSignedSource.php",
+                    "src/PartiallyGeneratedCode.php",
+                    "src/HackBuilderKeys.php",
+                    "src/HackBuilderValues.php",
+                    "src/IHackCodegenConfig.php",
+                    "src/HackCodegenConfig.php",
+                    "src/CodegenWithVisibility.php",
+                    "src/ICodeBuilderRenderer.php",
+                    "src/ICodeBuilder.php",
+                    "src/HackBuilderRenderer.php",
+                    "src/BaseCodeBuilder.php",
+                    "src/HackBuilder.php",
+                    "src/ICodegenFormatter.php",
+                    "src/CodegenClassBase.php",
+                    "src/CodegenClass.php",
+                    "src/CodegenFunctionBase.php",
+                    "src/CodegenMethodBase.php",
+                    "src/CodegenConstructor.php",
+                    "src/CodegenEnum.php",
+                    "src/CodegenFile.php",
+                    "src/CodegenFunction.php",
+                    "src/CodegenGeneratedFrom.php",
+                    "src/CodegenImplementsInterface.php",
+                    "src/CodegenInterface.php",
+                    "src/CodegenMemberVar.php",
+                    "src/CodegenMethod.php",
+                    "src/CodegenShape.php",
+                    "src/CodegenTrait.php",
+                    "src/CodegenType.php",
+                    "src/CodegenUsesTrait.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Drew Hoskins",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Gaurav Kumar",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Alejandro Marcu",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Matthieu Martin",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Hack Codegen is a library for programatically generating Hack code",
+            "keywords": [
+                "code generation",
+                "hack"
+            ],
+            "time": "2016-01-25 21:06:57"
+        },
+        {
+            "name": "fredemmott/definition-finder",
+            "version": "v1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fredemmott/definition-finder.git",
+                "reference": "f1501a74c0d10afa4106ef46baef56e6787a9777"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fredemmott/definition-finder/zipball/f1501a74c0d10afa4106ef46baef56e6787a9777",
+                "reference": "f1501a74c0d10afa4106ef46baef56e6787a9777",
+                "shasum": ""
+            },
+            "require": {
+                "hhvm": "~3.9"
+            },
+            "require-dev": {
+                "91carriage/phpunit-hhi": "~5.1.0",
+                "hhvm/systemlib-extractor": "^0.1.0",
+                "phpunit/phpunit": "~5.1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ],
+                "files": [
+                    "src/typedefs.php",
+                    "src/utils.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "Find definitions in PHP or Hack files. Useful for autoloaders.",
+            "homepage": "https://github.com/fredemmott/definitions-finder",
+            "keywords": [
+                "autoload",
+                "definitions",
+                "hack",
+                "hhvm"
+            ],
+            "time": "2016-09-15 03:18:56"
+        },
+        {
+            "name": "fredemmott/hack-router",
+            "version": "v1.0.0rc2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fredemmott/hack-router.git",
+                "reference": "43bf01af96c1167b62259accc3a005235974c0e7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fredemmott/hack-router/zipball/43bf01af96c1167b62259accc3a005235974c0e7",
+                "reference": "43bf01af96c1167b62259accc3a005235974c0e7",
+                "shasum": ""
+            },
+            "require": {
+                "nikic/fast-route": "^0.7.0"
+            },
+            "require-dev": {
+                "91carriage/phpunit-hhi": "^5.1",
+                "phpunit/phpunit": "^5.1"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "URI routing for Hack",
+            "homepage": "https://github.com/fredemmott/hack-router",
+            "keywords": [
+                "hack",
+                "hhvm",
+                "router",
+                "routing"
+            ],
+            "time": "2016-09-19 00:54:26"
+        },
+        {
+            "name": "nikic/fast-route",
+            "version": "v0.7.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nikic/FastRoute.git",
+                "reference": "8164b4a0d8afde4eae5f1bfc39084972ba23ad36"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nikic/FastRoute/zipball/8164b4a0d8afde4eae5f1bfc39084972ba23ad36",
+                "reference": "8164b4a0d8afde4eae5f1bfc39084972ba23ad36",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "FastRoute\\": "src/"
+                },
+                "files": [
+                    "src/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Nikita Popov",
+                    "email": "nikic@php.net"
+                }
+            ],
+            "description": "Fast request router for PHP",
+            "keywords": [
+                "router",
+                "routing"
+            ],
+            "time": "2015-12-20 19:50:12"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "fredemmott/hack-router": 5
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}
