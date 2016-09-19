@@ -36,7 +36,7 @@ final class UriMapBuilder {
     $this->classes = $classes->immutable();
   }
 
-  public function getRoutes(
+  public function getUriMap(
   ): ImmMap<HttpMethod, ImmMap<string, classname<IncludeInUriMap>>> {
     $map = Map { };
     foreach (HttpMethod::getValues() as $method) {
@@ -74,6 +74,7 @@ final class UriMapBuilder {
     return $mappable->immutable();
   }
 
+  <<TestsBypassVisibility>>
   private function getSupportedHttpMethodsForController(
     classname<IncludeInUriMap> $classname,
   ): ImmSet<HttpMethod> {
@@ -111,6 +112,7 @@ final class UriMapBuilder {
     return $supported->immutable();
   }
 
+  <<TestsBypassVisibility>>
   private function isUriMappable(
     ScannedClass $class
   ): bool {
@@ -138,10 +140,17 @@ final class UriMapBuilder {
     string $name,
     classname<T> $wanted,
   ): bool {
+    if (substr($name, 0, 1) === "\\") {
+      $name = substr($name, 1);
+    }
+
     if ($name === $wanted) {
       return true;
     }
-    $class = $this->classes->at($name);
+    $class = $this->classes[($name)] ?? null;
+    if (!$class) {
+      return false;
+    }
 
     foreach ($class->getInterfaceNames() as $interface) {
       if ($this->doesImplement($interface, $wanted)) {

@@ -3,5 +3,15 @@
         "fredemmott/hack-router": "^1.0.0rc2",
         "facebook/hack-codegen": "^1.1",
         "fredemmott/definition-finder": "^1.2"
+    },
+    "require-dev": {
+        "91carriage/phpunit-hhi": "^5.5",
+        "phpunit/phpunit": "^5.5"
+    },
+    "autoload": {
+      "classmap": [ "src/" ]
+    },
+    "autoload-dev": {
+      "classmap": [ "tests/" ]
     }
 }
