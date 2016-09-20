@@ -16,10 +16,11 @@ use \Facebook\DefinitionFinder\ScannedBasicClass;
 use \Facebook\DefinitionFinder\ScannedClass;
 use \Facebook\DefinitionFinder\DefinitionType;
 
-final class UriMapBuilder {
+final class UriMapBuilder<TBase as IncludeInUriMap> {
   private ImmMap<string, ScannedClass> $classes;
 
   public function __construct(
+    private classname<TBase> $baseClass,
     BaseParser $parser,
   ) {
     $classes = Map { };
@@ -37,7 +38,7 @@ final class UriMapBuilder {
   }
 
   public function getUriMap(
-  ): ImmMap<HttpMethod, ImmMap<string, classname<IncludeInUriMap>>> {
+  ): ImmMap<HttpMethod, ImmMap<string, classname<TBase>>> {
     $map = Map { };
     foreach (HttpMethod::getValues() as $method) {
       $map[$method] = Map { };
@@ -62,7 +63,7 @@ final class UriMapBuilder {
   }
 
   private function getControllerNames(
-  ): ImmSet<classname<IncludeInUriMap>> {
+  ): ImmSet<classname<TBase>> {
     $mappable = Set { };
     foreach ($this->classes as $class) {
       if (!$this->isUriMappable($class)) {
@@ -76,7 +77,7 @@ final class UriMapBuilder {
 
   <<TestsBypassVisibility>>
   private function getSupportedHttpMethodsForController(
-    classname<IncludeInUriMap> $classname,
+    classname<TBase> $classname,
   ): ImmSet<HttpMethod> {
     $supported = Set { };
     if ($this->doesImplement($classname, SupportsGetRequests::class)) {

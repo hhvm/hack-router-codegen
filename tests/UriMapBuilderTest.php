@@ -17,24 +17,16 @@ use \Facebook\HackRouter\HttpMethod;
 use \Facebook\HackRouter\CodeGen\Tests\GetRequestExampleController;
 
 final class UriMapBuilderTest extends \PHPUnit_Framework_TestCase {
-  private function invokePrivate<T>(
-    T $object,
-    string $method,
-    mixed ...$args
-  ): mixed {
-    $rm = new \ReflectionMethod($object, $method);
-    invariant(
-      $rm->getAttribute('TestsBypassVisibility') !== null,
-      '%s::%s does not have <<TestsBypassVisibility>>',
-      get_class($object),
-      $method,
-    );
-    $rm->setAccessible(true);
-    return $rm->invokeArgs($object, $args);
+  use InvokePrivateTestTrait;
+
+  private function getBuilder(
+    FileParser $parser,
+  ): UriMapBuilder<IncludeInUriMap> {
+    return new UriMapBuilder(IncludeInUriMap::class, $parser);
   }
 
-  private function isMappable(
-    UriMapBuilder $builder,
+  private function isMappable<T as IncludeInUriMap>(
+    UriMapBuilder<T> $builder,
     ScannedBasicClass $class,
   ): bool {
     return (bool) $this->invokePrivate(
@@ -44,8 +36,8 @@ final class UriMapBuilderTest extends \PHPUnit_Framework_TestCase {
     );
   }
 
-  private function getMethods(
-    UriMapBuilder $builder,
+  private function getMethods<T as IncludeInUriMap>(
+    UriMapBuilder<T> $builder,
     ScannedBasicClass $class,
   ): ImmSet<HttpMethod> {
     /* HH_IGNORE_ERROR[4110] mixed => ImmSet */
@@ -63,7 +55,7 @@ final class UriMapBuilderTest extends \PHPUnit_Framework_TestCase {
       "implements Facebook\HackRouter\IncludeInUriMap {}";
     $scanned = FileParser::FromData($code, __FUNCTION__);
     $class = $scanned->getClass('MyController');
-    $builder = new UriMapBuilder($scanned);
+    $builder = $this->getBuilder($scanned);
     $this->assertTrue($this->isMappable($builder, $class));
   }
 
@@ -75,7 +67,7 @@ final class UriMapBuilderTest extends \PHPUnit_Framework_TestCase {
       "implements \Facebook\HackRouter\IncludeInUriMap {}";
     $scanned = FileParser::FromData($code, __FUNCTION__);
     $class = $scanned->getClass('MySite\MyController');
-    $builder = new UriMapBuilder($scanned);
+    $builder = $this->getBuilder($scanned);
     $this->assertTrue($this->isMappable($builder, $class));
   }
 
@@ -86,7 +78,7 @@ final class UriMapBuilderTest extends \PHPUnit_Framework_TestCase {
       "implements \Facebook\HackRouter\IncludeInUriMap {}";
     $scanned = FileParser::FromData($code, __FUNCTION__);
     $class = $scanned->getClass('MyController');
-    $builder = new UriMapBuilder($scanned);
+    $builder = $this->getBuilder($scanned);
     $this->assertTrue($this->isMappable($builder, $class));
   }
 
@@ -97,7 +89,7 @@ final class UriMapBuilderTest extends \PHPUnit_Framework_TestCase {
       "final class MyController implements IncludeInUriMap {}";
     $scanned = FileParser::FromData($code, __FUNCTION__);
     $class = $scanned->getClass('MyController');
-    $builder = new UriMapBuilder($scanned);
+    $builder = $this->getBuilder($scanned);
     $this->assertTrue($this->isMappable($builder, $class));
   }
 
@@ -108,7 +100,7 @@ final class UriMapBuilderTest extends \PHPUnit_Framework_TestCase {
       "implements Facebook\HackRouter\IncludeInUriMap {}";
     $scanned = FileParser::FromData($code, __FUNCTION__);
     $class = $scanned->getClass('MyController');
-    $builder = new UriMapBuilder($scanned);
+    $builder = $this->getBuilder($scanned);
     $this->assertFalse($this->isMappable($builder, $class));
   }
 
@@ -122,7 +114,7 @@ final class UriMapBuilderTest extends \PHPUnit_Framework_TestCase {
       "implements Facebook\HackRouter\IncludeInUriMap {}";
     $scanned = FileParser::FromData($code, __FUNCTION__);
     $class = $scanned->getClass('MyController');
-    $builder = new UriMapBuilder($scanned);
+    $builder = $this->getBuilder($scanned);
     $_throws = $this->isMappable($builder, $class);
   }
 
@@ -136,7 +128,7 @@ final class UriMapBuilderTest extends \PHPUnit_Framework_TestCase {
     $base = $scanned->getClass('BaseController');
     $final = $scanned->getClass('MyController');
 
-    $builder = new UriMapBuilder($scanned);
+    $builder = $this->getBuilder($scanned);
     $this->assertTrue($this->isMappable($builder, $final));
     $this->assertFalse($this->isMappable($builder, $base));
   }
@@ -150,7 +142,7 @@ final class UriMapBuilderTest extends \PHPUnit_Framework_TestCase {
     $scanned = FileParser::FromData($code, __FUNCTION__);
     $class = $scanned->getClass('MyController');
 
-    $builder = new UriMapBuilder($scanned);
+    $builder = $this->getBuilder($scanned);
     $this->assertTrue($this->isMappable($builder, $class));
   }
 
@@ -169,7 +161,7 @@ final class UriMapBuilderTest extends \PHPUnit_Framework_TestCase {
     $scanned = FileParser::FromData($code, __FUNCTION__);
     $class = $scanned->getClass('MyController');
 
-    $builder = new UriMapBuilder($scanned);
+    $builder = $this->getBuilder($scanned);
     $this->assertTrue($this->isMappable($builder, $class));
   }
 
@@ -183,7 +175,7 @@ final class UriMapBuilderTest extends \PHPUnit_Framework_TestCase {
     $scanned = FileParser::FromData($code, __FUNCTION__);
     $class = $scanned->getClass('MyController');
 
-    $builder = new UriMapBuilder($scanned);
+    $builder = $this->getBuilder($scanned);
     $this->assertEquals(
       ImmSet { HttpMethod::GET },
       $this->getMethods($builder, $class),
@@ -200,7 +192,7 @@ final class UriMapBuilderTest extends \PHPUnit_Framework_TestCase {
     $scanned = FileParser::FromData($code, __FUNCTION__);
     $class = $scanned->getClass('MyController');
 
-    $builder = new UriMapBuilder($scanned);
+    $builder = $this->getBuilder($scanned);
     $this->assertEquals(
       ImmSet { HttpMethod::POST },
       $this->getMethods($builder, $class),
@@ -221,7 +213,7 @@ final class UriMapBuilderTest extends \PHPUnit_Framework_TestCase {
     $scanned = FileParser::FromData($code, __FUNCTION__);
     $class = $scanned->getClass('MyController');
 
-    $builder = new UriMapBuilder($scanned);
+    $builder = $this->getBuilder($scanned);
     $_throws = $this->getMethods($builder, $class);
   }
 
@@ -230,7 +222,7 @@ final class UriMapBuilderTest extends \PHPUnit_Framework_TestCase {
       __DIR__.'/examples/GetRequestExampleController.php',
     );
     $class = $scanned->getClass(GetRequestExampleController::class);
-    $builder = new UriMapBuilder($scanned);
+    $builder = $this->getBuilder($scanned);
 
     $this->assertEquals(
       ImmMap {
