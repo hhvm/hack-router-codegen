@@ -65,8 +65,9 @@ final class RouterCodegenBuilderTest extends \PHPUnit_Framework_TestCase {
     $this->assertSame(0, $exit_code, "Typechecker errors found");
   }
 
-  public function testMapOnlyContainsUsedMethods(): void {
-    $builder = $this->getBuilder();
+  private function renderToString<T as IncludeInUriMap>(
+    RouterCodegenBuilder<T> $builder,
+  ): string {
     $class = $this->invokePrivate(
       $builder,
       'getCodegenFile',
@@ -75,9 +76,37 @@ final class RouterCodegenBuilderTest extends \PHPUnit_Framework_TestCase {
       'MySiteRouter',
     );
     assert($class instanceof \Facebook\HackCodegen\CodegenFile);
-    $code = $class->render();
+    return $class->render();
+  }
+
+  public function testMapOnlyContainsUsedMethods(): void {
+    $code = $this->renderToString($this->getBuilder());
     $this->assertContains('HttpMethod::GET', $code);
     $this->assertNotContains('HttpMethod::POST', $code);
+  }
+
+  public function testDefaultGeneratedFrom(): void {
+    $this->assertContains(
+      'Generated from '.RouterCodegenBuilder::class,
+      $this->renderToString($this->getBuilder()),
+    );
+  }
+
+  public function testOverriddenGeneratedFrom(): void {
+    $code = $this->renderToString(
+      $this->getBuilder()->setGeneratedFrom(
+        \Facebook\HackCodegen\codegen_generated_from_script(),
+      ),
+    );
+    $this->assertContains('To re-generate this file run', $code);
+    $this->assertContains('vendor/phpunit/phpunit/phpunit', $code);
+  }
+
+  public function testIsStrict(): void {
+    $this->assertStringStartsWith(
+      "<?hh // strict\n",
+      $this->renderToString($this->getBuilder()),
+    );
   }
 
   public function testSuccessfullyMaps(): void {

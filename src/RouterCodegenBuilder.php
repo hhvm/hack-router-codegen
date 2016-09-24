@@ -15,10 +15,13 @@ use \Facebook\HackCodegen as cg;
 use \Facebook\DefinitionFinder\BaseParser;
 
 final class RouterCodegenBuilder<T as IncludeInUriMap> {
+  private cg\CodegenGeneratedFrom $generatedFrom;
+
   public function __construct(
     private classname<T> $responderClass,
     private ImmMap<HttpMethod, ImmMap<string, classname<T>>> $uriMap,
   ) {
+    $this->generatedFrom = cg\codegen_generated_from_class(self::class);
   }
 
   public static function FromDefinitions<TBase as IncludeInUriMap>(
@@ -27,6 +30,13 @@ final class RouterCodegenBuilder<T as IncludeInUriMap> {
   ): RouterCodegenBuilder<TBase> {
     $builder = new UriMapBuilder($base, $definitions);
     return new self($base, $builder->getUriMap());
+  }
+
+  public function setGeneratedFrom(
+    cg\CodegenGeneratedFrom $generated_from,
+  ): this {
+    $this->generatedFrom = $generated_from;
+    return $this;
   }
 
   public function renderToFile(
@@ -45,7 +55,7 @@ final class RouterCodegenBuilder<T as IncludeInUriMap> {
   ): cg\CodegenFile{
     $file = cg\codegen_file($path)
       ->setFileType(cg\CodegenFileType::HACK_STRICT)
-      ->setGeneratedFrom(cg\codegen_generated_from_class(self::class))
+      ->setGeneratedFrom($this->generatedFrom)
       ->addClass($this->getCodegenClass($classname));
     if ($namespace !== null) {
       $file->setNamespace($namespace);
