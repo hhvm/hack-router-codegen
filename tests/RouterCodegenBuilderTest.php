@@ -16,6 +16,7 @@ use \Facebook\HackRouter\HttpMethod;
 use \Facebook\HackRouter\CodeGen\Tests\GetRequestExampleController;
 
 final class RouterCodegenBuilderTest extends \PHPUnit_Framework_TestCase {
+  const string CODEGEN_PATH = __DIR__.'/examples/codegen/MySiteRouter.php';
   use InvokePrivateTestTrait;
 
   <<__Memoize>>
@@ -35,14 +36,17 @@ final class RouterCodegenBuilderTest extends \PHPUnit_Framework_TestCase {
     return $router_builder;
   }
 
-  public function testTypechecks(): void {
-    $path = __DIR__.'/codegen/MySiteRouter.php';
+  private function rebuild(): void {
     $builder = $this->getBuilder();
     $builder->renderToFile(
-      $path,
+      self::CODEGEN_PATH,
       /* ns = */ null,
       'MySiteRouter',
     );
+  }
+
+  public function testTypechecks(): void {
+    $this->rebuild();
     $args = ImmVector {
       'hh_server',
       '--check',
@@ -63,7 +67,7 @@ final class RouterCodegenBuilderTest extends \PHPUnit_Framework_TestCase {
     $class = $this->invokePrivate(
       $builder,
       'getCodegenFile',
-      'MySiteRouter.php',
+      self::CODEGEN_PATH,
       /* namespace = */ null,
       'MySiteRouter',
     );
@@ -71,5 +75,26 @@ final class RouterCodegenBuilderTest extends \PHPUnit_Framework_TestCase {
     $code = $class->render();
     $this->assertContains('HttpMethod::GET', $code);
     $this->assertNotContains('HttpMethod::POST', $code);
+  }
+
+  public function testSuccessfullyMaps(): void {
+    $this->rebuild();
+    /* HH_IGNORE_ERROR[1002] intentionally using require_once outside of
+     * top-level */
+    require_once(self::CODEGEN_PATH);
+    $router = new \MySiteRouter();
+    list($controller, $params) = $router->routeRequest(
+      HttpMethod::GET,
+      '/users/MrHankey',
+    );
+    $this->assertSame(GetRequestExampleController::class, $controller);
+    $params = new UriParameters(
+      GetRequestExampleController::getUriPattern()->getParameters(),
+      $params,
+    );
+    $this->assertSame(
+      'MrHankey',
+      $params->getString('user_name'),
+    );
   }
 }
