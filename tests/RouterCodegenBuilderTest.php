@@ -147,4 +147,16 @@ final class RouterCodegenBuilderTest extends \PHPUnit_Framework_TestCase {
       $params->getString('user_name'),
     );
   }
+
+  public function testCreateForTree(): void {
+    $builder = RouterCodegenBuilder::createForTree(
+      GetRequestExampleController::class,
+      __DIR__.'/examples/',
+    );
+    $code = $this->renderToString($builder);
+
+    $parser = FileParser::FromData($code);
+    $this->assertNotNull($parser->getClass('MySiteRouter'));
+    $this->assertContains('/users/{', $code);
+  }
 }

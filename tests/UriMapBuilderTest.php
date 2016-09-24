@@ -235,6 +235,21 @@ final class UriMapBuilderTest extends \PHPUnit_Framework_TestCase {
     );
   }
 
+  public function testGetUriMapForTree(): void {
+    $map = UriMapBuilder::getUriMapForTree(
+      GetRequestExampleController::class,
+      __DIR__.'/examples',
+    );
+    $this->assertEquals(
+      ImmMap {
+        HttpMethod::GET => ImmMap {
+          '/users/{user_name}' => GetRequestExampleController::class,
+        },
+      },
+      $map,
+    );
+  }
+
   public function testNoMapForUnusedMethods(): void {
     $scanned = FileParser::FromFile(
       __DIR__.'/examples/GetRequestExampleController.php',
