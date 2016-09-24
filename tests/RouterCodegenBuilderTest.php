@@ -37,6 +37,9 @@ final class RouterCodegenBuilderTest extends \PHPUnit_Framework_TestCase {
   }
 
   private function rebuild(): void {
+    if (file_exists(self::CODEGEN_PATH)) {
+      unlink(self::CODEGEN_PATH);
+    }
     $builder = $this->getBuilder();
     $builder->renderToFile(
       self::CODEGEN_PATH,
