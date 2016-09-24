@@ -16,6 +16,7 @@ use \Facebook\DefinitionFinder\BaseParser;
 
 final class RouterCodegenBuilder<T as IncludeInUriMap> {
   private cg\CodegenGeneratedFrom $generatedFrom;
+  private bool $createAbstract = false;
 
   public function __construct(
     private classname<T> $responderClass,
@@ -30,6 +31,11 @@ final class RouterCodegenBuilder<T as IncludeInUriMap> {
   ): RouterCodegenBuilder<TBase> {
     $builder = new UriMapBuilder($base, $definitions);
     return new self($base, $builder->getUriMap());
+  }
+
+  public function setCreateAbstractClass(bool $abstract): this {
+    $this->createAbstract = $abstract;
+    return $this;
   }
 
   public function setGeneratedFrom(
@@ -66,13 +72,12 @@ final class RouterCodegenBuilder<T as IncludeInUriMap> {
   private function getCodegenClass(
     string $classname,
   ): cg\CodegenClass{
-    return (cg\codegen_class($classname)
+    $class = (cg\codegen_class($classname)
       ->setExtends(sprintf(
         "\\%s<classname<\\%s>>",
         BaseRouter::class,
         $this->responderClass,
       ))
-      ->setIsFinal(true)
       ->addMethod(
         cg\codegen_method('getRoutes')
           ->setReturnType(
@@ -83,6 +88,11 @@ final class RouterCodegenBuilder<T as IncludeInUriMap> {
           ->setBody($this->getUriMapBody())
       )
     );
+
+    $abstract = $this->createAbstract;
+    $class->setIsAbstract($abstract);
+    $class->setIsFinal(!$abstract);
+    return $class;
   }
 
   private function getUriMapBody(): string {

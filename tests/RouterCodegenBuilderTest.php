@@ -102,6 +102,24 @@ final class RouterCodegenBuilderTest extends \PHPUnit_Framework_TestCase {
     $this->assertContains('vendor/phpunit/phpunit/phpunit', $code);
   }
 
+  public function testCreatesFinalByDefault(): void {
+    $code = $this->renderToString($this->getBuilder());
+    $parser = FileParser::FromData($code);
+    $class = $parser->getClass('MySiteRouter');
+    $this->assertTrue($class->isFinal(), 'should be final');
+    $this->assertFalse($class->isAbstract(), 'should not be abstract');
+  }
+
+  public function testCanCreateAbstract(): void {
+    $code = $this->renderToString(
+      $this->getBuilder()->setCreateAbstractClass(true),
+    );
+    $parser = FileParser::FromData($code);
+    $class = $parser->getClass('MySiteRouter');
+    $this->assertTrue($class->isAbstract(), 'should be abstract');
+    $this->assertFalse($class->isFinal(), 'should not be final');
+  }
+
   public function testIsStrict(): void {
     $this->assertStringStartsWith(
       "<?hh // strict\n",
