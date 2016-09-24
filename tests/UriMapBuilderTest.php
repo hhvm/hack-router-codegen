@@ -106,6 +106,7 @@ final class UriMapBuilderTest extends \PHPUnit_Framework_TestCase {
 
   /**
    * @expectedException \HH\InvariantException
+   * @expectedExceptionMessage MyController
    */
   public function testNoNonFinalNonAbstract(): void {
     $code =

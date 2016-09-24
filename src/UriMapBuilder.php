@@ -134,7 +134,9 @@ final class UriMapBuilder<TBase as IncludeInUriMap> {
     // This is also me being opinionated.
     invariant(
       $class->isFinal(),
-      'Classes implementing IncludeInUriMap should be abstract or final',
+      'Classes implementing IncludeInUriMap should be abstract or final; '.
+      '%s is neither',
+      $class->getName(),
     );
     return true;
   }
