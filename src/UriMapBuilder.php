@@ -59,7 +59,10 @@ final class UriMapBuilder<TBase as IncludeInUriMap> {
       }
     }
 
-    return $map->map($submap ==> $submap->immutable())->immutable();
+    return $map
+      ->filter($submap ==> !$submap->isEmpty())
+      ->map($submap ==> $submap->immutable())
+      ->immutable();
   }
 
   private function getControllerNames(

@@ -35,31 +35,6 @@ final class RouterCodegenBuilderTest extends \PHPUnit_Framework_TestCase {
     return $router_builder;
   }
 
-  private function getRenderedString(
-    ?string $namespace,
-    string $classname,
-    string $filename,
-  ): string {
-    $builder = $this->getBuilder();
-    $class = $this->invokePrivate(
-      $builder,
-      'getCodegenFile',
-      $namespace,
-      $classname,
-      $filename,
-    );
-    assert($class instanceof \Facebook\HackCodegen\CodegenFile);
-    return $class->render();
-  }
-
-  public function testDump(): void {
-    print($this->getRenderedString(
-      'MySiteRouter.php',
-      /* ns = */ 'Foo\Bar',
-      'MySiteRouter',
-    ));
-  }
-
   public function testTypechecks(): void {
     $path = __DIR__.'/codegen/MySiteRouter.php';
     $builder = $this->getBuilder();
@@ -81,5 +56,20 @@ final class RouterCodegenBuilderTest extends \PHPUnit_Framework_TestCase {
       $exit_code,
     );
     $this->assertSame(0, $exit_code, "Typechecker errors found");
+  }
+
+  public function testMapOnlyContainsUsedMethods(): void {
+    $builder = $this->getBuilder();
+    $class = $this->invokePrivate(
+      $builder,
+      'getCodegenFile',
+      'MySiteRouter.php',
+      /* namespace = */ null,
+      'MySiteRouter',
+    );
+    assert($class instanceof \Facebook\HackCodegen\CodegenFile);
+    $code = $class->render();
+    $this->assertContains('HttpMethod::GET', $code);
+    $this->assertNotContains('HttpMethod::POST', $code);
   }
 }

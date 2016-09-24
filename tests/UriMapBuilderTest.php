@@ -229,9 +229,21 @@ final class UriMapBuilderTest extends \PHPUnit_Framework_TestCase {
         HttpMethod::GET => ImmMap {
           '/users/{user_name}' => GetRequestExampleController::class,
         },
-        HttpMethod::POST => ImmMap {},
       },
       $builder->getUriMap(),
+    );
+  }
+
+  public function testNoMapForUnusedMethods(): void {
+    $scanned = FileParser::FromFile(
+      __DIR__.'/examples/GetRequestExampleController.php',
+    );
+    $class = $scanned->getClass(GetRequestExampleController::class);
+    $builder = $this->getBuilder($scanned);
+    $map = $builder->getUriMap();
+    $this->assertFalse(
+      $map->containsKey(HttpMethod::POST),
+      'No POST controllers, should be no POST key',
     );
   }
 }
