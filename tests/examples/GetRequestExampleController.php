@@ -17,6 +17,8 @@ final class GetRequestExampleController implements
 \Facebook\HackRouter\IncludeInUriMap,
 \Facebook\HackRouter\SupportsGetRequests {
   public static function getUriPattern(): UriPattern {
-    return (new UriPattern())->literal('/foo');
+    return (new UriPattern())
+      ->literal('/users/')
+      ->string('user_name');
   }
 }

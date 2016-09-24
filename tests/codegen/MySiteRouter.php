@@ -15,7 +15,7 @@
  * Generated from Facebook\HackRouter\RouterCodegenBuilder
  *
  *
- * @generated SignedSource<<12ea52f22c1529c36c81f13b567e7159>>
+ * @generated SignedSource<<367f2b61b8581193df78d8e9b2b71921>>
  */
 
 final class MySiteRouter
@@ -24,7 +24,7 @@ final class MySiteRouter
   public function getRoutes(
   ): ImmMap<\Facebook\HackRouter\HttpMethod, ImmMap<string, classname<\Facebook\HackRouter\CodeGen\Tests\GetRequestExampleController>>> {
     $get = ImmMap {
-      '/foo' =>
+      '/users/{user_name}' =>
         \Facebook\HackRouter\CodeGen\Tests\GetRequestExampleController::class,
     };
     $post = ImmMap {

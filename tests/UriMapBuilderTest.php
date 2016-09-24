@@ -227,7 +227,7 @@ final class UriMapBuilderTest extends \PHPUnit_Framework_TestCase {
     $this->assertEquals(
       ImmMap {
         HttpMethod::GET => ImmMap {
-          '/foo' => GetRequestExampleController::class,
+          '/users/{user_name}' => GetRequestExampleController::class,
         },
         HttpMethod::POST => ImmMap {},
       },
