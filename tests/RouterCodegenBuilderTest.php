@@ -54,9 +54,32 @@ final class RouterCodegenBuilderTest extends \PHPUnit_Framework_TestCase {
 
   public function testDump(): void {
     print($this->getRenderedString(
+      'MySiteRouter.php',
       /* ns = */ 'Foo\Bar',
       'MySiteRouter',
-      'MySiteRouter.php',
     ));
+  }
+
+  public function testTypechecks(): void {
+    $path = __DIR__.'/codegen/MySiteRouter.php';
+    $builder = $this->getBuilder();
+    $builder->renderToFile(
+      $path,
+      /* ns = */ null,
+      'MySiteRouter',
+    );
+    $args = ImmVector {
+      'hh_server',
+      '--check',
+      __DIR__.'/../',
+    };
+    $exit_code = 0;
+    $out_array = [];
+    exec(
+      implode(' ', $args->map($x ==> escapeshellarg($x))),
+      $out_array,
+      $exit_code,
+    );
+    $this->assertSame(0, $exit_code, "Typechecker errors found");
   }
 }

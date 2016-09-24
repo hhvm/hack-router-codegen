@@ -30,18 +30,18 @@ final class RouterCodegenBuilder<T as IncludeInUriMap> {
   }
 
   public function renderToFile(
+    string $path,
     ?string $namespace,
     string $classname,
-    string $path,
   ): cg\CodegenFileResult {
-    return $this->getCodegenFile($namespace, $classname, $path)->save();
+    return $this->getCodegenFile($path, $namespace, $classname)->save();
   }
 
   <<TestsBypassVisibility>>
   private function getCodegenFile(
+    string $path,
     ?string $namespace,
     string $classname,
-    string $path,
   ): cg\CodegenFile{
     $file = cg\codegen_file($path)
       ->setFileType(cg\CodegenFileType::HACK_STRICT)
@@ -57,12 +57,16 @@ final class RouterCodegenBuilder<T as IncludeInUriMap> {
     string $classname,
   ): cg\CodegenClass{
     return (cg\codegen_class($classname)
-      ->setExtends('\\'.BaseRouter::class.'<\\'.$this->responderClass.'>')
+      ->setExtends(sprintf(
+        "\\%s<classname<\\%s>>",
+        BaseRouter::class,
+        $this->responderClass,
+      ))
       ->setIsFinal(true)
       ->addMethod(
         cg\codegen_method('getRoutes')
           ->setReturnType(
-            'ImmMap<\\%s, ImmMap<string, \\%s>>',
+            'ImmMap<\\%s, ImmMap<string, classname<\\%s>>>',
             HttpMethod::class,
             $this->responderClass,
           )
@@ -85,7 +89,7 @@ final class RouterCodegenBuilder<T as IncludeInUriMap> {
         ->getCode();
       $var = '$'.strtolower($method);
       $body->addAssignment($var, $sub_map);
-      $parts['HttpMethod::'.$method] = $var;
+      $parts["\\".HttpMethod::class.'::'.$method] = $var;
     }
 
     $map = cg\hack_builder()
