@@ -1,4 +1,8 @@
 {
+    "name": "fredemmott/hack-router-codegen",
+    "description": "URI routing for Hack with codegen",
+    "keywords": ["hack", "router", "routing", "hhvm"],
+    "homepage": "https://github.com/fredemmott/hack-router-codegen",
     "require": {
         "fredemmott/hack-router": "^1.0.0rc2",
         "facebook/hack-codegen": "^1.1",
