@@ -38,7 +38,7 @@ abstract class UriParameterCodegenBuilder {
         cg\hack_builder()
           ->add('return ')
           ->addMultilineCall(
-            '$this->params->'.$spec['method'],
+            '$this->getParameters()->'.$spec['method'],
             $spec['args']->map($arg ==> $arg->render($param))->toVector(),
           )
           ->getCode(),

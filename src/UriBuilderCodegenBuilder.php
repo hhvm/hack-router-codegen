@@ -13,55 +13,10 @@ namespace Facebook\HackRouter;
 
 use \Facebook\HackCodegen as cg;
 
-final class UriBuilderCodegenBuilder<T as UriBuilderBase> {
-  const type TTraitSpec = shape(
-    'name' => string,
-    'method' => string,
-  );
-  const type TSpec = shape(
-    'controller' => classname<HasUriPattern>,
-    'namespace' => ?string,
-    'class' => shape(
-      'name' => string,
-    ),
-    'trait' => ?self::TTraitSpec,
-  );
-
-  private cg\CodegenGeneratedFrom $generatedFrom;
-  public function __construct(
-    private classname<UriBuilderCodegenBase<T>> $base,
-    private classname<UriParameterCodegenBuilder> $parameterBuilder,
-  ) {
-    $this->generatedFrom = cg\codegen_generated_from_script();
-  }
-
-  public function renderToFile(
-    string $path,
-    self::TSpec $spec,
-  ): cg\CodegenFileResult {
-    return $this->getCodegenFile($path, $spec)->save();
-  }
-
-  private function getCodegenFile(
-    string $path,
-    self::TSpec $spec,
-  ): cg\CodegenFile {
-    $file = (cg\codegen_file($path)
-      ->setFileType(cg\CodegenFileType::HACK_STRICT)
-      ->setGeneratedFrom($this->generatedFrom)
-      ->addClass($this->getCodegenClass($spec))
-    );
-    $namespace = Shapes::idx($spec, 'namespace');
-    if ($namespace !== null) {
-      $file->setNamespace($namespace);
-    }
-    if (Shapes::idx($spec, 'trait')) {
-      $file->addTrait($this->getCodegenTrait($spec));
-    }
-    return $file;
-  }
-
-  private function getCodegenClass(self::TSpec $spec): cg\CodegenClass {
+final class UriBuilderCodegenBuilder<T as UriBuilderBase>
+extends UriParametersCodegenBuilderBase<UriBuilderCodegenBase<T>> {
+  <<__Override>>
+  protected function getCodegenClass(self::TSpec $spec): cg\CodegenClass {
     $param_builder = $this->parameterBuilder;
     $controller = $spec['controller'];
 
@@ -83,7 +38,8 @@ final class UriBuilderCodegenBuilder<T as UriBuilderBase> {
     return $common;
   }
 
-  private function getCodegenTrait(self::TSpec $spec): cg\CodegenTrait {
+  <<__Override>>
+  protected function getCodegenTrait(self::TSpec $spec): cg\CodegenTrait {
     $trait = Shapes::idx($spec, 'trait');
     invariant(
       $trait !== null,
