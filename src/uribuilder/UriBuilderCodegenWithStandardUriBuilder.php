@@ -13,11 +13,8 @@ namespace Facebook\HackRouter;
 
 abstract class UriBuilderCodegenWithStandardUriBuilder
 extends UriBuilderCodegenBase<UriBuilder> {
-  abstract const classname<HasUriPattern> CONTROLLER;
-
   <<__Override>>
   final protected static function createInnerBuilder(): UriBuilder {
-    $controller = static::CONTROLLER;
-    return new UriBuilder($controller::getUriPattern()->getParts());
+    return new UriBuilder(static::getParts());
   }
 }

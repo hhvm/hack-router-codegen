@@ -12,10 +12,18 @@
 namespace Facebook\HackRouter;
 
 abstract class UriBuilderCodegenBase<T as UriBuilderBase> {
+  abstract const classname<HasUriPattern> CONTROLLER;
+
   abstract protected static function createInnerBuilder(): T;
 
   <<__Memoize>>
   final protected function getBuilder(): T {
     return static::createInnerBuilder();
+  }
+
+  final protected static function getParts(
+  ): ImmVector<UriPatternPart> {
+    $controller = static::CONTROLLER;
+    return $controller::getUriPattern()->getParts();
   }
 }
