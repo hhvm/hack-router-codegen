@@ -13,7 +13,7 @@ namespace Facebook\HackRouter;
 
 use \Facebook\HackCodegen as cg;
 
-abstract class UriParametersCodegenBuilderBase<T> {
+abstract class UriParametersCodegenBuilderBase<TBase> {
   const type TTraitSpec = shape(
     'name' => string,
     'method' => string,
@@ -29,8 +29,8 @@ abstract class UriParametersCodegenBuilderBase<T> {
 
   protected cg\CodegenGeneratedFrom $generatedFrom;
   public function __construct(
-    protected classname<T> $base,
-    protected classname<UriParameterCodegenBuilder> $parameterBuilder,
+    protected classname<TBase> $base,
+    protected classname<RequestParameterCodegenBuilder> $parameterBuilder,
   ) {
     $this->generatedFrom = cg\codegen_generated_from_script();
   }

@@ -13,23 +13,23 @@ namespace Facebook\HackRouter;
 
 use Facebook\HackCodegen as cg;
 
-abstract class UriParameterCodegenBuilder {
+abstract class RequestParameterCodegenBuilder {
   protected static function getParameterSpecs(
   ): ImmMap<
-    classname<UriPatternParameter>,
-    classname<UriParameterCodegenSpec>,
+    classname<RequestParameter>,
+    classname<RequestParameterCodegenSpec>,
   > {
     return ImmMap {
-      UriPatternIntParameter::class => UriIntParameterCodegenSpec::class,
-      UriPatternStringParameter::class => UriStringParameterCodegenSpec::class,
-      UriPatternEnumParameter::class => UriEnumParameterCodegenSpec::class,
+      IntRequestParameter::class => IntParameterCodegenSpec::class,
+      StringRequestParameter::class => StringParameterCodegenSpec::class,
+      EnumRequestParameter::class => EnumParameterCodegenSpec::class,
     };
   }
 
   final public static function getGetter(
-    UriPatternParameter $param,
+    RequestParameter $param,
   ): cg\CodegenMethod {
-    $spec = self::getSpec($param);
+    $spec = self::getRequestSpec($param);
     $spec = $spec::getGetterSpec($param);
 
     return cg\codegen_method('get'.$param->getName())
@@ -46,9 +46,9 @@ abstract class UriParameterCodegenBuilder {
   }
 
   final public static function getSetter(
-    UriPatternParameter $param,
+    UriParameter $param,
   ): cg\CodegenMethod {
-    $spec = self::getSpec($param);
+    $spec = self::getUriSpec($param);
     $spec = $spec::getSetterSpec($param);
 
     $value_var = '$value';
@@ -71,9 +71,9 @@ abstract class UriParameterCodegenBuilder {
       );
   }
 
-  final private static function getSpec(
-    UriPatternParameter $param,
-  ): classname<UriParameterCodegenSpec> {
+  final private static function getRequestSpec(
+    RequestParameter $param,
+  ): classname<RequestParameterCodegenSpec> {
     $specs = self::getParameterSpecs();
     $type = get_class($param);
     invariant(
@@ -82,5 +82,19 @@ abstract class UriParameterCodegenBuilder {
       $type,
     );
     return $specs->at($type);
+  }
+
+  final private static function getUriSpec(
+    UriParameter $param,
+  ): classname<UriParameterCodegenSpec> {
+    $spec = self::getRequestSpec($param);
+    invariant(
+      is_subclass_of($spec, UriParameterCodegenSpec::class),
+      "Expected %s to be a %s",
+      $spec,
+      UriParameterCodegenSpec::class,
+    );
+    /* HH_FIXME[4110] can't coerce classnames */
+    return $spec;
   }
 }

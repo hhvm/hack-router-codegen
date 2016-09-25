@@ -4,7 +4,7 @@
     "keywords": ["hack", "router", "routing", "hhvm"],
     "homepage": "https://github.com/fredemmott/hack-router-codegen",
     "require": {
-        "fredemmott/hack-router": "^1.0.0rc5",
+        "fredemmott/hack-router": "dev-master",
         "facebook/hack-codegen": "^1.1",
         "fredemmott/definition-finder": "^1.2"
     },

@@ -26,7 +26,7 @@ final class UriBuilderCodegenTest extends \PHPUnit_Framework_TestCase {
   private function getBuilder(): UriBuilderCodegenBuilder<UriBuilder> {
     return new UriBuilderCodegenBuilder(
       UriBuilderCodegen::class,
-      UriParameterCodegenBuilder::class,
+      RequestParameterCodegenBuilder::class,
     );
   }
 

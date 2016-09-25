@@ -125,7 +125,7 @@ final class RouterCodegenBuilderTest extends \PHPUnit_Framework_TestCase {
       '/foo/123/derp',
     );
     $this->assertSame(GetRequestExampleController::class, $controller);
-    $params = new UriParameters(
+    $params = new RequestParameters(
       GetRequestExampleController::getUriPattern()->getParameters(),
       $params,
     );

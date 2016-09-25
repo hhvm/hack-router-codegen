@@ -13,12 +13,12 @@ namespace Facebook\HackRouter;
 
 use \Facebook\HackRouter\UriParameterCodegenArgumentSpec as Args;
 
-final class UriEnumParameterCodegenSpec extends UriParameterCodegenSpec {
+final class EnumParameterCodegenSpec extends UriParameterCodegenSpec {
   private static function cast<T>(
-    UriPatternParameter $param,
-  ): UriPatternEnumParameter<T> {
+    RequestParameter $param,
+  ): EnumRequestParameter<T> {
     invariant(
-      $param instanceof UriPatternEnumParameter,
+      $param instanceof EnumRequestParameter,
       'Expected %s to be an enum parameter, got %s',
       $param->getName(),
       get_class($param),
@@ -27,19 +27,19 @@ final class UriEnumParameterCodegenSpec extends UriParameterCodegenSpec {
   }
 
   private static function getType(
-    UriPatternParameter $param,
+    RequestParameter $param,
   ): string {
     return "\\".self::cast($param)->getEnumName();
   }
 
   private static function getTypeName(
-    UriPatternParameter $param,
+    RequestParameter $param,
   ): string {
     return self::getType($param).'::class';
   }
 
   final public static function getGetterSpec(
-    UriPatternParameter $param,
+    RequestParameter $param,
   ): self::TSpec {
     return shape(
       'type' => self::getType($param),
@@ -52,7 +52,7 @@ final class UriEnumParameterCodegenSpec extends UriParameterCodegenSpec {
   }
 
   public static function getSetterSpec(
-    UriPatternParameter $param,
+    UriParameter $param,
   ): self::TSpec {
     $param = self::cast($param);
     return shape(

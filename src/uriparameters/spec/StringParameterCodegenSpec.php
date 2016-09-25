@@ -11,8 +11,14 @@
 
 namespace Facebook\HackRouter;
 
-abstract class UriParameterCodegenSpec extends RequestParameterCodegenSpec {
-  abstract public static function getSetterSpec(
-    UriParameter $param,
-  ): self::TSpec;
+use \Facebook\HackRouter\UriParameterCodegenArgument as Arg;
+
+final class StringParameterCodegenSpec extends SimpleParameterCodegenSpec {
+  protected static function getSimpleSpec(): self::TSimpleSpec {
+    return shape(
+      'type' => 'string',
+      'getter' => 'getString',
+      'setter' => 'setString',
+    );
+  }
 }

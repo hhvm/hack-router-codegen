@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b38052509059ce71214281fa6140a775",
-    "content-hash": "d9eefaa88812ebd76612186e1e3cbe66",
+    "hash": "7588b7a8ae441dbaf8469357ccb86cdf",
+    "content-hash": "aa9232cd5351b203840315c433a7b395",
     "packages": [
         {
             "name": "facebook/hack-codegen",
@@ -93,16 +93,16 @@
         },
         {
             "name": "fredemmott/definition-finder",
-            "version": "v1.2.0",
+            "version": "v1.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fredemmott/definition-finder.git",
-                "reference": "f1501a74c0d10afa4106ef46baef56e6787a9777"
+                "reference": "d8a202320c2d5bb20cafbc47b2e5f7ef9015f6bd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fredemmott/definition-finder/zipball/f1501a74c0d10afa4106ef46baef56e6787a9777",
-                "reference": "f1501a74c0d10afa4106ef46baef56e6787a9777",
+                "url": "https://api.github.com/repos/fredemmott/definition-finder/zipball/d8a202320c2d5bb20cafbc47b2e5f7ef9015f6bd",
+                "reference": "d8a202320c2d5bb20cafbc47b2e5f7ef9015f6bd",
                 "shasum": ""
             },
             "require": {
@@ -135,20 +135,20 @@
                 "hack",
                 "hhvm"
             ],
-            "time": "2016-09-15 03:18:56"
+            "time": "2016-09-24 20:11:53"
         },
         {
             "name": "fredemmott/hack-router",
-            "version": "v1.0.0rc5",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fredemmott/hack-router.git",
-                "reference": "1e07277d413620326d283db35ddf81640874e10a"
+                "reference": "13f3051c0cd8e8a15b42de08da6ee667602913cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fredemmott/hack-router/zipball/1e07277d413620326d283db35ddf81640874e10a",
-                "reference": "1e07277d413620326d283db35ddf81640874e10a",
+                "url": "https://api.github.com/repos/fredemmott/hack-router/zipball/13f3051c0cd8e8a15b42de08da6ee667602913cd",
+                "reference": "13f3051c0cd8e8a15b42de08da6ee667602913cd",
                 "shasum": ""
             },
             "require": {
@@ -175,7 +175,7 @@
                 "router",
                 "routing"
             ],
-            "time": "2016-09-25 16:39:18"
+            "time": "2016-09-25 23:30:10"
         },
         {
             "name": "hack-psr/psr7-http-message-hhi",
@@ -1655,7 +1655,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "fredemmott/hack-router": 5
+        "fredemmott/hack-router": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

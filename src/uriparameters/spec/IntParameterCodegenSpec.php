@@ -1,4 +1,4 @@
-<?hh // strict
+<?hh //strict
 /*
  *  Copyright (c) 2016, Facebook, Inc.
  *  All rights reserved.
@@ -13,12 +13,12 @@ namespace Facebook\HackRouter;
 
 use \Facebook\HackRouter\UriParameterCodegenArgument as Arg;
 
-final class UriStringParameterCodegenSpec extends UriSimpleParameterCodegenSpec {
+final class IntParameterCodegenSpec extends SimpleParameterCodegenSpec {
   protected static function getSimpleSpec(): self::TSimpleSpec {
     return shape(
-      'type' => 'string',
-      'getter' => 'getString',
-      'setter' => 'setString',
+      'type' => 'int',
+      'getter' => 'getInt',
+      'setter' => 'setInt',
     );
   }
 }

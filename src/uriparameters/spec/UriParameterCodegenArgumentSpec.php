@@ -14,7 +14,7 @@ namespace Facebook\HackRouter;
 use \Facebook\HackCodegen as cg;
 
 final class UriParameterCodegenArgumentSpec {
-  const type TRenderer = (function(UriPatternParameter,?string):string);
+  const type TRenderer = (function(RequestParameter,?string):string);
 
   private function __construct(
     private self::TRenderer $renderer,
@@ -22,7 +22,7 @@ final class UriParameterCodegenArgumentSpec {
   }
 
   public function render(
-    UriPatternParameter $param,
+    RequestParameter $param,
     ?string $value_variable = null,
   ): string {
     $renderer = $this->renderer;
