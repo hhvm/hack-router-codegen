@@ -41,4 +41,24 @@ final class UriBuilderCodegenTest extends \PHPUnit_Framework_TestCase {
   public function testRebuild(): void{
     $this->rebuild();
   }
+
+  public function testCorrectUsage(): void {
+    $path = (new \GetRequestExampleControllerUriBuilder())
+      ->setMyString('some value')
+      ->setMyInt(42)
+      ->setMyEnum(CodeGen\Tests\MyEnum::HERP)
+      ->getPath();
+    $this->assertSame(
+      '/some value/42/derp',
+      $path,
+    );
+  }
+
+  /**
+   * @expectedException \HH\InvariantException
+   * @expectedExceptionMessageRegExp /Parameter "[^"]+" must be set/
+   */
+  public function testThrowsIfUnsetParam(): void {
+    (new \GetRequestExampleControllerUriBuilder())->getPath();
+  }
 }
