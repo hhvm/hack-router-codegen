@@ -16,7 +16,7 @@
  * /root/hackdev/hack-router-codegen/vendor/phpunit/phpunit/phpunit
  *
  *
- * @generated SignedSource<<c51c14f65867c32335086843185c4254>>
+ * @generated SignedSource<<ff9ea1e6d07725d902a8c228e44b27ff>>
  */
 
 final class GetRequestExampleControllerUriBuilder
@@ -25,8 +25,24 @@ final class GetRequestExampleControllerUriBuilder
   const classname<\Facebook\HackRouter\HasUriPattern> CONTROLLER =
     \Facebook\HackRouter\CodeGen\Tests\GetRequestExampleController::class;
 
-  public function setUserName(string $value): this {
-    $this->builder->setString('UserName', $value);
+  public function setMyString(string $value): this {
+    $this->builder->setString('MyString', $value);
+    return $this;
+  }
+
+  public function setMyInt(int $value): this {
+    $this->builder->setInt('MyInt', $value);
+    return $this;
+  }
+
+  public function setMyEnum(
+    \Facebook\HackRouter\CodeGen\Tests\MyEnum $value,
+  ): this {
+    $this->builder->setEnum(
+      \Facebook\HackRouter\CodeGen\Tests\MyEnum::class,
+      'MyEnum',
+      $value,
+    );
     return $this;
   }
 }

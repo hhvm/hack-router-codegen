@@ -14,6 +14,7 @@ namespace Facebook\HackRouter;
 use \Facebook\DefinitionFinder\FileParser;
 use \Facebook\HackRouter\HttpMethod;
 use \Facebook\HackRouter\CodeGen\Tests\GetRequestExampleController;
+use \Facebook\HackRouter\CodeGen\Tests\MyEnum;
 
 final class RouterCodegenBuilderTest extends \PHPUnit_Framework_TestCase {
   const string CODEGEN_PATH = __DIR__.'/examples/codegen/MySiteRouter.php';
@@ -117,7 +118,7 @@ final class RouterCodegenBuilderTest extends \PHPUnit_Framework_TestCase {
     $router = new \MySiteRouter();
     list($controller, $params) = $router->routeRequest(
       HttpMethod::GET,
-      '/users/MrHankey',
+      '/foo/123/derp',
     );
     $this->assertSame(GetRequestExampleController::class, $controller);
     $params = new UriParameters(
@@ -125,8 +126,16 @@ final class RouterCodegenBuilderTest extends \PHPUnit_Framework_TestCase {
       $params,
     );
     $this->assertSame(
-      'MrHankey',
-      $params->getString('UserName'),
+      'foo',
+      $params->getString('MyString'),
+    );
+    $this->assertSame(
+      123,
+      $params->getInt('MyInt'),
+    );
+    $this->assertSame(
+      MyEnum::HERP,
+      $params->getEnum(MyEnum::class, 'MyEnum'),
     );
   }
 
@@ -139,6 +148,6 @@ final class RouterCodegenBuilderTest extends \PHPUnit_Framework_TestCase {
 
     $parser = FileParser::FromData($code);
     $this->assertNotNull($parser->getClass('MySiteRouter'));
-    $this->assertContains('/users/{', $code);
+    $this->assertContains(GetRequestExampleController::class, $code);
   }
 }

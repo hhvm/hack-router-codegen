@@ -13,13 +13,21 @@ namespace Facebook\HackRouter\CodeGen\Tests;
 
 use Facebook\HackRouter\UriPattern;
 
+enum MyEnum: string {
+  FOO = 'bar';
+  HERP = 'derp';
+}
 
 final class GetRequestExampleController implements
 \Facebook\HackRouter\IncludeInUriMap,
 \Facebook\HackRouter\SupportsGetRequests {
   public static function getUriPattern(): UriPattern {
     return (new UriPattern())
-      ->literal('/users/')
-      ->string('UserName');
+      ->literal('/')
+      ->string('MyString')
+      ->literal('/')
+      ->int('MyInt')
+      ->literal('/')
+      ->enum(MyEnum::class, 'MyEnum');
   }
 }

@@ -18,15 +18,10 @@ trait TestTypechecksTestTrait {
 
   final public function testTypechecks(): void {
     $this->rebuild();
-    $args = ImmVector {
-      'hh_server',
-      '--check',
-      __DIR__.'/../',
-    };
     $exit_code = 0;
     $out_array = [];
     exec(
-      implode(' ', $args->map($x ==> escapeshellarg($x))),
+      'hh_client',
       $out_array,
       $exit_code,
     );

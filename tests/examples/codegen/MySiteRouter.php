@@ -16,7 +16,7 @@
  * /root/hackdev/hack-router-codegen/vendor/phpunit/phpunit/phpunit
  *
  *
- * @generated SignedSource<<a851860edd6f6380849a3e53e780b9ba>>
+ * @generated SignedSource<<fa2d4531c4ef6d2809365d2994a4aa17>>
  */
 
 final class MySiteRouter
@@ -25,7 +25,7 @@ final class MySiteRouter
   public function getRoutes(
   ): ImmMap<\Facebook\HackRouter\HttpMethod, ImmMap<string, classname<\Facebook\HackRouter\CodeGen\Tests\GetRequestExampleController>>> {
     $get = ImmMap {
-      '/users/{UserName}' =>
+      '/{MyString}/{MyInt:\\d+}/{MyEnum:(?:bar|derp)}' =>
         \Facebook\HackRouter\CodeGen\Tests\GetRequestExampleController::class,
     };
     return ImmMap {
