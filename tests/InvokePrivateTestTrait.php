@@ -16,7 +16,8 @@ trait InvokePrivateTestTrait {
   final protected function invokePrivate<T>(
     T $object,
     string $method,
-    mixed ...$args
+    /* HH_FIXME[4033] when support for HHVM < 3.13 is dropped: mixed ...$args*/
+    ...$args
   ): mixed {
     $rm = new \ReflectionMethod($object, $method);
     invariant(
