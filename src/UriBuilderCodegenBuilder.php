@@ -27,28 +27,46 @@ final class UriBuilderCodegenBuilder {
     classname<HasUriPattern> $controller,
     ?string $namespace,
     string $class,
+    string $trait,
+    string $trait_method,
   ): cg\CodegenFileResult {
-    return $this->getCodegenFile($path, $controller, $namespace, $class)
-      ->save();
+    return $this->getCodegenFile(
+      $path,
+      $controller,
+      $namespace,
+      $class,
+      $trait,
+      $trait_method,
+    )->save();
   }
 
   private function getCodegenFile(
     string $path,
     classname<HasUriPattern> $controller,
     ?string $namespace,
-    string $classname,
+    string $class_name,
+    string $trait_name,
+    string $trait_method,
   ): cg\CodegenFile {
-    $file = cg\codegen_file($path)
+    $file = (cg\codegen_file($path)
       ->setFileType(cg\CodegenFileType::HACK_STRICT)
       ->setGeneratedFrom($this->generatedFrom)
-      ->addClass($this->getUriBuilderCodegenClass($controller, $classname));
+      ->addClass($this->getCodegenClass($controller, $class_name))
+      ->addTrait(
+        $this->getCodegenTrait(
+          $class_name,
+          $trait_name,
+          $trait_method,
+        )
+      )
+    );
     if ($namespace !== null) {
       $file->setNamespace($namespace);
     }
     return $file;
   }
 
-  private function getUriBuilderCodegenClass(
+  private function getCodegenClass(
     classname<HasUriPattern> $controller,
     string $class_name,
   ): cg\CodegenClass {
@@ -70,5 +88,24 @@ final class UriBuilderCodegenBuilder {
     }
 
     return $common;
+  }
+
+  private function getCodegenTrait(
+    string $class_name,
+    string $trait_name,
+    string $method_name,
+  ): cg\CodegenTrait {
+    return cg\codegen_trait($trait_name)
+      ->addMethod(
+        cg\codegen_method($method_name)
+          ->setIsFinal(true)
+          ->setIsStatic(true)
+          ->setReturnType($class_name)
+          ->setBody(
+            cg\hack_builder()
+              ->addReturn('new %s();', $class_name)
+              ->getCode()
+          )
+      );
   }
 }

@@ -16,7 +16,7 @@
  * /root/hackdev/hack-router-codegen/vendor/phpunit/phpunit/phpunit
  *
  *
- * @generated SignedSource<<ff9ea1e6d07725d902a8c228e44b27ff>>
+ * @generated SignedSource<<44c9b777748b3c118de2f59a5aa5cd44>>
  */
 
 final class GetRequestExampleControllerUriBuilder
@@ -44,5 +44,13 @@ final class GetRequestExampleControllerUriBuilder
       $value,
     );
     return $this;
+  }
+}
+
+trait GetRequestExampleControllerUriBuilderTrait {
+
+  final public static function getUriBuilder(
+  ): GetRequestExampleControllerUriBuilder {
+    return new GetRequestExampleControllerUriBuilder();;
   }
 }

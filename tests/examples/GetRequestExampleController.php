@@ -21,6 +21,8 @@ enum MyEnum: string {
 final class GetRequestExampleController implements
 \Facebook\HackRouter\IncludeInUriMap,
 \Facebook\HackRouter\SupportsGetRequests {
+  use \GetRequestExampleControllerUriBuilderTrait;
+  
   public static function getUriPattern(): UriPattern {
     return (new UriPattern())
       ->literal('/')

@@ -35,6 +35,8 @@ final class UriBuilderCodegenTest extends \PHPUnit_Framework_TestCase {
       GetRequestExampleController::class,
       /* ns = */ null,
       self::CODEGEN_CLASS,
+      self::CODEGEN_CLASS.'Trait',
+      'getUriBuilder',
     );
   }
 
@@ -42,8 +44,10 @@ final class UriBuilderCodegenTest extends \PHPUnit_Framework_TestCase {
     $this->rebuild();
   }
 
-  public function testCorrectUsage(): void {
-    $path = (new \GetRequestExampleControllerUriBuilder())
+  private function assertBuilderWorks(
+    \GetRequestExampleControllerUriBuilder $builder,
+  ): void {
+    $path = $builder
       ->setMyString('some value')
       ->setMyInt(42)
       ->setMyEnum(CodeGen\Tests\MyEnum::HERP)
@@ -52,6 +56,19 @@ final class UriBuilderCodegenTest extends \PHPUnit_Framework_TestCase {
       '/some value/42/derp',
       $path,
     );
+  }
+
+  public function testUriBuilderClass(): void {
+    $this->assertBuilderWorks(new \GetRequestExampleControllerUriBuilder());
+  }
+
+  public function testUriBuilderTrait(): void {
+    $builder = GetRequestExampleController::getUriBuilder();
+    $this->assertInstanceOf(
+      \GetRequestExampleControllerUriBuilder::class,
+      $builder,
+    );
+    $this->assertBuilderWorks($builder);
   }
 
   /**
