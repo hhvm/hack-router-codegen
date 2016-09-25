@@ -11,8 +11,7 @@
 
 namespace Facebook\HackRouter;
 
-abstract class UriBuilderCodegenWithPath extends UriBuilderCodegenBase {
-  final public function getPath(): string {
-    return $this->builder->getPath();
-  }
+abstract class UriBuilderCodegen
+extends UriBuilderCodegenWithStandardUriBuilder {
+  use UriBuilderCodegenGetPath<UriBuilder>;
 }

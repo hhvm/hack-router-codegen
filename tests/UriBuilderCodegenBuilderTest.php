@@ -23,9 +23,9 @@ final class UriBuilderCodegenTest extends \PHPUnit_Framework_TestCase {
   const string CODEGEN_PATH = __DIR__.'/examples/codegen/'.
     self::CODEGEN_CLASS.'.php';
 
-  private function getBuilder(): UriBuilderCodegenBuilder {
+  private function getBuilder(): UriBuilderCodegenBuilder<UriBuilder> {
     return new UriBuilderCodegenBuilder(
-      UriBuilderCodegenWithPath::class,
+      UriBuilderCodegen::class,
       UriParameterCodegenBuilder::class,
     );
   }

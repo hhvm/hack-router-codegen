@@ -11,11 +11,10 @@
 
 namespace Facebook\HackRouter;
 
-abstract class UriBuilderCodegenBase<T as UriBuilderBase> {
-  abstract protected static function createInnerBuilder(): T;
+trait UriBuilderCodegenGetPath<T as UriBuilderWithPath>{
+  require extends UriBuilderCodegenBase<T>;
 
-  <<__Memoize>>
-  final protected function getBuilder(): T {
-    return static::createInnerBuilder();
+  final public function getPath(): string {
+    return $this->getBuilder()->getPath();
   }
 }

@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6c71e82b5080405c8489edd68b90d075",
-    "content-hash": "6654170c7bc4c9a9d824c266027751fc",
+    "hash": "b38052509059ce71214281fa6140a775",
+    "content-hash": "d9eefaa88812ebd76612186e1e3cbe66",
     "packages": [
         {
             "name": "facebook/hack-codegen",
@@ -139,24 +139,26 @@
         },
         {
             "name": "fredemmott/hack-router",
-            "version": "v1.0.0rc2",
+            "version": "v1.0.0rc5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fredemmott/hack-router.git",
-                "reference": "43bf01af96c1167b62259accc3a005235974c0e7"
+                "reference": "1e07277d413620326d283db35ddf81640874e10a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fredemmott/hack-router/zipball/43bf01af96c1167b62259accc3a005235974c0e7",
-                "reference": "43bf01af96c1167b62259accc3a005235974c0e7",
+                "url": "https://api.github.com/repos/fredemmott/hack-router/zipball/1e07277d413620326d283db35ddf81640874e10a",
+                "reference": "1e07277d413620326d283db35ddf81640874e10a",
                 "shasum": ""
             },
             "require": {
+                "hack-psr/psr7-http-message-hhi": "^0.2.0",
                 "nikic/fast-route": "^0.7.0"
             },
             "require-dev": {
                 "91carriage/phpunit-hhi": "^5.1",
-                "phpunit/phpunit": "^5.1"
+                "phpunit/phpunit": "^5.1",
+                "zendframework/zend-diactoros": "^1.3"
             },
             "type": "library",
             "autoload": {
@@ -173,7 +175,42 @@
                 "router",
                 "routing"
             ],
-            "time": "2016-09-19 00:54:26"
+            "time": "2016-09-25 16:39:18"
+        },
+        {
+            "name": "hack-psr/psr7-http-message-hhi",
+            "version": "v0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fredemmott/psr7-http-message-hhi.git",
+                "reference": "31422ed7c566dd1cd481d95fd1d7e65798944fc9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fredemmott/psr7-http-message-hhi/zipball/31422ed7c566dd1cd481d95fd1d7e65798944fc9",
+                "reference": "31422ed7c566dd1cd481d95fd1d7e65798944fc9",
+                "shasum": ""
+            },
+            "require": {
+                "psr/http-message": "^1.0"
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Typechecker definitions for PSR-7",
+            "homepage": "https://github.com/fredemmott/psr7-http-message-hhi",
+            "keywords": [
+                "hack",
+                "hhi",
+                "hhvm",
+                "http-message",
+                "psr",
+                "psr-7",
+                "psr7"
+            ],
+            "time": "2015-11-02 23:49:05"
         },
         {
             "name": "nikic/fast-route",
@@ -217,6 +254,56 @@
                 "routing"
             ],
             "time": "2015-12-20 19:50:12"
+        },
+        {
+            "name": "psr/http-message",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/http-message.git",
+                "reference": "f6561bf28d520154e4b0ec72be95418abe6d9363"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/http-message/zipball/f6561bf28d520154e4b0ec72be95418abe6d9363",
+                "reference": "f6561bf28d520154e4b0ec72be95418abe6d9363",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Http\\Message\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "http://www.php-fig.org/"
+                }
+            ],
+            "description": "Common interface for HTTP messages",
+            "homepage": "https://github.com/php-fig/http-message",
+            "keywords": [
+                "http",
+                "http-message",
+                "psr",
+                "psr-7",
+                "request",
+                "response"
+            ],
+            "time": "2016-08-06 14:39:51"
         }
     ],
     "packages-dev": [
