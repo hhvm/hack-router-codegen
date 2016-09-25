@@ -14,6 +14,19 @@ namespace Facebook\HackRouter;
 use \Facebook\HackCodegen as cg;
 
 final class UriBuilderCodegenBuilder {
+  const type TTraitSpec = shape(
+    'name' => string,
+    'method' => string,
+  );
+  const type TSpec = shape(
+    'controller' => classname<HasUriPattern>,
+    'namespace' => ?string,
+    'class' => shape(
+      'name' => string,
+    ),
+    'trait' => ?self::TTraitSpec,
+  );
+
   private cg\CodegenGeneratedFrom $generatedFrom;
   public function __construct(
     private classname<UriBuilderCodegenBase> $base,
@@ -24,55 +37,35 @@ final class UriBuilderCodegenBuilder {
 
   public function renderToFile(
     string $path,
-    classname<HasUriPattern> $controller,
-    ?string $namespace,
-    string $class,
-    string $trait,
-    string $trait_method,
+    self::TSpec $spec,
   ): cg\CodegenFileResult {
-    return $this->getCodegenFile(
-      $path,
-      $controller,
-      $namespace,
-      $class,
-      $trait,
-      $trait_method,
-    )->save();
+    return $this->getCodegenFile($path, $spec)->save();
   }
 
   private function getCodegenFile(
     string $path,
-    classname<HasUriPattern> $controller,
-    ?string $namespace,
-    string $class_name,
-    string $trait_name,
-    string $trait_method,
+    self::TSpec $spec,
   ): cg\CodegenFile {
     $file = (cg\codegen_file($path)
       ->setFileType(cg\CodegenFileType::HACK_STRICT)
       ->setGeneratedFrom($this->generatedFrom)
-      ->addClass($this->getCodegenClass($controller, $class_name))
-      ->addTrait(
-        $this->getCodegenTrait(
-          $class_name,
-          $trait_name,
-          $trait_method,
-        )
-      )
+      ->addClass($this->getCodegenClass($spec))
     );
+    $namespace = Shapes::idx($spec, 'namespace');
     if ($namespace !== null) {
       $file->setNamespace($namespace);
+    }
+    if (Shapes::idx($spec, 'trait')) {
+      $file->addTrait($this->getCodegenTrait($spec));
     }
     return $file;
   }
 
-  private function getCodegenClass(
-    classname<HasUriPattern> $controller,
-    string $class_name,
-  ): cg\CodegenClass {
+  private function getCodegenClass(self::TSpec $spec): cg\CodegenClass {
     $param_builder = $this->parameterBuilder;
+    $controller = $spec['controller'];
 
-    $common = cg\codegen_class($class_name)
+    $common = cg\codegen_class($spec['class']['name'])
       ->addConst(
         sprintf("classname<\\%s> CONTROLLER", HasUriPattern::class),
         sprintf("\\%s::class", $controller),
@@ -90,20 +83,22 @@ final class UriBuilderCodegenBuilder {
     return $common;
   }
 
-  private function getCodegenTrait(
-    string $class_name,
-    string $trait_name,
-    string $method_name,
-  ): cg\CodegenTrait {
-    return cg\codegen_trait($trait_name)
+  private function getCodegenTrait(self::TSpec $spec): cg\CodegenTrait {
+    $trait = Shapes::idx($spec, 'trait');
+    invariant(
+      $trait !== null,
+      "Can't codegen a trait without a trait spec",
+    );
+    $class = $spec['class']['name'];
+    return cg\codegen_trait($trait['name'])
       ->addMethod(
-        cg\codegen_method($method_name)
+        cg\codegen_method($trait['method'])
           ->setIsFinal(true)
           ->setIsStatic(true)
-          ->setReturnType($class_name)
+          ->setReturnType($class)
           ->setBody(
             cg\hack_builder()
-              ->addReturn('new %s();', $class_name)
+              ->addReturn('new %s();', $class)
               ->getCode()
           )
       );

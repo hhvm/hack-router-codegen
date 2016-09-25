@@ -32,11 +32,16 @@ final class UriBuilderCodegenTest extends \PHPUnit_Framework_TestCase {
   protected function rebuild(): void {
     $this->getBuilder()->renderToFile(
       self::CODEGEN_PATH,
-      GetRequestExampleController::class,
-      /* ns = */ null,
-      self::CODEGEN_CLASS,
-      self::CODEGEN_CLASS.'Trait',
-      'getUriBuilder',
+      shape(
+        'controller' => GetRequestExampleController::class,
+        'class' => shape(
+          'name' => self::CODEGEN_CLASS,
+        ),
+        'trait' => shape(
+          'name' => self::CODEGEN_CLASS.'Trait',
+          'method' => 'getUriBuilder',
+        ),
+      ),
     );
   }
 
