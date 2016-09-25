@@ -15,11 +15,15 @@ use \Facebook\DefinitionFinder\FileParser;
 use \Facebook\HackRouter\HttpMethod;
 use \Facebook\HackRouter\CodeGen\Tests\GetRequestExampleController;
 use \Facebook\HackRouter\CodeGen\Tests\MyEnum;
+use \Facebook\HackRouter\CodeGen\Tests\Generated\MySiteRouter;
 
 final class RouterCodegenBuilderTest extends \PHPUnit_Framework_TestCase {
-  const string CODEGEN_PATH = __DIR__.'/examples/codegen/MySiteRouter.php';
   use InvokePrivateTestTrait;
   use TestTypechecksTestTrait;
+
+  const string CODEGEN_PATH = __DIR__.'/examples/codegen/MySiteRouter.php';
+  const string CODEGEN_NS =
+    "Facebook\\HackRouter\\CodeGen\\Tests\\Generated";
 
   <<__Memoize>>
   private function getBuilder(
@@ -42,7 +46,7 @@ final class RouterCodegenBuilderTest extends \PHPUnit_Framework_TestCase {
     $builder = $this->getBuilder();
     $builder->renderToFile(
       self::CODEGEN_PATH,
-      /* ns = */ null,
+      self::CODEGEN_NS,
       'MySiteRouter',
     );
   }
@@ -54,7 +58,7 @@ final class RouterCodegenBuilderTest extends \PHPUnit_Framework_TestCase {
       $builder,
       'getCodegenFile',
       self::CODEGEN_PATH,
-      /* namespace = */ null,
+      self::CODEGEN_NS,
       'MySiteRouter',
     );
     assert($class instanceof \Facebook\HackCodegen\CodegenFile);
@@ -88,7 +92,7 @@ final class RouterCodegenBuilderTest extends \PHPUnit_Framework_TestCase {
   public function testCreatesFinalByDefault(): void {
     $code = $this->renderToString($this->getBuilder());
     $parser = FileParser::FromData($code);
-    $class = $parser->getClass('MySiteRouter');
+    $class = $parser->getClass(MySiteRouter::class);
     $this->assertTrue($class->isFinal(), 'should be final');
     $this->assertFalse($class->isAbstract(), 'should not be abstract');
   }
@@ -98,7 +102,7 @@ final class RouterCodegenBuilderTest extends \PHPUnit_Framework_TestCase {
       $this->getBuilder()->setCreateAbstractClass(true),
     );
     $parser = FileParser::FromData($code);
-    $class = $parser->getClass('MySiteRouter');
+    $class = $parser->getClass(MySiteRouter::class);
     $this->assertTrue($class->isAbstract(), 'should be abstract');
     $this->assertFalse($class->isFinal(), 'should not be final');
   }
@@ -115,7 +119,7 @@ final class RouterCodegenBuilderTest extends \PHPUnit_Framework_TestCase {
     /* HH_IGNORE_ERROR[1002] intentionally using require_once outside of
      * top-level */
     require_once(self::CODEGEN_PATH);
-    $router = new \MySiteRouter();
+    $router = new MySiteRouter();
     list($controller, $params) = $router->routeRequest(
       HttpMethod::GET,
       '/foo/123/derp',
@@ -147,7 +151,7 @@ final class RouterCodegenBuilderTest extends \PHPUnit_Framework_TestCase {
     $code = $this->renderToString($builder);
 
     $parser = FileParser::FromData($code);
-    $this->assertNotNull($parser->getClass('MySiteRouter'));
+    $this->assertNotNull($parser->getClass(MySiteRouter::class));
     $this->assertContains(GetRequestExampleController::class, $code);
   }
 }

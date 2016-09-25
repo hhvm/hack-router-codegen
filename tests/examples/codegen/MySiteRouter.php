@@ -16,8 +16,9 @@
  * /root/hackdev/hack-router-codegen/vendor/phpunit/phpunit/phpunit
  *
  *
- * @generated SignedSource<<fa2d4531c4ef6d2809365d2994a4aa17>>
+ * @generated SignedSource<<fc0c94cb2472f73761734cb79fffb95e>>
  */
+namespace Facebook\HackRouter\CodeGen\Tests\Generated;
 
 final class MySiteRouter
   extends \Facebook\HackRouter\BaseRouter<classname<\Facebook\HackRouter\CodeGen\Tests\GetRequestExampleController>> {

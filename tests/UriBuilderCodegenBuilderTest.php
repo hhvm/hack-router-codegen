@@ -14,6 +14,7 @@ namespace Facebook\HackRouter;
 use \Facebook\DefinitionFinder\FileParser;
 use \Facebook\HackRouter\HttpMethod;
 use \Facebook\HackRouter\CodeGen\Tests\GetRequestExampleController;
+use \Facebook\HackRouter\CodeGen\Tests\Generated\GetRequestExampleControllerUriBuilder;
 
 final class UriBuilderCodegenTest extends \PHPUnit_Framework_TestCase {
   use TestTypechecksTestTrait;
@@ -34,6 +35,7 @@ final class UriBuilderCodegenTest extends \PHPUnit_Framework_TestCase {
       self::CODEGEN_PATH,
       shape(
         'controller' => GetRequestExampleController::class,
+        'namespace' => "Facebook\\HackRouter\\CodeGen\\Tests\\Generated",
         'class' => shape(
           'name' => self::CODEGEN_CLASS,
         ),
@@ -50,7 +52,7 @@ final class UriBuilderCodegenTest extends \PHPUnit_Framework_TestCase {
   }
 
   private function assertBuilderWorks(
-    \GetRequestExampleControllerUriBuilder $builder,
+    GetRequestExampleControllerUriBuilder $builder,
   ): void {
     $path = $builder
       ->setMyString('some value')
@@ -64,13 +66,13 @@ final class UriBuilderCodegenTest extends \PHPUnit_Framework_TestCase {
   }
 
   public function testUriBuilderClass(): void {
-    $this->assertBuilderWorks(new \GetRequestExampleControllerUriBuilder());
+    $this->assertBuilderWorks(new GetRequestExampleControllerUriBuilder());
   }
 
   public function testUriBuilderTrait(): void {
     $builder = GetRequestExampleController::getUriBuilder();
     $this->assertInstanceOf(
-      \GetRequestExampleControllerUriBuilder::class,
+      GetRequestExampleControllerUriBuilder::class,
       $builder,
     );
     $this->assertBuilderWorks($builder);
@@ -81,6 +83,6 @@ final class UriBuilderCodegenTest extends \PHPUnit_Framework_TestCase {
    * @expectedExceptionMessageRegExp /Parameter "[^"]+" must be set/
    */
   public function testThrowsIfUnsetParam(): void {
-    (new \GetRequestExampleControllerUriBuilder())->getPath();
+    (new GetRequestExampleControllerUriBuilder())->getPath();
   }
 }
