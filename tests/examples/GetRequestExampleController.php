@@ -13,12 +13,13 @@ namespace Facebook\HackRouter\CodeGen\Tests;
 
 use Facebook\HackRouter\UriPattern;
 
+
 final class GetRequestExampleController implements
 \Facebook\HackRouter\IncludeInUriMap,
 \Facebook\HackRouter\SupportsGetRequests {
   public static function getUriPattern(): UriPattern {
     return (new UriPattern())
       ->literal('/users/')
-      ->string('user_name');
+      ->string('UserName');
   }
 }

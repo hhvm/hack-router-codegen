@@ -22,7 +22,7 @@ final class RouterCodegenBuilder<T as IncludeInUriMap> {
     private classname<T> $responderClass,
     private ImmMap<HttpMethod, ImmMap<string, classname<T>>> $uriMap,
   ) {
-    $this->generatedFrom = cg\codegen_generated_from_class(self::class);
+    $this->generatedFrom = cg\codegen_generated_from_script();
   }
 
   public static function createForTree(

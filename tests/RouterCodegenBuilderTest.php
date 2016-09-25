@@ -18,6 +18,7 @@ use \Facebook\HackRouter\CodeGen\Tests\GetRequestExampleController;
 final class RouterCodegenBuilderTest extends \PHPUnit_Framework_TestCase {
   const string CODEGEN_PATH = __DIR__.'/examples/codegen/MySiteRouter.php';
   use InvokePrivateTestTrait;
+  use TestTypechecksTestTrait;
 
   <<__Memoize>>
   private function getBuilder(
@@ -36,33 +37,13 @@ final class RouterCodegenBuilderTest extends \PHPUnit_Framework_TestCase {
     return $router_builder;
   }
 
-  private function rebuild(): void {
-    if (file_exists(self::CODEGEN_PATH)) {
-      unlink(self::CODEGEN_PATH);
-    }
+  protected function rebuild(): void {
     $builder = $this->getBuilder();
     $builder->renderToFile(
       self::CODEGEN_PATH,
       /* ns = */ null,
       'MySiteRouter',
     );
-  }
-
-  public function testTypechecks(): void {
-    $this->rebuild();
-    $args = ImmVector {
-      'hh_server',
-      '--check',
-      __DIR__.'/../',
-    };
-    $exit_code = 0;
-    $out_array = [];
-    exec(
-      implode(' ', $args->map($x ==> escapeshellarg($x))),
-      $out_array,
-      $exit_code,
-    );
-    $this->assertSame(0, $exit_code, "Typechecker errors found");
   }
 
   private function renderToString<T as IncludeInUriMap>(
@@ -86,20 +67,21 @@ final class RouterCodegenBuilderTest extends \PHPUnit_Framework_TestCase {
   }
 
   public function testDefaultGeneratedFrom(): void {
-    $this->assertContains(
-      'Generated from '.RouterCodegenBuilder::class,
-      $this->renderToString($this->getBuilder()),
-    );
+    $code = $this->renderToString($this->getBuilder());
+    $this->assertContains('To re-generate this file run', $code);
+    $this->assertContains('vendor/phpunit/phpunit/phpunit', $code);
   }
 
   public function testOverriddenGeneratedFrom(): void {
     $code = $this->renderToString(
       $this->getBuilder()->setGeneratedFrom(
-        \Facebook\HackCodegen\codegen_generated_from_script(),
+        \Facebook\HackCodegen\codegen_generated_from_class(self::class)
       ),
     );
-    $this->assertContains('To re-generate this file run', $code);
-    $this->assertContains('vendor/phpunit/phpunit/phpunit', $code);
+    $this->assertContains(
+      'Generated from '.RouterCodegenBuilder::class,
+      $code,
+    );
   }
 
   public function testCreatesFinalByDefault(): void {
@@ -144,7 +126,7 @@ final class RouterCodegenBuilderTest extends \PHPUnit_Framework_TestCase {
     );
     $this->assertSame(
       'MrHankey',
-      $params->getString('user_name'),
+      $params->getString('UserName'),
     );
   }
 

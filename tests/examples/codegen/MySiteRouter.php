@@ -12,10 +12,11 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * Generated from Facebook\HackRouter\RouterCodegenBuilder
+ * To re-generate this file run
+ * /root/hackdev/hack-router-codegen/vendor/phpunit/phpunit/phpunit
  *
  *
- * @generated SignedSource<<e35356c213ce823afcfa39dcd34596c3>>
+ * @generated SignedSource<<a851860edd6f6380849a3e53e780b9ba>>
  */
 
 final class MySiteRouter
@@ -24,7 +25,7 @@ final class MySiteRouter
   public function getRoutes(
   ): ImmMap<\Facebook\HackRouter\HttpMethod, ImmMap<string, classname<\Facebook\HackRouter\CodeGen\Tests\GetRequestExampleController>>> {
     $get = ImmMap {
-      '/users/{user_name}' =>
+      '/users/{UserName}' =>
         \Facebook\HackRouter\CodeGen\Tests\GetRequestExampleController::class,
     };
     return ImmMap {
