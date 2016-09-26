@@ -13,7 +13,7 @@ namespace Facebook\HackRouter;
 
 use \Facebook\HackCodegen as cg;
 
-abstract class UriParametersCodegenBuilderBase<TBase> {
+abstract class RequestParametersCodegenBuilderBase<TBase> {
   const type TTraitSpec = shape(
     'name' => string,
     'method' => string,

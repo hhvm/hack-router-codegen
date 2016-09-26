@@ -14,7 +14,7 @@ namespace Facebook\HackRouter;
 use \Facebook\HackCodegen as cg;
 
 final class UriBuilderCodegenBuilder<T as UriBuilderBase>
-extends UriParametersCodegenBuilderBase<UriBuilderCodegenBase<T>> {
+extends RequestParametersCodegenBuilderBase<UriBuilderCodegenBase<T>> {
   <<__Override>>
   protected function getCodegenClass(self::TSpec $spec): cg\CodegenClass {
     $param_builder = $this->parameterBuilder;

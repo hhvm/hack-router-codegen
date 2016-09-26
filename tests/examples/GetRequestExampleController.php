@@ -12,16 +12,30 @@
 namespace Facebook\HackRouter\CodeGen\Tests;
 
 use Facebook\HackRouter\UriPattern;
+use Facebook\HackRouter\RequestParameters;
 
 enum MyEnum: string {
   FOO = 'bar';
   HERP = 'derp';
 }
 
-final class GetRequestExampleController implements
+abstract class WebController
+implements
 \Facebook\HackRouter\IncludeInUriMap,
 \Facebook\HackRouter\SupportsGetRequests {
+  public function __construct(
+    private RequestParameters $parameters,
+  ) {
+  }
+
+  final protected function __getParametersImpl(): RequestParameters {
+    return $this->parameters;
+  }
+}
+
+final class GetRequestExampleController extends WebController {
   use Generated\GetRequestExampleControllerUriBuilderTrait;
+  use Generated\GetRequestExampleControllerParametersTrait;
 
   public static function getUriPattern(): UriPattern {
     return (new UriPattern())
