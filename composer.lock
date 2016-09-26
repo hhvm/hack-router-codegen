@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7588b7a8ae441dbaf8469357ccb86cdf",
-    "content-hash": "aa9232cd5351b203840315c433a7b395",
+    "hash": "0de125134d84323459c27cd505885304",
+    "content-hash": "e75b18a962e23c66b5cb7ce04b69ce5f",
     "packages": [
         {
             "name": "facebook/hack-codegen",
@@ -93,25 +93,25 @@
         },
         {
             "name": "fredemmott/definition-finder",
-            "version": "v1.2.1",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fredemmott/definition-finder.git",
-                "reference": "d8a202320c2d5bb20cafbc47b2e5f7ef9015f6bd"
+                "reference": "b38fbac9240ad99a31d0dfff95480be85f112ca4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fredemmott/definition-finder/zipball/d8a202320c2d5bb20cafbc47b2e5f7ef9015f6bd",
-                "reference": "d8a202320c2d5bb20cafbc47b2e5f7ef9015f6bd",
+                "url": "https://api.github.com/repos/fredemmott/definition-finder/zipball/b38fbac9240ad99a31d0dfff95480be85f112ca4",
+                "reference": "b38fbac9240ad99a31d0dfff95480be85f112ca4",
                 "shasum": ""
             },
             "require": {
                 "hhvm": "~3.9"
             },
             "require-dev": {
-                "91carriage/phpunit-hhi": "~5.1.0",
+                "91carriage/phpunit-hhi": "~5.1",
                 "hhvm/systemlib-extractor": "^0.1.0",
-                "phpunit/phpunit": "~5.1.0"
+                "phpunit/phpunit": "~5.1"
             },
             "type": "library",
             "autoload": {
@@ -135,7 +135,7 @@
                 "hack",
                 "hhvm"
             ],
-            "time": "2016-09-24 20:11:53"
+            "time": "2016-09-26 05:18:14"
         },
         {
             "name": "fredemmott/hack-router",
@@ -211,6 +211,44 @@
                 "psr7"
             ],
             "time": "2015-11-02 23:49:05"
+        },
+        {
+            "name": "hhvm/systemlib-extractor",
+            "version": "v0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hhvm/systemlib-extractor.git",
+                "reference": "70840d4423901874f58e637cc03cf0600d226c39"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hhvm/systemlib-extractor/zipball/70840d4423901874f58e637cc03cf0600d226c39",
+                "reference": "70840d4423901874f58e637cc03cf0600d226c39",
+                "shasum": ""
+            },
+            "require": {
+                "hhvm": "*"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.5.*"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "Extract the PHP, Hack, and HNI files embedded in HHVM",
+            "homepage": "https://github.com/hhvm/systemlib-extractor",
+            "keywords": [
+                "hack",
+                "hhvm"
+            ],
+            "time": "2015-08-12 21:57:53"
         },
         {
             "name": "nikic/fast-route",
@@ -1655,7 +1693,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "fredemmott/hack-router": 20
+        "fredemmott/hack-router": 20,
+        "fredemmott/definition-finder": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

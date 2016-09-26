@@ -6,7 +6,8 @@
     "require": {
         "fredemmott/hack-router": "dev-master",
         "facebook/hack-codegen": "^1.1",
-        "fredemmott/definition-finder": "^1.2"
+        "fredemmott/definition-finder": "dev-master",
+        "hhvm/systemlib-extractor": "^0.1.0"
     },
     "require-dev": {
         "91carriage/phpunit-hhi": "^5.5",

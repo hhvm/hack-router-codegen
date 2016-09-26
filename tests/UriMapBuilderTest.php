@@ -134,6 +134,22 @@ final class UriMapBuilderTest extends \PHPUnit_Framework_TestCase {
     $this->assertFalse($this->isMappable($builder, $base));
   }
 
+  public function testMappableByParentClassInNamespace(): void {
+    $code =
+      "<?hh\n".
+      "namespace Foo\Bar;\n".
+      "abstract class BaseController\n".
+      "implements \Facebook\HackRouter\IncludeInUriMap {}\n".
+      "final class MyController extends BaseController {}";
+    $scanned = FileParser::FromData($code, __FUNCTION__);
+    $base = $scanned->getClass('Foo\\Bar\\BaseController');
+    $final = $scanned->getClass('Foo\\Bar\\MyController');
+
+    $builder = $this->getBuilder($scanned);
+    $this->assertTrue($this->isMappable($builder, $final));
+    $this->assertFalse($this->isMappable($builder, $base));
+  }
+
   public function testMappableByDerivedInterface(): void {
     $code =
       "<?hh\n".
