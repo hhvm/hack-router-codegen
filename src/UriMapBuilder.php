@@ -173,6 +173,18 @@ final class UriMapBuilder<TBase as IncludeInUriMap> {
       }
     }
 
+    foreach ($class->getTraitNames() as $trait) {
+      if ($this->doesImplement($trait, $wanted)) {
+        return true;
+      }
+    }
+
+    foreach ($class->getInterfaceNames() as $interface) {
+      if ($this->doesImplement($interface, $wanted)) {
+        return true;
+      }
+    }
+
     $parent = $class->getParentClassName();
     if ($parent !== null && $this->doesImplement($parent, $wanted)) {
       return true;

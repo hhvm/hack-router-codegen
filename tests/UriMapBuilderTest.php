@@ -164,10 +164,6 @@ final class UriMapBuilderTest extends \PHPUnit_Framework_TestCase {
   }
 
   public function testMappableByTrait(): void {
-    $this->markTestSkipped(
-      'https://github.com/fredemmott/definition-finder/issues/26',
-    );
-
     $code =
       "<?hh\n".
       "trait TController\n".
