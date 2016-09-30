@@ -1,4 +1,4 @@
-Hack-Router-Codegen ![build status](https://api.travis-ci.org/fredemmott/hack-router-codegen.svg)
+Hack-Router-Codegen [![Build Status](https://travis-ci.org/fredemmott/hack-router-codegen.svg?branch=master)](https://travis-ci.org/fredemmott/hack-router-codegen)
 ===================
 
 Code generation for controller classes using the `UriPattern` system from
