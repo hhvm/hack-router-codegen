@@ -54,7 +54,7 @@ extends RequestParametersCodegenBuilderBase<UriBuilderCodegenBase<T>> {
           ->setReturnType($class)
           ->setBody(
             cg\hack_builder()
-              ->addReturn('new %s();', $class)
+              ->addReturn('new %s()', $class)
               ->getCode()
           )
       );

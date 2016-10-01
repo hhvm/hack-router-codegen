@@ -16,7 +16,7 @@
  * /root/hackdev/hack-router-codegen/vendor/phpunit/phpunit/phpunit
  *
  *
- * @generated SignedSource<<ec18ade597976ccc70ddd88d4842cebe>>
+ * @generated SignedSource<<a19bd249383ab4ae6b132ce5d4b6abc1>>
  */
 namespace Facebook\HackRouter\CodeGen\Tests\Generated;
 
@@ -52,6 +52,6 @@ trait GetRequestExampleControllerUriBuilderTrait {
 
   final public static function getUriBuilder(
   ): GetRequestExampleControllerUriBuilder {
-    return new GetRequestExampleControllerUriBuilder();;
+    return new GetRequestExampleControllerUriBuilder();
   }
 }
