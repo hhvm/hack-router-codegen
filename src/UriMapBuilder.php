@@ -15,7 +15,6 @@ use \Facebook\DefinitionFinder\BaseParser;
 use \Facebook\DefinitionFinder\DefinitionType;
 use \Facebook\DefinitionFinder\ScannedBasicClass;
 use \Facebook\DefinitionFinder\ScannedClass;
-use \Facebook\DefinitionFinder\TreeParser;
 
 final class UriMapBuilder<TBase as IncludeInUriMap> {
   private ImmMap<string, ScannedClass> $classes;
@@ -36,14 +35,6 @@ final class UriMapBuilder<TBase as IncludeInUriMap> {
       $classes[$trait->getName()] = $trait;
     }
     $this->classes = $classes->immutable();
-  }
-
-  public static function getUriMapForTree(
-    classname<TBase> $base,
-    string $root,
-  ): ImmMap<HttpMethod, ImmMap<string, classname<TBase>>> {
-    $parser = TreeParser::FromPath($root);
-    return (new static($base, $parser))->getUriMap();
   }
 
   public function getUriMap(

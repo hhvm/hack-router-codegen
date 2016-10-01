@@ -25,16 +25,6 @@ final class RouterCodegenBuilder<T as IncludeInUriMap> {
     $this->generatedFrom = cg\codegen_generated_from_script();
   }
 
-  public static function createForTree(
-    classname<T> $base,
-    string $root,
-  ): RouterCodegenBuilder<T> {
-    return new self(
-      $base,
-      UriMapBuilder::getUriMapForTree($base, $root),
-    );
-  }
-
   public function setCreateAbstractClass(bool $abstract): this {
     $this->createAbstract = $abstract;
     return $this;
