@@ -10,3 +10,59 @@ This currently supports generating:
 
  For now, looking at the unit tests is the best way to learn how to use
  it.
+
+Building a Request Router
+=========================
+
+```Hack
+<?hh
+require_once(__DIR__.'/../vendor/autoload.php');
+
+use \FredEmmott\HackRouter\Codegen;
+
+final class UpdateCodegen {
+  public function main(): void {
+    Codegen::forTree(
+      __DIR__.'/../src/',
+      shape(
+        'controller_base' => WebController::class,
+        'router' => shape(
+          'abstract' => false,
+          'file' => __DIR__.'/../codegen/Router.php',
+          'class' => 'Router',
+        ),
+      ),
+    )->build;
+  }
+);
+```
+
+
+This will generate a class called 'Router', complete with an
+automatically-generated route map, based on the URI patterns in your
+controllers.
+
+`WebController` is the root controller for your site, and must implement
+`FredEmmott\HackRouter\IncludeInUriMap`, which in turn requires
+`FredEmmott\HackRouter\HasUriPattern` - for example:
+
+```Hack
+public static function getUriPattern(): UriPattern {
+  return (new UriPattern())
+    ->literal('/')
+    ->string('MyString')
+    ->literal('/')
+    ->int('MyInt')
+    ->literal('/')
+    ->enum(MyEnum::class, 'MyEnum');
+}
+```
+
+Commit Your Codegen!
+====================
+
+This is unusual advice, but it's the best approach for Hack code as you
+otherwise have a circular dependency:
+ - HHVM will not execute hack code if there are references to undefined classes
+ - Once you use the codegen, you reference the codegen classes
+ - ... so you can't build them if you don't already have them
