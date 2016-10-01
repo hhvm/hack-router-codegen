@@ -24,7 +24,7 @@ abstract class RequestParametersCodegenBuilderBase<TBase> {
     'class' => shape(
       'name' => string,
     ),
-    'trait' => self::TTraitSpec,
+    'trait' => ?self::TTraitSpec,
   );
 
   protected cg\CodegenGeneratedFrom $generatedFrom;
