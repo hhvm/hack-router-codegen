@@ -12,10 +12,15 @@
 namespace Facebook\HackRouter;
 
 use \Facebook\DefinitionFinder\FileParser;
-use \Facebook\HackRouter\HttpMethod;
-use \Facebook\HackRouter\CodeGen\Tests\GetRequestExampleController;
-use \Facebook\HackRouter\CodeGen\Tests\MyEnum;
+use \Facebook\HackRouter\CodeGen\Tests\{
+  GetRequestExampleController,
+  MyEnum
+};
 use \Facebook\HackRouter\CodeGen\Tests\Generated\MySiteRouter;
+use \Facebook\HackRouter\PrivateImpl\{
+  ClassFacts,
+  ControllerFacts
+};
 
 final class RouterCodegenBuilderTest extends \PHPUnit_Framework_TestCase {
   use InvokePrivateTestTrait;
@@ -28,13 +33,13 @@ final class RouterCodegenBuilderTest extends \PHPUnit_Framework_TestCase {
   <<__Memoize>>
   private function getBuilder(
   ): RouterCodegenBuilder<GetRequestExampleController> {
-    $scanned = FileParser::FromFile(
+    $parser = FileParser::FromFile(
       __DIR__.'/examples/GetRequestExampleController.php',
     );
-    $uri_map_builder = new UriMapBuilder(
+    $uri_map_builder = new UriMapBuilder(new ControllerFacts(
       GetRequestExampleController::class,
-      $scanned,
-    );
+      new ClassFacts($parser),
+    ));
     $router_builder = new RouterCodegenBuilder(
       GetRequestExampleController::class,
       $uri_map_builder->getUriMap(),
