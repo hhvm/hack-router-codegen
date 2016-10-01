@@ -116,7 +116,7 @@ final class Codegen {
       ->setCreateAbstractClass($config['abstract'])
       ->renderToFile(
         $config['file'],
-        $config['namespace'],
+        Shapes::idx($config, 'namespace'),
         $config['class'],
       );
   }
@@ -143,7 +143,7 @@ final class Codegen {
         $output['file'],
         shape(
           'controller' => $controller,
-          'namespace' => $output['namespace'],
+          'namespace' => Shapes::idx($output, 'namespace'),
           'class' => $output['class'],
           'trait' => $output['trait'],
         ),
@@ -189,7 +189,7 @@ final class Codegen {
         $output['file'],
         shape(
           'controller' => $controller,
-          'namespace' => $output['namespace'],
+          'namespace' => Shapes::idx($output, 'namespace'),
           'class' => shape(
             'name' => $output['class']['name'],
           ),
