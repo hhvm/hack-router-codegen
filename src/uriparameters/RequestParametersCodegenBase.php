@@ -11,7 +11,7 @@
 
 namespace Facebook\HackRouter;
 
-abstract class RequestParametersCodegenBase<T as RequestParametersBase> {
+abstract class RequestParametersCodegenBase<+T as RequestParametersBase> {
   public function __construct(
     private T $parameters,
   ) {

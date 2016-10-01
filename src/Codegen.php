@@ -16,7 +16,7 @@ use Facebook\DefinitionFinder\TreeParser;
 use Facebook\HackRouter\PrivateImpl\{ClassFacts, ControllerFacts};
 
 final class Codegen {
-  const type TCodegenClassTraitConfig = shape(
+  const type TUriBuilderOutput = shape(
     'file' => string,
     'namespace' => ?string,
     'class' => shape(
@@ -32,7 +32,34 @@ final class Codegen {
     'base_class' => ?classname<UriBuilderCodegenBase<UriBuilderBase>>,
     'parameter_codegen_builder' => ?classname<RequestParameterCodegenBuilder>,
     'output' =>
-      (function(classname<IncludeInUriMap>): ?self::TCodegenClassTraitConfig),
+      (function(classname<IncludeInUriMap>): ?self::TUriBuilderOutput),
+  );
+
+  const type TRequestParametersOutput = shape(
+    'file' => string,
+    'namespace' => ?string,
+    'class' => shape(
+      'name' => string,
+    ),
+    'trait' => shape(
+      'name' => string,
+    ),
+  );
+
+  const type TRequestParametersCodegenConfig = shape(
+    'get_parameters' => ?RequestParametersCodegenBuilder::TGetParameters,
+    'base_class' =>
+      ?classname<RequestParametersCodegenBase<RequestParametersBase>>,
+    'parameter_codegen_builder' => ?classname<RequestParameterCodegenBuilder>,
+    'trait' => shape(
+      'methodName' => string,
+      'methodImplementation' =>
+        RequestParametersCodegenBuilder::TGetTraitMethodBody,
+      'requireExtends' => ?ImmSet<classname<mixed>>,
+      'requireImplements' => ?ImmSet<classname<mixed>>,
+    ),
+    'output' =>
+      (function(classname<IncludeInUriMap>): ?self::TRequestParametersOutput),
   );
 
   const type TRouterCodegenConfig = shape(
@@ -46,6 +73,7 @@ final class Codegen {
     'controller_base' => ?classname<IncludeInUriMap>,
     'router' => ?self::TRouterCodegenConfig,
     'uri_builders' => ?self::TUriBuilderCodegenConfig,
+    'request_parameters' => ?self::TRequestParametersCodegenConfig,
   );
 
   public static function forTree(
@@ -58,6 +86,7 @@ final class Codegen {
   public function build(): void {
     $this->buildRouter();
     $this->buildUriBuilders();
+    $this->buildRequestParameters();
   }
 
   private ControllerFacts<IncludeInUriMap> $controllerFacts;
@@ -117,6 +146,57 @@ final class Codegen {
           'namespace' => $output['namespace'],
           'class' => $output['class'],
           'trait' => $output['trait'],
+        ),
+      );
+    }
+  }
+
+  private function buildRequestParameters(): void {
+    $config = Shapes::idx($this->config, 'request_parameters');
+    if ($config === null) {
+      return;
+    }
+    $base = $config['base_class'] ?? RequestParametersCodegen::class;
+    $param_builder = $config['parameter_codegen_builder']
+      ?? RequestParameterCodegenBuilder::class;
+    $get_output = $config['output'];
+    $get_parameters = $config['get_parameters'] ?? (
+      (classname<HasUriPattern> $class) ==>
+        $class::getUriPattern()->getParameters()
+    );
+    $get_trait_impl = $config['trait']['methodImplementation'];
+
+    $builder = new RequestParametersCodegenBuilder(
+      $get_parameters,
+      $config['trait']['methodImplementation'],
+      $base,
+      $param_builder,
+    );
+    foreach ($config['trait']['requireExtends'] ?? [] as $what) {
+      $builder->traitRequireExtends($what);
+    }
+    foreach ($config['trait']['requireImplements'] ?? [] as $what) {
+      $builder->traitRequireImplements($what);
+    }
+
+    $controllers = $this->controllerFacts->getControllers()->keys();
+    foreach ($controllers as $controller) {
+      $output = $get_output($controller);
+      if ($output === null) {
+        continue;
+      }
+      $builder->renderToFile(
+        $output['file'],
+        shape(
+          'controller' => $controller,
+          'namespace' => $output['namespace'],
+          'class' => shape(
+            'name' => $output['class']['name'],
+          ),
+          'trait' => shape(
+            'name' => $output['trait']['name'],
+            'method' => $config['trait']['methodName'],
+          ),
         ),
       );
     }
