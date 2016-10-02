@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9819072312292013e4375dccd73442ac",
-    "content-hash": "7d99efec85f554083d4759c5668f5984",
+    "hash": "4b9f9e5b8d6db09323e70c23fa5390f7",
+    "content-hash": "241b8e8a3b57c465a610c9b63316c666",
     "packages": [
         {
             "name": "facebook/hack-codegen",
@@ -93,16 +93,16 @@
         },
         {
             "name": "fredemmott/definition-finder",
-            "version": "v1.3.0",
+            "version": "v1.3.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fredemmott/definition-finder.git",
-                "reference": "6c5aeffaf864cfd2197a8247526753e7f7aecabd"
+                "reference": "f583261bc5496b5e6a993e7bd9bbf1dc07b72a40"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fredemmott/definition-finder/zipball/6c5aeffaf864cfd2197a8247526753e7f7aecabd",
-                "reference": "6c5aeffaf864cfd2197a8247526753e7f7aecabd",
+                "url": "https://api.github.com/repos/fredemmott/definition-finder/zipball/f583261bc5496b5e6a993e7bd9bbf1dc07b72a40",
+                "reference": "f583261bc5496b5e6a993e7bd9bbf1dc07b72a40",
                 "shasum": ""
             },
             "require": {
@@ -135,25 +135,25 @@
                 "hack",
                 "hhvm"
             ],
-            "time": "2016-09-30 02:18:15"
+            "time": "2016-10-02 21:32:15"
         },
         {
             "name": "fredemmott/hack-router",
-            "version": "dev-master",
+            "version": "v1.0.0rc6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fredemmott/hack-router.git",
-                "reference": "1be5270e537fc36bcaa7e4f3f8b8aa67efc4d00a"
+                "reference": "dad98c548619b07ef188e2ac5c874a3ef1fd2a98"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fredemmott/hack-router/zipball/1be5270e537fc36bcaa7e4f3f8b8aa67efc4d00a",
-                "reference": "1be5270e537fc36bcaa7e4f3f8b8aa67efc4d00a",
+                "url": "https://api.github.com/repos/fredemmott/hack-router/zipball/dad98c548619b07ef188e2ac5c874a3ef1fd2a98",
+                "reference": "dad98c548619b07ef188e2ac5c874a3ef1fd2a98",
                 "shasum": ""
             },
             "require": {
                 "hack-psr/psr7-http-message-hhi": "^0.2.0",
-                "nikic/fast-route": "^0.7.0"
+                "nikic/fast-route": "^1.0.0 || >0.7 <1.0"
             },
             "require-dev": {
                 "91carriage/phpunit-hhi": "^5.1",
@@ -175,7 +175,7 @@
                 "router",
                 "routing"
             ],
-            "time": "2016-10-02 04:09:09"
+            "time": "2016-10-02 21:46:08"
         },
         {
             "name": "fredemmott/type-assert",
@@ -251,55 +251,17 @@
             "time": "2015-11-02 23:49:05"
         },
         {
-            "name": "hhvm/systemlib-extractor",
-            "version": "v0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/hhvm/systemlib-extractor.git",
-                "reference": "70840d4423901874f58e637cc03cf0600d226c39"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/hhvm/systemlib-extractor/zipball/70840d4423901874f58e637cc03cf0600d226c39",
-                "reference": "70840d4423901874f58e637cc03cf0600d226c39",
-                "shasum": ""
-            },
-            "require": {
-                "hhvm": "*"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "4.5.*"
-            },
-            "type": "library",
-            "autoload": {
-                "classmap": [
-                    "src/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "description": "Extract the PHP, Hack, and HNI files embedded in HHVM",
-            "homepage": "https://github.com/hhvm/systemlib-extractor",
-            "keywords": [
-                "hack",
-                "hhvm"
-            ],
-            "time": "2015-08-12 21:57:53"
-        },
-        {
             "name": "nikic/fast-route",
-            "version": "v0.7.0",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/FastRoute.git",
-                "reference": "8164b4a0d8afde4eae5f1bfc39084972ba23ad36"
+                "reference": "8ea928195fa9b907f0d6e48312d323c1a13cc2af"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/FastRoute/zipball/8164b4a0d8afde4eae5f1bfc39084972ba23ad36",
-                "reference": "8164b4a0d8afde4eae5f1bfc39084972ba23ad36",
+                "url": "https://api.github.com/repos/nikic/FastRoute/zipball/8ea928195fa9b907f0d6e48312d323c1a13cc2af",
+                "reference": "8ea928195fa9b907f0d6e48312d323c1a13cc2af",
                 "shasum": ""
             },
             "require": {
@@ -329,7 +291,7 @@
                 "router",
                 "routing"
             ],
-            "time": "2015-12-20 19:50:12"
+            "time": "2016-06-12 19:08:51"
         },
         {
             "name": "psr/http-message",
@@ -582,16 +544,16 @@
         },
         {
             "name": "phpdocumentor/reflection-docblock",
-            "version": "3.1.0",
+            "version": "3.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpDocumentor/ReflectionDocBlock.git",
-                "reference": "9270140b940ff02e58ec577c237274e92cd40cdd"
+                "reference": "8331b5efe816ae05461b7ca1e721c01b46bafb3e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/9270140b940ff02e58ec577c237274e92cd40cdd",
-                "reference": "9270140b940ff02e58ec577c237274e92cd40cdd",
+                "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/8331b5efe816ae05461b7ca1e721c01b46bafb3e",
+                "reference": "8331b5efe816ae05461b7ca1e721c01b46bafb3e",
                 "shasum": ""
             },
             "require": {
@@ -623,7 +585,7 @@
                 }
             ],
             "description": "With this component, a library can provide support for annotations via DocBlocks or otherwise retrieve information that is embedded in a DocBlock.",
-            "time": "2016-06-10 09:48:41"
+            "time": "2016-09-30 07:12:33"
         },
         {
             "name": "phpdocumentor/type-resolver",
@@ -1736,7 +1698,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "fredemmott/hack-router": 20
+        "fredemmott/hack-router": 5
     },
     "prefer-stable": false,
     "prefer-lowest": false,
