@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d05df299dca57ee2941f5256e57cfd5d",
-    "content-hash": "a88f300053f4f98c9e793a386ccfca22",
+    "hash": "9819072312292013e4375dccd73442ac",
+    "content-hash": "7d99efec85f554083d4759c5668f5984",
     "packages": [
         {
             "name": "facebook/hack-codegen",
@@ -143,12 +143,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fredemmott/hack-router.git",
-                "reference": "13f3051c0cd8e8a15b42de08da6ee667602913cd"
+                "reference": "1be5270e537fc36bcaa7e4f3f8b8aa67efc4d00a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fredemmott/hack-router/zipball/13f3051c0cd8e8a15b42de08da6ee667602913cd",
-                "reference": "13f3051c0cd8e8a15b42de08da6ee667602913cd",
+                "url": "https://api.github.com/repos/fredemmott/hack-router/zipball/1be5270e537fc36bcaa7e4f3f8b8aa67efc4d00a",
+                "reference": "1be5270e537fc36bcaa7e4f3f8b8aa67efc4d00a",
                 "shasum": ""
             },
             "require": {
@@ -175,7 +175,45 @@
                 "router",
                 "routing"
             ],
-            "time": "2016-09-25 23:30:10"
+            "time": "2016-10-02 04:09:09"
+        },
+        {
+            "name": "fredemmott/type-assert",
+            "version": "v0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fredemmott/type-assert.git",
+                "reference": "e3fe89ada31110a8f092661236f769674a9a1fd6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fredemmott/type-assert/zipball/e3fe89ada31110a8f092661236f769674a9a1fd6",
+                "reference": "e3fe89ada31110a8f092661236f769674a9a1fd6",
+                "shasum": ""
+            },
+            "require": {
+                "hhvm": "~3.12"
+            },
+            "require-dev": {
+                "91carriage/phpunit-hhi": "~5.1",
+                "phpunit/phpunit": "~5.1"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "ISC"
+            ],
+            "description": "Convert untyped data to typed data",
+            "keywords": [
+                "TypeAssert",
+                "hack"
+            ],
+            "time": "2016-09-28 04:21:05"
         },
         {
             "name": "hack-psr/psr7-http-message-hhi",

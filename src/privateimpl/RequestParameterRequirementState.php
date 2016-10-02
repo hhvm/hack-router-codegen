@@ -9,15 +9,9 @@
  *
  */
 
-namespace Facebook\HackRouter;
+namespace Facebook\HackRouter\PrivateImpl;
 
-use \Facebook\HackRouter\UriParameterCodegenArgument as Arg;
-
-final class IntParameterCodegenSpec extends SimpleParameterCodegenSpec {
-  protected static function getSimpleSpec(): self::TSimpleSpec {
-    return shape(
-      'type' => 'int',
-      'accessorSuffix' => 'Int',
-    );
-  }
+enum RequestParameterRequirementState: int {
+  IS_REQUIRED = 1;
+  IS_OPTIONAL = 0;
 }

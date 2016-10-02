@@ -11,6 +11,7 @@
 
 namespace Facebook\HackRouter;
 
+use Facebook\HackRouter\PrivateImpl\RequestParameterRequirementState;
 use Facebook\HackCodegen as cg;
 
 abstract class RequestParameterCodegenBuilder {
@@ -28,17 +29,26 @@ abstract class RequestParameterCodegenBuilder {
 
   final public static function getGetter(
     RequestParameter $param,
+    RequestParameterRequirementState $required,
   ): cg\CodegenMethod {
     $spec = self::getRequestSpec($param);
     $spec = $spec::getGetterSpec($param);
 
+    if ($required === RequestParameterRequirementState::IS_REQUIRED) {
+      $type = $spec['type'];
+      $method = 'get'.$spec['accessorSuffix'];
+    } else {
+      $type = '?'.$spec['type'];
+      $method = 'getOptional'.$spec['accessorSuffix'];
+    }
+
     return cg\codegen_method('get'.$param->getName())
-      ->setReturnType($spec['type'])
+      ->setReturnType($type)
       ->setBody(
         cg\hack_builder()
           ->add('return ')
           ->addMultilineCall(
-            '$this->getParameters()->'.$spec['method'],
+            '$this->getParameters()->'.$method,
             $spec['args']->map($arg ==> $arg->render($param))->toVector(),
           )
           ->getCode(),
@@ -61,7 +71,7 @@ abstract class RequestParameterCodegenBuilder {
       ->setBody(
         cg\hack_builder()
           ->addMultilineCall(
-            '$this->getBuilder()->'.$spec['method'],
+            '$this->getBuilder()->set'.$spec['accessorSuffix'],
             $spec['args']->map(
               $arg ==> $arg->render($param, $value_var),
             )->toVector(),

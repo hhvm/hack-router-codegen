@@ -43,7 +43,7 @@ final class EnumParameterCodegenSpec extends UriParameterCodegenSpec {
   ): self::TSpec {
     return shape(
       'type' => self::getType($param),
-      'method' => 'getEnum',
+      'accessorSuffix' => 'Enum',
       'args' => ImmVector {
         Args::Custom(($_, $_) ==> self::getTypeName($param)),
         Args::ParameterName(),
@@ -57,7 +57,7 @@ final class EnumParameterCodegenSpec extends UriParameterCodegenSpec {
     $param = self::cast($param);
     return shape(
       'type' => self::getType($param),
-      'method' => 'setEnum',
+      'accessorSuffix' => 'Enum',
       'args' => ImmVector {
         Args::Custom(($_, $_) ==> self::getTypeName($param)),
         Args::ParameterName(),

@@ -16,8 +16,7 @@ use \Facebook\HackRouter\UriParameterCodegenArgumentSpec as Args;
 abstract class SimpleParameterCodegenSpec extends UriParameterCodegenSpec {
   const type TSimpleSpec = shape(
     'type' => string,
-    'getter' => string,
-    'setter' => string,
+    'accessorSuffix' => string,
   );
   abstract protected static function getSimpleSpec(): self::TSimpleSpec;
 
@@ -27,7 +26,7 @@ abstract class SimpleParameterCodegenSpec extends UriParameterCodegenSpec {
     $spec = static::getSimpleSpec();
     return shape(
       'type' => $spec['type'],
-      'method' => $spec['getter'],
+      'accessorSuffix' => $spec['accessorSuffix'],
       'args' => ImmVector {
         Args::ParameterName(),
       },
@@ -40,7 +39,7 @@ abstract class SimpleParameterCodegenSpec extends UriParameterCodegenSpec {
     $spec = static::getSimpleSpec();
     return shape(
       'type' => $spec['type'],
-      'method' => $spec['setter'],
+      'accessorSuffix' => $spec['accessorSuffix'],
       'args' => ImmVector {
         Args::ParameterName(),
         Args::ParameterValue(),

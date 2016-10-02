@@ -11,8 +11,12 @@
 
 namespace Facebook\HackRouter\CodeGen\Tests;
 
-use Facebook\HackRouter\UriPattern;
-use Facebook\HackRouter\RequestParameters;
+use Facebook\HackRouter\{
+  UriPattern,
+  RequestParameter,
+  RequestParameters,
+  StringRequestParameter
+};
 
 enum MyEnum: string {
   FOO = 'bar';
@@ -30,6 +34,18 @@ implements
 
   final protected function __getParametersImpl(): RequestParameters {
     return $this->parameters;
+  }
+
+  final public static function __getParametersSpec(
+  ): ImmVector<shape('spec' => RequestParameter, 'optional' => bool)> {
+    $params = static::getUriPattern()->getParameters()->map(
+      $param ==> shape('spec' => $param, 'optional' => false),
+    )->toVector();
+    $params[] = shape(
+      'spec' => new StringRequestParameter('MyOptionalParam'),
+      'optional' => true,
+    );
+    return $params->immutable();
   }
 }
 

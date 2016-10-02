@@ -14,7 +14,7 @@ namespace Facebook\HackRouter;
 abstract class RequestParameterCodegenSpec {
   const type TSpec = shape(
     'type' => string,
-    'method' => string,
+    'accessorSuffix' => string,
     'args' => ImmVector<UriParameterCodegenArgumentSpec>,
   );
 

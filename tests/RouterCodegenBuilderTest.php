@@ -132,6 +132,7 @@ final class RouterCodegenBuilderTest extends \PHPUnit_Framework_TestCase {
     $this->assertSame(GetRequestExampleController::class, $controller);
     $params = new RequestParameters(
       GetRequestExampleController::getUriPattern()->getParameters(),
+      [],
       $params,
     );
     $this->assertSame(

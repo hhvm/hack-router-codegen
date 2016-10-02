@@ -162,7 +162,9 @@ final class Codegen {
     $get_output = $config['output'];
     $get_parameters = $config['get_parameters'] ?? (
       (classname<HasUriPattern> $class) ==>
-        $class::getUriPattern()->getParameters()
+        $class::getUriPattern()->getParameters()->map(
+          $param ==> shape('spec' => $param, 'optional' => false),
+        )
     );
     $get_trait_impl = $config['trait']['methodImplementation'];
 

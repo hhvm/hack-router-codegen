@@ -17,8 +17,7 @@ final class StringParameterCodegenSpec extends SimpleParameterCodegenSpec {
   protected static function getSimpleSpec(): self::TSimpleSpec {
     return shape(
       'type' => 'string',
-      'getter' => 'getString',
-      'setter' => 'setString',
+      'accessorSuffix' => 'String',
     );
   }
 }

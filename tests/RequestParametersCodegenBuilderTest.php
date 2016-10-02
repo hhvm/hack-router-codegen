@@ -14,7 +14,12 @@ namespace Facebook\HackRouter;
 use \Facebook\DefinitionFinder\FileParser;
 use \Facebook\HackRouter\HttpMethod;
 use \Facebook\HackRouter\CodeGen\Tests\GetRequestExampleController;
-use \Facebook\HackRouter\CodeGen\Tests\Generated\GetRequestExampleControllerUriBuilder;
+use \Facebook\HackRouter\CodeGen\Tests\Generated\{
+  GetRequestExampleControllerUriBuilder,
+  GetRequestExampleControllerParameters
+};
+use \Facebook\HackRouter\CodeGen\Tests\WebController;
+use \FredEmmott\TypeAssert\TypeAssert;
 
 use \Facebook\HackCodegen as cg;
 
@@ -28,15 +33,20 @@ final class RequestParametersCodegenBuilderTest extends \PHPUnit_Framework_TestC
   private function getBuilder(
   ): RequestParametersCodegenBuilder<RequestParameters> {
     return (new RequestParametersCodegenBuilder(
-      (classname<HasUriPattern> $class) ==>
-        $class::getUriPattern()->getParameters(),
+      (classname<HasUriPattern> $class) ==> {
+        $class = TypeAssert::isClassnameOf(
+          WebController::class,
+          $class,
+        );
+        return $class::__getParametersSpec();
+      },
       $spec ==> (cg\hack_builder()
         ->addAssignment(
-          '$parameters',
+          '$params',
           '$this->__getParametersImpl()',
         )
         ->addReturn(
-          'new %s($parameters)',
+          'new %s($params)',
           $spec['class']['name'],
         )
         ->getCode()
@@ -64,5 +74,34 @@ final class RequestParametersCodegenBuilderTest extends \PHPUnit_Framework_TestC
         ),
       ),
     );
+  }
+
+  private function getCodegenParametersForValues(
+    ImmMap<string, string> $values,
+  ): GetRequestExampleControllerParameters {
+    $params = GetRequestExampleController::__getParametersSpec();
+    return new GetRequestExampleControllerParameters(new RequestParameters(
+      $params->filter($p ==> !$p['optional'])->map($p ==> $p['spec']),
+      $params->filter($p ==> $p['optional'])->map($p ==> $p['spec']),
+      $values,
+    ));
+  }
+
+  public function testCanGetParameter(): void {
+    $values = ImmMap { 'MyString' => __FUNCTION__ };
+    $params = $this->getCodegenParametersForValues($values);
+    $this->assertSame(__FUNCTION__, $params->getMyString());
+  }
+
+  public function testCanGetOptionalParameter(): void {
+    $values = ImmMap { 'MyOptionalParam' => __FUNCTION__ };
+    $params = $this->getCodegenParametersForValues($values);
+    $this->assertSame(__FUNCTION__, $params->getMyOptionalParam());
+  }
+
+  public function testGetNullForMissingOptionalParameter(): void {
+    $values = ImmMap { };
+    $params = $this->getCodegenParametersForValues($values);
+    $this->assertSame(null, $params->getMyOptionalParam());
   }
 }

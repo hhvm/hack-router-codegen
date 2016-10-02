@@ -11,12 +11,16 @@
 
 namespace Facebook\HackRouter;
 
-use \Facebook\HackCodegen as cg;
+use Facebook\HackCodegen as cg;
+use Facebook\HackRouter\PrivateImpl\RequestParameterRequirementState;
 
 final class RequestParametersCodegenBuilder<T as RequestParametersBase>
 extends RequestParametersCodegenBuilderBase<RequestParametersCodegenBase<T>> {
   const type TGetParameters =
-    (function(classname<HasUriPattern>):ImmVector<RequestParameter>);
+    (function(classname<HasUriPattern>): ImmVector<shape(
+      'spec' => RequestParameter,
+      'optional' => bool,
+    )>);
   const type TGetTraitMethodBody = (function(self::TSpec):string);
 
   private Vector<classname<mixed>> $traitRequiredClasses = Vector {};
@@ -41,7 +45,12 @@ extends RequestParametersCodegenBuilderBase<RequestParametersCodegenBase<T>> {
 
     $getParameters = $this->getParameters;
     foreach ($getParameters($controller) as $parameter) {
-      $common->addMethod($param_builder::getGetter($parameter));
+      $common->addMethod($param_builder::getGetter(
+        $parameter['spec'],
+        $parameter['optional']
+          ? RequestParameterRequirementState::IS_OPTIONAL
+          : RequestParameterRequirementState::IS_REQUIRED,
+      ));
     }
 
     return $common;

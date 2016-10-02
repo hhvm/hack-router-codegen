@@ -16,7 +16,7 @@
  * /root/hackdev/hack-router-codegen/vendor/phpunit/phpunit/phpunit
  *
  *
- * @generated SignedSource<<d748e24b3971275194cfce72a3834d53>>
+ * @generated SignedSource<<155ea17dc2a11c508783a82fcaa4d39a>>
  */
 namespace Facebook\HackRouter\CodeGen\Tests\Generated;
 
@@ -37,6 +37,10 @@ class GetRequestExampleControllerParameters
       'MyEnum',
     );
   }
+
+  public function getMyOptionalParam(): ?string {
+    return $this->getParameters()->getOptionalString('MyOptionalParam');
+  }
 }
 
 trait GetRequestExampleControllerParametersTrait {
@@ -44,7 +48,7 @@ trait GetRequestExampleControllerParametersTrait {
   require extends \Facebook\HackRouter\CodeGen\Tests\WebController;
 
   final public function getParameters(): GetRequestExampleControllerParameters {
-    $parameters = $this->__getParametersImpl();
-    return new GetRequestExampleControllerParameters($parameters);
+    $params = $this->__getParametersImpl();
+    return new GetRequestExampleControllerParameters($params);
   }
 }
