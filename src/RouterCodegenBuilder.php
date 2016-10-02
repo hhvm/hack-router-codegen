@@ -72,6 +72,8 @@ final class RouterCodegenBuilder<T as IncludeInUriMap> {
       ))
       ->addMethod(
         cg\codegen_method('getRoutes')
+          ->setIsFinal(true)
+          ->setIsOverride(true)
           ->setReturnType(
             'ImmMap<\\%s, ImmMap<string, classname<\\%s>>>',
             HttpMethod::class,

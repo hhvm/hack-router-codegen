@@ -43,6 +43,7 @@ abstract class RequestParameterCodegenBuilder {
     }
 
     return cg\codegen_method('get'.$param->getName())
+      ->setIsFinal(true)
       ->setReturnType($type)
       ->setBody(
         cg\hack_builder()
@@ -67,6 +68,7 @@ abstract class RequestParameterCodegenBuilder {
       ->setParameters(Vector {
         $spec['type'].' '.$value_var,
       })
+      ->setIsFinal(true)
       ->setReturnType('this')
       ->setBody(
         cg\hack_builder()

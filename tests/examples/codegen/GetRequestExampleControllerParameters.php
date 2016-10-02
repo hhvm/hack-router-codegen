@@ -16,29 +16,30 @@
  * /root/hackdev/hack-router-codegen/vendor/phpunit/phpunit/phpunit
  *
  *
- * @generated SignedSource<<155ea17dc2a11c508783a82fcaa4d39a>>
+ * @generated SignedSource<<95fae536da8c54e60261b1bc342d6aa1>>
  */
 namespace Facebook\HackRouter\CodeGen\Tests\Generated;
 
 class GetRequestExampleControllerParameters
   extends \Facebook\HackRouter\RequestParametersCodegen {
 
-  public function getMyString(): string {
+  final public function getMyString(): string {
     return $this->getParameters()->getString('MyString');
   }
 
-  public function getMyInt(): int {
+  final public function getMyInt(): int {
     return $this->getParameters()->getInt('MyInt');
   }
 
-  public function getMyEnum(): \Facebook\HackRouter\CodeGen\Tests\MyEnum {
+  final public function getMyEnum(
+  ): \Facebook\HackRouter\CodeGen\Tests\MyEnum {
     return $this->getParameters()->getEnum(
       \Facebook\HackRouter\CodeGen\Tests\MyEnum::class,
       'MyEnum',
     );
   }
 
-  public function getMyOptionalParam(): ?string {
+  final public function getMyOptionalParam(): ?string {
     return $this->getParameters()->getOptionalString('MyOptionalParam');
   }
 }
