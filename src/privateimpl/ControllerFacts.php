@@ -82,6 +82,7 @@ final class ControllerFacts<T as IncludeInUriMap> {
     invariant(
       !$supported->isEmpty(),
       '%s implements %s, but does not implement %s or %s',
+      $classname,
       IncludeInUriMap::class,
       SupportsGetRequests::class,
       SupportsPostRequests::class,

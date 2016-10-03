@@ -221,6 +221,7 @@ final class ControllerFactsTest extends \PHPUnit_Framework_TestCase {
 
   /**
    * @expectedException \HH\InvariantException
+   * @expectedExceptionMessage multiple HTTP methods
    */
   public function testGetAndPostController(): void {
     $code =
@@ -229,6 +230,23 @@ final class ControllerFactsTest extends \PHPUnit_Framework_TestCase {
       "\Facebook\HackRouter\IncludeInUriMap,\n".
       "\Facebook\HackRouter\SupportsGetRequests,\n".
       "\Facebook\HackRouter\SupportsPostRequests {\n".
+      "}";
+    $scanned = FileParser::FromData($code, __FUNCTION__);
+    $class = $scanned->getClass('MyController');
+
+    $facts = $this->getFacts($scanned);
+    $_throws = $this->getMethods($facts, $class);
+  }
+
+  /**
+   * @expectedException \HH\InvariantException
+   * @expectedExceptionMessage but does not implement
+   */
+  public function testControllerWithNoSupportedMethods(): void {
+    $code =
+      "<?hh\n".
+      "final class MyController implements\n".
+      "\Facebook\HackRouter\IncludeInUriMap {\n".
       "}";
     $scanned = FileParser::FromData($code, __FUNCTION__);
     $class = $scanned->getClass('MyController');
