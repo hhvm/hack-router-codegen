@@ -42,6 +42,10 @@ final class UriMapBuilder<TBase as IncludeInUriMap> {
       }
     }
 
+    foreach ($map as $submap) {
+      natsort($submap);
+    }
+
     return $map
       ->filter($submap ==> !$submap->isEmpty())
       ->map($submap ==> $submap->immutable())
