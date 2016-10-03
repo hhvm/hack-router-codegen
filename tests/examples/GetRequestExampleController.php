@@ -15,7 +15,8 @@ use Facebook\HackRouter\{
   UriPattern,
   RequestParameter,
   RequestParameters,
-  StringRequestParameter
+  StringRequestParameter,
+  StringRequestParameterSlashes
 };
 
 enum MyEnum: string {
@@ -42,7 +43,10 @@ implements
       $param ==> shape('spec' => $param, 'optional' => false),
     )->toVector();
     $params[] = shape(
-      'spec' => new StringRequestParameter('MyOptionalParam'),
+      'spec' => new StringRequestParameter(
+        StringRequestParameterSlashes::WITHOUT_SLASHES,
+        'MyOptionalParam',
+      ),
       'optional' => true,
     );
     return $params->immutable();

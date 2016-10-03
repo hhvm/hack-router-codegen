@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4b9f9e5b8d6db09323e70c23fa5390f7",
-    "content-hash": "241b8e8a3b57c465a610c9b63316c666",
+    "hash": "a3090d4d8478985e99cf699601ef50bc",
+    "content-hash": "9d7cd49284989cb241347d07c622f9c3",
     "packages": [
         {
             "name": "facebook/hack-codegen",
@@ -139,16 +139,16 @@
         },
         {
             "name": "fredemmott/hack-router",
-            "version": "v1.0.0rc6",
+            "version": "v1.0.0rc7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fredemmott/hack-router.git",
-                "reference": "dad98c548619b07ef188e2ac5c874a3ef1fd2a98"
+                "reference": "3db07d70a54b9b9f0c827dbe3d371336865a4ccd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fredemmott/hack-router/zipball/dad98c548619b07ef188e2ac5c874a3ef1fd2a98",
-                "reference": "dad98c548619b07ef188e2ac5c874a3ef1fd2a98",
+                "url": "https://api.github.com/repos/fredemmott/hack-router/zipball/3db07d70a54b9b9f0c827dbe3d371336865a4ccd",
+                "reference": "3db07d70a54b9b9f0c827dbe3d371336865a4ccd",
                 "shasum": ""
             },
             "require": {
@@ -175,7 +175,7 @@
                 "router",
                 "routing"
             ],
-            "time": "2016-10-02 21:46:08"
+            "time": "2016-10-03 01:14:53"
         },
         {
             "name": "fredemmott/type-assert",
