@@ -42,6 +42,13 @@ abstract class RequestParametersCodegenBuilderBase<TBase> {
     return $this->getCodegenFile($path, $spec)->save();
   }
 
+  final public function setGeneratedFrom(
+    cg\CodegenGeneratedFrom $generated_from,
+  ): this {
+    $this->generatedFrom = $generated_from;
+    return $this;
+  }
+
   final private function getCodegenFile(
     string $path,
     self::TSpec $spec,
