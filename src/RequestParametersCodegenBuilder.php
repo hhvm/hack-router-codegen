@@ -68,6 +68,7 @@ extends RequestParametersCodegenBuilderBase<RequestParametersCodegenBase<T>> {
     $trait = (cg\codegen_trait($trait['name'])
       ->addMethod(cg\codegen_method($trait['method'])
         ->setIsFinal(true)
+        ->setProtected()
         ->setReturnType($spec['class']['name'])
         ->setBody($getTraitMethodBody($spec))
       )

@@ -16,7 +16,7 @@
  * /root/hackdev/hack-router-codegen/vendor/phpunit/phpunit/phpunit
  *
  *
- * @generated SignedSource<<95fae536da8c54e60261b1bc342d6aa1>>
+ * @generated SignedSource<<4039386318dd7e6e77e01e1a42eddaf0>>
  */
 namespace Facebook\HackRouter\CodeGen\Tests\Generated;
 
@@ -48,7 +48,8 @@ trait GetRequestExampleControllerParametersTrait {
 
   require extends \Facebook\HackRouter\CodeGen\Tests\WebController;
 
-  final public function getParameters(): GetRequestExampleControllerParameters {
+  final protected function getParameters(
+  ): GetRequestExampleControllerParameters {
     $params = $this->__getParametersImpl();
     return new GetRequestExampleControllerParameters($params);
   }
