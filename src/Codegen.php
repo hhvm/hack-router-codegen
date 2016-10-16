@@ -29,8 +29,8 @@ final class Codegen {
   );
 
   const type TUriBuilderCodegenConfig = shape(
-    'base_class' => ?classname<UriBuilderCodegenBase<UriBuilderBase>>,
-    'parameter_codegen_builder' => ?classname<RequestParameterCodegenBuilder>,
+    'baseClass' => ?classname<UriBuilderCodegenBase<UriBuilderBase>>,
+    'parameterCodegenBuilder' => ?classname<RequestParameterCodegenBuilder>,
     'output' =>
       (function(classname<IncludeInUriMap>): ?self::TUriBuilderOutput),
   );
@@ -47,10 +47,10 @@ final class Codegen {
   );
 
   const type TRequestParametersCodegenConfig = shape(
-    'get_parameters' => ?RequestParametersCodegenBuilder::TGetParameters,
-    'base_class' =>
+    'getParameters' => ?RequestParametersCodegenBuilder::TGetParameters,
+    'baseClass' =>
       ?classname<RequestParametersCodegenBase<RequestParametersBase>>,
-    'parameter_codegen_builder' => ?classname<RequestParameterCodegenBuilder>,
+    'parameterCodegenBuilder' => ?classname<RequestParameterCodegenBuilder>,
     'trait' => shape(
       'methodName' => string,
       'methodImplementation' =>
@@ -70,10 +70,10 @@ final class Codegen {
   );
 
   const type TCodegenConfig = shape(
-    'controller_base' => ?classname<IncludeInUriMap>,
+    'controllerBase' => ?classname<IncludeInUriMap>,
     'router' => ?self::TRouterCodegenConfig,
-    'uri_builders' => ?self::TUriBuilderCodegenConfig,
-    'request_parameters' => ?self::TRequestParametersCodegenConfig,
+    'uriBuilders' => ?self::TUriBuilderCodegenConfig,
+    'requestParameters' => ?self::TRequestParametersCodegenConfig,
   );
 
   public static function forTree(
@@ -97,7 +97,7 @@ final class Codegen {
     private self::TCodegenConfig $config,
   ) {
     $this->controllerBase =
-      $config['controller_base'] ?? IncludeInUriMap::class;
+      $config['controllerBase'] ?? IncludeInUriMap::class;
     $this->controllerFacts = (new ControllerFacts(
       $this->controllerBase,
       new ClassFacts($parser),
@@ -122,12 +122,12 @@ final class Codegen {
   }
 
   private function buildUriBuilders(): void {
-    $config = Shapes::idx($this->config, 'uri_builders');
+    $config = Shapes::idx($this->config, 'uriBuilders');
     if ($config === null) {
       return;
     }
-    $base = $config['base_class'] ?? UriBuilderCodegen::class;
-    $param_builder = $config['parameter_codegen_builder']
+    $base = $config['baseClass'] ?? UriBuilderCodegen::class;
+    $param_builder = $config['parameterCodegenBuilder']
       ?? RequestParameterCodegenBuilder::class;
     $get_output = $config['output'];
     $builder = new UriBuilderCodegenBuilder($base, $param_builder);
@@ -152,15 +152,15 @@ final class Codegen {
   }
 
   private function buildRequestParameters(): void {
-    $config = Shapes::idx($this->config, 'request_parameters');
+    $config = Shapes::idx($this->config, 'requestParameters');
     if ($config === null) {
       return;
     }
-    $base = $config['base_class'] ?? RequestParametersCodegen::class;
-    $param_builder = $config['parameter_codegen_builder']
+    $base = $config['baseClass'] ?? RequestParametersCodegen::class;
+    $param_builder = $config['parameterCodegenBuilder']
       ?? RequestParameterCodegenBuilder::class;
     $get_output = $config['output'];
-    $get_parameters = $config['get_parameters'] ?? (
+    $getParameters = $config['getParameters'] ?? (
       (classname<HasUriPattern> $class) ==>
         $class::getUriPattern()->getParameters()->map(
           $param ==> shape('spec' => $param, 'optional' => false),
@@ -169,7 +169,7 @@ final class Codegen {
     $get_trait_impl = $config['trait']['methodImplementation'];
 
     $builder = new RequestParametersCodegenBuilder(
-      $get_parameters,
+      $getParameters,
       $config['trait']['methodImplementation'],
       $base,
       $param_builder,
