@@ -13,6 +13,11 @@
         "91carriage/phpunit-hhi": "^5.5",
         "phpunit/phpunit": "^5.5"
     },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.x-dev"
+        }
+    },
     "autoload": {
       "classmap": [ "src/" ]
     },
