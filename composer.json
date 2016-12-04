@@ -7,7 +7,7 @@
         "fredemmott/hack-router": "^1.0.0rc7",
         "facebook/hack-codegen": "^1.1",
         "fredemmott/definition-finder": "^1.3.0",
-        "fredemmott/type-assert": "^0.2.0"
+        "fredemmott/type-assert": "^0.2.0 || ^1.0"
     },
     "require-dev": {
         "91carriage/phpunit-hhi": "^5.5",
