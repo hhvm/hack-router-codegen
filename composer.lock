@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "facebook/definition-finder",
-            "version": "v1.4.3",
+            "version": "v1.4.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hhvm/definition-finder.git",
-                "reference": "d6c516de2b5a19d92dc9ba8267d2ec24eb165051"
+                "reference": "9bd4c5bc3fb0ffe040903b212342be6a4d5cbbd4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hhvm/definition-finder/zipball/d6c516de2b5a19d92dc9ba8267d2ec24eb165051",
-                "reference": "d6c516de2b5a19d92dc9ba8267d2ec24eb165051",
+                "url": "https://api.github.com/repos/hhvm/definition-finder/zipball/9bd4c5bc3fb0ffe040903b212342be6a4d5cbbd4",
+                "reference": "9bd4c5bc3fb0ffe040903b212342be6a4d5cbbd4",
                 "shasum": ""
             },
             "require": {
@@ -38,31 +38,28 @@
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
             "description": "Find definitions in PHP or Hack files. Useful for autoloaders.",
-            "homepage": "https://github.com/fredemmott/definitions-finder",
+            "homepage": "https://github.com/hhvm/definitions-finder",
             "keywords": [
                 "autoload",
                 "definitions",
                 "hack",
                 "hhvm"
             ],
-            "time": "2017-02-08T03:50:07+00:00"
+            "time": "2017-02-15T01:01:26+00:00"
         },
         {
             "name": "facebook/hack-codegen",
-            "version": "v1.1.4",
+            "version": "v1.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hhvm/hack-codegen.git",
-                "reference": "7e38b8443180a1d62f9ec80f8969b73179813ad9"
+                "reference": "9cbaa5757b842d7ed25a03328d437359362d53ee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hhvm/hack-codegen/zipball/7e38b8443180a1d62f9ec80f8969b73179813ad9",
-                "reference": "7e38b8443180a1d62f9ec80f8969b73179813ad9",
+                "url": "https://api.github.com/repos/hhvm/hack-codegen/zipball/9cbaa5757b842d7ed25a03328d437359362d53ee",
+                "reference": "9cbaa5757b842d7ed25a03328d437359362d53ee",
                 "shasum": ""
             },
             "require": {
@@ -133,20 +130,20 @@
                 "code generation",
                 "hack"
             ],
-            "time": "2016-09-27T01:17:53+00:00"
+            "time": "2017-02-15T02:23:04+00:00"
         },
         {
             "name": "facebook/hack-router",
-            "version": "v1.0.0rc7",
+            "version": "v1.0.0rc8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hhvm/hack-router.git",
-                "reference": "b39eb1d64e580101de686ea7110e2415d2366307"
+                "reference": "d9cf3ef612e4218d14a2651517cbacc0352532e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hhvm/hack-router/zipball/b39eb1d64e580101de686ea7110e2415d2366307",
-                "reference": "b39eb1d64e580101de686ea7110e2415d2366307",
+                "url": "https://api.github.com/repos/hhvm/hack-router/zipball/d9cf3ef612e4218d14a2651517cbacc0352532e6",
+                "reference": "d9cf3ef612e4218d14a2651517cbacc0352532e6",
                 "shasum": ""
             },
             "require": {
@@ -178,20 +175,20 @@
                 "router",
                 "routing"
             ],
-            "time": "2017-02-15T01:16:58+00:00"
+            "time": "2017-02-15T01:38:10+00:00"
         },
         {
             "name": "fredemmott/type-assert",
-            "version": "v1.0",
+            "version": "v1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fredemmott/type-assert.git",
-                "reference": "4b6ccc8b6abb503308472c440f30a3e2d5e5d2e0"
+                "reference": "38460b438ca85701585abe471d944c678d242847"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fredemmott/type-assert/zipball/4b6ccc8b6abb503308472c440f30a3e2d5e5d2e0",
-                "reference": "4b6ccc8b6abb503308472c440f30a3e2d5e5d2e0",
+                "url": "https://api.github.com/repos/fredemmott/type-assert/zipball/38460b438ca85701585abe471d944c678d242847",
+                "reference": "38460b438ca85701585abe471d944c678d242847",
                 "shasum": ""
             },
             "require": {
@@ -216,7 +213,7 @@
                 "TypeAssert",
                 "hack"
             ],
-            "time": "2016-12-04T19:05:17+00:00"
+            "time": "2017-02-15T02:26:23+00:00"
         },
         {
             "name": "hack-psr/psr7-http-message-hhi",
