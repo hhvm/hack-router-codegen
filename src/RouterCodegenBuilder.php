@@ -11,18 +11,28 @@
 
 namespace Facebook\HackRouter;
 
-use \Facebook\HackCodegen as cg;
+use \Facebook\HackCodegen\{
+  CodegenClass,
+  CodegenFile,
+  CodegenFileResult,
+  CodegenFileType,
+  CodegenGeneratedFrom,
+  HackBuilderKeys,
+  HackBuilderValues,
+  HackCodegenFactory
+};
 use \Facebook\DefinitionFinder\BaseParser;
 
 final class RouterCodegenBuilder<T as IncludeInUriMap> {
-  private cg\CodegenGeneratedFrom $generatedFrom;
+  private CodegenGeneratedFrom $generatedFrom;
   private bool $createAbstract = false;
 
   public function __construct(
     private classname<T> $responderClass,
     private ImmMap<HttpMethod, ImmMap<string, classname<T>>> $uriMap,
+    private HackCodegenFactory $cg,
   ) {
-    $this->generatedFrom = cg\codegen_generated_from_script();
+    $this->generatedFrom = $cg->codegenGeneratedFromScript();
   }
 
   public function setCreateAbstractClass(bool $abstract): this {
@@ -31,7 +41,7 @@ final class RouterCodegenBuilder<T as IncludeInUriMap> {
   }
 
   public function setGeneratedFrom(
-    cg\CodegenGeneratedFrom $generated_from,
+    CodegenGeneratedFrom $generated_from,
   ): this {
     $this->generatedFrom = $generated_from;
     return $this;
@@ -41,7 +51,7 @@ final class RouterCodegenBuilder<T as IncludeInUriMap> {
     string $path,
     ?string $namespace,
     string $classname,
-  ): cg\CodegenFileResult {
+  ): CodegenFileResult {
     return $this->getCodegenFile($path, $namespace, $classname)->save();
   }
 
@@ -50,9 +60,9 @@ final class RouterCodegenBuilder<T as IncludeInUriMap> {
     string $path,
     ?string $namespace,
     string $classname,
-  ): cg\CodegenFile{
-    $file = cg\codegen_file($path)
-      ->setFileType(cg\CodegenFileType::HACK_STRICT)
+  ): CodegenFile{
+    $file = $this->cg->codegenFile($path)
+      ->setFileType(CodegenFileType::HACK_STRICT)
       ->setGeneratedFrom($this->generatedFrom)
       ->addClass($this->getCodegenClass($classname));
     if ($namespace !== null) {
@@ -63,18 +73,18 @@ final class RouterCodegenBuilder<T as IncludeInUriMap> {
 
   private function getCodegenClass(
     string $classname,
-  ): cg\CodegenClass{
-    $class = (cg\codegen_class($classname)
+  ): CodegenClass{
+    $class = ($this->cg->codegenClass($classname)
       ->setExtends(sprintf(
         "\\%s<classname<\\%s>>",
         BaseRouter::class,
         $this->responderClass,
       ))
       ->addMethod(
-        cg\codegen_method('getRoutes')
+        $this->cg->codegenMethod('getRoutes')
           ->setIsFinal(true)
           ->setIsOverride(true)
-          ->setReturnType(
+          ->setReturnTypef(
             'ImmMap<\\%s, ImmMap<string, classname<\\%s>>>',
             HttpMethod::class,
             $this->responderClass,
@@ -91,29 +101,25 @@ final class RouterCodegenBuilder<T as IncludeInUriMap> {
 
   private function getUriMapBody(): string {
     $map = $this->uriMap;
-    $body = cg\hack_builder();
     $parts = Map { };
     foreach ($map as $method => $routes) {
-      $sub_map = cg\hack_builder()
-        ->addImmMap(
-          $routes->map($class ==> '\\'.$class.'::class'),
-          cg\HackBuilderKeys::EXPORT,
-          cg\HackBuilderValues::LITERAL,
-        )
-        ->getCode();
-      $var = '$'.strtolower($method);
-      $body->addAssignment($var, $sub_map);
-      $parts["\\".HttpMethod::class.'::'.$method] = $var;
+      $parts["\\".HttpMethod::class.'::'.$method] = $routes;
     }
+    $parts = $parts->immutable();
 
-    $map = cg\hack_builder()
-      ->addImmMap(
-        $parts->immutable(),
-        cg\HackBuilderKeys::LITERAL,
-        cg\HackBuilderValues::LITERAL,
+    return $this->cg->codegenHackBuilder()
+      ->addAssignment(
+        '$map',
+        $parts,
+        HackBuilderValues::immMap(
+          HackBuilderKeys::literal(),
+          HackBuilderValues::immMap(
+            HackBuilderKeys::export(),
+            HackBuilderValues::classname(),
+          ),
+        ),
       )
+      ->addReturn('$map')
       ->getCode();
-    $body->addReturn('%s', $map);
-    return $body->getCode();
   }
 }

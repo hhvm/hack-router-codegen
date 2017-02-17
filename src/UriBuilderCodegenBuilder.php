@@ -11,50 +11,57 @@
 
 namespace Facebook\HackRouter;
 
-use \Facebook\HackCodegen as cg;
+use \Facebook\HackCodegen\{
+  CodegenClass,
+  CodegenTrait,
+  HackBuilderValues,
+  HackCodegenFactory
+};
 
 final class UriBuilderCodegenBuilder<T as UriBuilderBase>
 extends RequestParametersCodegenBuilderBase<UriBuilderCodegenBase<T>> {
   <<__Override>>
-  protected function getCodegenClass(self::TSpec $spec): cg\CodegenClass {
+  protected function getCodegenClass(self::TSpec $spec): CodegenClass {
     $param_builder = $this->parameterBuilder;
     $controller = $spec['controller'];
 
-    $common = cg\codegen_class($spec['class']['name'])
+    $common = $this->cg->codegenClass($spec['class']['name'])
       ->addConst(
         sprintf("classname<\\%s> CONTROLLER", HasUriPattern::class),
-        sprintf("\\%s::class", $controller),
+        $controller,
         /* comment = */ null,
-        cg\HackBuilderValues::LITERAL,
+        HackBuilderValues::classname(),
       )
       ->setIsFinal(true)
       ->setExtends("\\".$this->base);
 
     $pattern = $controller::getUriPattern();
     foreach ($pattern->getParameters() as $parameter) {
-      $common->addMethod($param_builder::getSetter($parameter));
+      $common->addMethod($param_builder->getSetter($parameter));
     }
 
     return $common;
   }
 
   <<__Override>>
-  protected function getCodegenTrait(self::TSpec $spec): cg\CodegenTrait {
+  protected function getCodegenTrait(self::TSpec $spec): CodegenTrait {
     $trait = Shapes::idx($spec, 'trait');
     invariant(
       $trait !== null,
       "Can't codegen a trait without a trait spec",
     );
     $class = $spec['class']['name'];
-    return cg\codegen_trait($trait['name'])
+
+    $cg = $this->cg;
+    return $cg->codegenTrait($trait['name'])
       ->addMethod(
-        cg\codegen_method($trait['method'])
+        $cg->codegenMethod($trait['method'])
           ->setIsFinal(true)
           ->setIsStatic(true)
           ->setReturnType($class)
           ->setBody(
-            cg\hack_builder()
-              ->addReturn('new %s()', $class)
+            $cg->codegenHackBuilder()
+              ->addReturnf('new %s()', $class)
               ->getCode()
           )
       );

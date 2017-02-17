@@ -2,10 +2,11 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * To re-generate this file run vendor/phpunit/phpunit/phpunit
+ * To re-generate this file run
+ * /Users/fred/code/hack-router-codegen/vendor/phpunit/phpunit/phpunit
  *
  *
- * @generated SignedSource<<c4e185b063d3f7747c5d3cabf1451922>>
+ * @generated SignedSource<<294f395a99462244d5a8e44eea0e061d>>
  */
 namespace Facebook\HackRouter\CodeGen\Tests\Generated;
 
@@ -15,12 +16,12 @@ final class MySiteRouter
   <<__Override>>
   final public function getRoutes(
   ): ImmMap<\Facebook\HackRouter\HttpMethod, ImmMap<string, classname<\Facebook\HackRouter\CodeGen\Tests\GetRequestExampleController>>> {
-    $get = ImmMap {
-      '/{MyString}/{MyInt:\\d+}/{MyEnum:(?:bar|derp)}' =>
-        \Facebook\HackRouter\CodeGen\Tests\GetRequestExampleController::class,
+    $map = ImmMap {
+      \Facebook\HackRouter\HttpMethod::GET => ImmMap {
+        '/{MyString}/{MyInt:\\d+}/{MyEnum:(?:bar|derp)}' =>
+          \Facebook\HackRouter\CodeGen\Tests\GetRequestExampleController::class,
+      },
     };
-    return ImmMap {
-      \Facebook\HackRouter\HttpMethod::GET => $get,
-    };
+    return $map;
   }
 }

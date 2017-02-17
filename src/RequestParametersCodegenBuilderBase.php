@@ -11,7 +11,15 @@
 
 namespace Facebook\HackRouter;
 
-use \Facebook\HackCodegen as cg;
+use \Facebook\HackCodegen\{
+  CodegenClass,
+  CodegenFile,
+  CodegenFileResult,
+  CodegenFileType,
+  CodegenTrait,
+  CodegenGeneratedFrom,
+  HackCodegenFactory
+};
 
 abstract class RequestParametersCodegenBuilderBase<TBase> {
   const type TTraitSpec = shape(
@@ -27,23 +35,25 @@ abstract class RequestParametersCodegenBuilderBase<TBase> {
     'trait' => ?self::TTraitSpec,
   );
 
-  protected cg\CodegenGeneratedFrom $generatedFrom;
+  protected CodegenGeneratedFrom $generatedFrom;
+
   public function __construct(
     protected classname<TBase> $base,
-    protected classname<RequestParameterCodegenBuilder> $parameterBuilder,
+    protected RequestParameterCodegenBuilder $parameterBuilder,
+    protected HackCodegenFactory $cg,
   ) {
-    $this->generatedFrom = cg\codegen_generated_from_script();
+    $this->generatedFrom = $cg->codegenGeneratedFromScript();
   }
 
   final public function renderToFile(
     string $path,
     self::TSpec $spec,
-  ): cg\CodegenFileResult {
+  ): CodegenFileResult {
     return $this->getCodegenFile($path, $spec)->save();
   }
 
   final public function setGeneratedFrom(
-    cg\CodegenGeneratedFrom $generated_from,
+    CodegenGeneratedFrom $generated_from,
   ): this {
     $this->generatedFrom = $generated_from;
     return $this;
@@ -52,9 +62,9 @@ abstract class RequestParametersCodegenBuilderBase<TBase> {
   final private function getCodegenFile(
     string $path,
     self::TSpec $spec,
-  ): cg\CodegenFile {
-    $file = (cg\codegen_file($path)
-      ->setFileType(cg\CodegenFileType::HACK_STRICT)
+  ): CodegenFile {
+    $file = ($this->cg->codegenFile($path)
+      ->setFileType(CodegenFileType::HACK_STRICT)
       ->setGeneratedFrom($this->generatedFrom)
       ->addClass($this->getCodegenClass($spec))
     );
@@ -70,9 +80,9 @@ abstract class RequestParametersCodegenBuilderBase<TBase> {
 
   protected abstract function getCodegenClass(
     self::TSpec $spec,
-  ): cg\CodegenClass;
+  ): CodegenClass;
 
   protected abstract function getCodegenTrait(
     self::TSpec $spec,
-  ): cg\CodegenTrait;
+  ): CodegenTrait;
 }

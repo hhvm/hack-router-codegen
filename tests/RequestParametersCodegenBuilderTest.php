@@ -12,6 +12,7 @@
 namespace Facebook\HackRouter;
 
 use \Facebook\DefinitionFinder\FileParser;
+use \Facebook\HackCodegen\HackBuilderValues;
 use \Facebook\HackRouter\HttpMethod;
 use \Facebook\HackRouter\CodeGen\Tests\GetRequestExampleController;
 use \Facebook\HackRouter\CodeGen\Tests\Generated\{
@@ -21,9 +22,7 @@ use \Facebook\HackRouter\CodeGen\Tests\Generated\{
 use \Facebook\HackRouter\CodeGen\Tests\WebController;
 use \FredEmmott\TypeAssert\TypeAssert;
 
-use \Facebook\HackCodegen as cg;
-
-final class RequestParametersCodegenBuilderTest extends \PHPUnit_Framework_TestCase {
+final class RequestParametersCodegenBuilderTest extends BaseCodegenTestCase {
   use TestTypechecksTestTrait;
 
   const string CODEGEN_CLASS = 'GetRequestExampleControllerParameters';
@@ -40,19 +39,21 @@ final class RequestParametersCodegenBuilderTest extends \PHPUnit_Framework_TestC
         );
         return $class::__getParametersSpec();
       },
-      $spec ==> (cg\hack_builder()
+      $spec ==> ($this->getCodegenFactory()->codegenHackBuilder()
         ->addAssignment(
           '$params',
           '$this->__getParametersImpl()',
+          HackBuilderValues::literal(),
         )
-        ->addReturn(
+        ->addReturnf(
           'new %s($params)',
           $spec['class']['name'],
         )
         ->getCode()
       ),
       RequestParametersCodegen::class,
-      RequestParameterCodegenBuilder::class,
+      new RequestParameterCodegenBuilder($this->getCodegenConfig()),
+      $this->getCodegenFactory(),
     ))
     ->traitRequireExtends(
       \Facebook\HackRouter\CodeGen\Tests\WebController::class

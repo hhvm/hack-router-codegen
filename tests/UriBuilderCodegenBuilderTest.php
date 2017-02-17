@@ -16,7 +16,7 @@ use \Facebook\HackRouter\HttpMethod;
 use \Facebook\HackRouter\CodeGen\Tests\GetRequestExampleController;
 use \Facebook\HackRouter\CodeGen\Tests\Generated\GetRequestExampleControllerUriBuilder;
 
-final class UriBuilderCodegenBuilderTest extends \PHPUnit_Framework_TestCase {
+final class UriBuilderCodegenBuilderTest extends BaseCodegenTestCase {
   use TestTypechecksTestTrait;
 
   const string CODEGEN_CLASS = 'GetRequestExampleControllerUriBuilder';
@@ -26,7 +26,8 @@ final class UriBuilderCodegenBuilderTest extends \PHPUnit_Framework_TestCase {
   private function getBuilder(): UriBuilderCodegenBuilder<UriBuilder> {
     return new UriBuilderCodegenBuilder(
       UriBuilderCodegen::class,
-      RequestParameterCodegenBuilder::class,
+      new RequestParameterCodegenBuilder($this->getCodegenConfig()),
+      $this->getCodegenFactory(),
     );
   }
 

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "9f03c93e39222642491f43f322ec922f",
+    "content-hash": "ea9a9d777aa8a50ba9a8e6430e9be7bc",
     "packages": [
         {
             "name": "facebook/definition-finder",
@@ -50,60 +50,35 @@
         },
         {
             "name": "facebook/hack-codegen",
-            "version": "v1.1.5",
+            "version": "v2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hhvm/hack-codegen.git",
-                "reference": "9cbaa5757b842d7ed25a03328d437359362d53ee"
+                "reference": "0baa1ec909167423d2c5c458e0d5b7d787692abd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hhvm/hack-codegen/zipball/9cbaa5757b842d7ed25a03328d437359362d53ee",
-                "reference": "9cbaa5757b842d7ed25a03328d437359362d53ee",
+                "url": "https://api.github.com/repos/hhvm/hack-codegen/zipball/0baa1ec909167423d2c5c458e0d5b7d787692abd",
+                "reference": "0baa1ec909167423d2c5c458e0d5b7d787692abd",
                 "shasum": ""
             },
             "require": {
-                "hhvm": "*"
+                "hhvm": "^3.12"
+            },
+            "require-dev": {
+                "91carriage/phpunit-hhi": "^5.6",
+                "fredemmott/type-assert": "^1.0",
+                "phpunit/phpunit": "^5.7"
             },
             "type": "library",
             "autoload": {
+                "classmap": [
+                    "lib/",
+                    "src/"
+                ],
                 "files": [
-                    "lib/utils.php",
-                    "lib/Str.php",
-                    "lib/StrBuffer.php",
-                    "lib/Filesystem.php",
-                    "src/SignedSourceBase.php",
-                    "src/SignedSource.php",
-                    "src/PartiallyGeneratedSignedSource.php",
-                    "src/PartiallyGeneratedCode.php",
-                    "src/HackBuilderKeys.php",
-                    "src/HackBuilderValues.php",
-                    "src/IHackCodegenConfig.php",
-                    "src/HackCodegenConfig.php",
-                    "src/CodegenWithVisibility.php",
-                    "src/ICodeBuilderRenderer.php",
-                    "src/ICodeBuilder.php",
-                    "src/HackBuilderRenderer.php",
-                    "src/BaseCodeBuilder.php",
-                    "src/HackBuilder.php",
-                    "src/ICodegenFormatter.php",
-                    "src/CodegenClassBase.php",
-                    "src/CodegenClass.php",
-                    "src/CodegenFunctionBase.php",
-                    "src/CodegenMethodBase.php",
-                    "src/CodegenConstructor.php",
-                    "src/CodegenEnum.php",
-                    "src/CodegenFile.php",
-                    "src/CodegenFunction.php",
-                    "src/CodegenGeneratedFrom.php",
-                    "src/CodegenImplementsInterface.php",
-                    "src/CodegenInterface.php",
-                    "src/CodegenMemberVar.php",
-                    "src/CodegenMethod.php",
-                    "src/CodegenShape.php",
-                    "src/CodegenTrait.php",
-                    "src/CodegenType.php",
-                    "src/CodegenUsesTrait.php"
+                    "lib/typedefs.php",
+                    "lib/utils.php"
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -123,6 +98,10 @@
                 {
                     "name": "Matthieu Martin",
                     "role": "Developer"
+                },
+                {
+                    "name": "Fred Emmott",
+                    "role": "Developer"
                 }
             ],
             "description": "Hack Codegen is a library for programatically generating Hack code",
@@ -130,7 +109,7 @@
                 "code generation",
                 "hack"
             ],
-            "time": "2017-02-15T02:23:04+00:00"
+            "time": "2017-02-15T02:32:57+00:00"
         },
         {
             "name": "facebook/hack-router",

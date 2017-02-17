@@ -11,8 +11,6 @@
 
 namespace Facebook\HackRouter;
 
-use \Facebook\HackCodegen as cg;
-
 final class UriParameterCodegenArgumentSpec {
   const type TRenderer = (function(RequestParameter,?string):string);
 
@@ -31,9 +29,7 @@ final class UriParameterCodegenArgumentSpec {
 
   public static function ParameterName(): this {
     return new self(
-      ($param, $_value) ==> cg\hack_builder()
-        ->addVarExport($param->getName())
-        ->getCode(),
+      ($param, $_value) ==> var_export($param->getName(), true),
     );
   }
 

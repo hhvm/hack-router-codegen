@@ -11,7 +11,12 @@
 
 namespace Facebook\HackRouter;
 
-use Facebook\HackCodegen as cg;
+use Facebook\HackCodegen\{
+  CodegenClass,
+  CodegenTrait,
+  CodegenMethod,
+  HackCodegenFactory
+};
 use Facebook\HackRouter\PrivateImpl\RequestParameterRequirementState;
 
 final class RequestParametersCodegenBuilder<T as RequestParametersBase>
@@ -30,22 +35,23 @@ extends RequestParametersCodegenBuilderBase<RequestParametersCodegenBase<T>> {
     private self::TGetParameters $getParameters,
     private self::TGetTraitMethodBody $getTraitMethodBody,
     classname<RequestParametersCodegenBase<T>> $base,
-    classname<RequestParameterCodegenBuilder> $parameterBuilder,
+    RequestParameterCodegenBuilder $parameterBuilder,
+    HackCodegenFactory $cg,
   ) {
-    parent::__construct($base, $parameterBuilder);
+    parent::__construct($base, $parameterBuilder, $cg);
   }
 
   <<__Override>>
-  protected function getCodegenClass(self::TSpec $spec): cg\CodegenClass {
+  protected function getCodegenClass(self::TSpec $spec): CodegenClass {
     $param_builder = $this->parameterBuilder;
     $controller = $spec['controller'];
 
-    $common = cg\codegen_class($spec['class']['name'])
+    $common = $this->cg->codegenClass($spec['class']['name'])
       ->setExtends("\\".$this->base);
 
     $getParameters = $this->getParameters;
     foreach ($getParameters($controller) as $parameter) {
-      $common->addMethod($param_builder::getGetter(
+      $common->addMethod($param_builder->getGetter(
         $parameter['spec'],
         $parameter['optional']
           ? RequestParameterRequirementState::IS_OPTIONAL
@@ -57,7 +63,7 @@ extends RequestParametersCodegenBuilderBase<RequestParametersCodegenBase<T>> {
   }
 
   <<__Override>>
-  protected function getCodegenTrait(self::TSpec $spec): cg\CodegenTrait {
+  protected function getCodegenTrait(self::TSpec $spec): CodegenTrait {
     $trait = Shapes::idx($spec, 'trait');
     invariant(
       $trait !== null,
@@ -65,8 +71,8 @@ extends RequestParametersCodegenBuilderBase<RequestParametersCodegenBase<T>> {
     );
 
     $getTraitMethodBody = $this->getTraitMethodBody;
-    $trait = (cg\codegen_trait($trait['name'])
-      ->addMethod(cg\codegen_method($trait['method'])
+    $trait = ($this->cg->codegenTrait($trait['name'])
+      ->addMethod($this->cg->codegenMethod($trait['method'])
         ->setIsFinal(true)
         ->setProtected()
         ->setReturnType($spec['class']['name'])

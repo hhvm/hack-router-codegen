@@ -12,9 +12,22 @@
 namespace Facebook\HackRouter;
 
 use Facebook\HackRouter\PrivateImpl\RequestParameterRequirementState;
-use Facebook\HackCodegen as cg;
 
-abstract class RequestParameterCodegenBuilder {
+use Facebook\HackCodegen\{
+  IHackCodegenConfig,
+  HackCodegenFactory,
+  CodegenMethod
+};
+
+class RequestParameterCodegenBuilder {
+  protected HackCodegenFactory $cg;
+
+  public function __construct(
+    IHackCodegenConfig $config,
+  ) {
+    $this->cg = new HackCodegenFactory($config);
+  }
+
   protected static function getParameterSpecs(
   ): ImmMap<
     classname<RequestParameter>,
@@ -27,10 +40,10 @@ abstract class RequestParameterCodegenBuilder {
     };
   }
 
-  final public static function getGetter(
+  public function getGetter(
     RequestParameter $param,
     RequestParameterRequirementState $required,
-  ): cg\CodegenMethod {
+  ): CodegenMethod {
     $spec = self::getRequestSpec($param);
     $spec = $spec::getGetterSpec($param);
 
@@ -42,11 +55,11 @@ abstract class RequestParameterCodegenBuilder {
       $method = 'getOptional'.$spec['accessorSuffix'];
     }
 
-    return cg\codegen_method('get'.$param->getName())
+    return $this->cg->codegenMethod('get'.$param->getName())
       ->setIsFinal(true)
       ->setReturnType($type)
       ->setBody(
-        cg\hack_builder()
+        $this->cg->codegenHackBuilder()
           ->add('return ')
           ->addMultilineCall(
             '$this->getParameters()->'.$method,
@@ -56,22 +69,23 @@ abstract class RequestParameterCodegenBuilder {
       );
   }
 
-  final public static function getSetter(
+  public function getSetter(
     UriParameter $param,
-  ): cg\CodegenMethod {
+  ): CodegenMethod {
     $spec = self::getUriSpec($param);
     $spec = $spec::getSetterSpec($param);
 
     $value_var = '$value';
 
-    return cg\codegen_method('set'.$param->getName())
+    $cg = $this->cg;
+    return $cg->codegenMethod('set'.$param->getName())
       ->setParameters(Vector {
         $spec['type'].' '.$value_var,
       })
       ->setIsFinal(true)
       ->setReturnType('this')
       ->setBody(
-        cg\hack_builder()
+        $cg->codegenHackBuilder()
           ->addMultilineCall(
             '$this->getBuilder()->set'.$spec['accessorSuffix'],
             $spec['args']->map(
@@ -83,7 +97,7 @@ abstract class RequestParameterCodegenBuilder {
       );
   }
 
-  final private static function getRequestSpec(
+  final protected static function getRequestSpec(
     RequestParameter $param,
   ): classname<RequestParameterCodegenSpec> {
     $specs = self::getParameterSpecs();
@@ -96,7 +110,7 @@ abstract class RequestParameterCodegenBuilder {
     return $specs->at($type);
   }
 
-  final private static function getUriSpec(
+  final protected static function getUriSpec(
     UriParameter $param,
   ): classname<UriParameterCodegenSpec> {
     $spec = self::getRequestSpec($param);

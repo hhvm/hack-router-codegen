@@ -22,7 +22,7 @@ use \Facebook\HackRouter\PrivateImpl\{
   ControllerFacts
 };
 
-final class RouterCodegenBuilderTest extends \PHPUnit_Framework_TestCase {
+final class RouterCodegenBuilderTest extends BaseCodegenTestCase {
   use InvokePrivateTestTrait;
   use TestTypechecksTestTrait;
 
@@ -43,6 +43,7 @@ final class RouterCodegenBuilderTest extends \PHPUnit_Framework_TestCase {
     $router_builder = new RouterCodegenBuilder(
       GetRequestExampleController::class,
       $uri_map_builder->getUriMap(),
+      $this->getCodegenFactory(),
     );
     return $router_builder;
   }
@@ -85,7 +86,7 @@ final class RouterCodegenBuilderTest extends \PHPUnit_Framework_TestCase {
   public function testOverriddenGeneratedFrom(): void {
     $code = $this->renderToString(
       $this->getBuilder()->setGeneratedFrom(
-        \Facebook\HackCodegen\codegen_generated_from_class(self::class)
+        $this->getCodegenFactory()->codegenGeneratedFromClass(self::class),
       ),
     );
     $this->assertContains(

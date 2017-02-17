@@ -11,8 +11,12 @@
 
 namespace Facebook\HackRouter;
 
-use Facebook\HackCodegen\CodegenGeneratedFrom;
-use Facebook\HackCodegen as cg;
+use Facebook\HackCodegen\{
+  CodegenGeneratedFrom,
+  IHackCodegenConfig,
+  HackCodegenConfig,
+  HackCodegenFactory
+};
 use Facebook\DefinitionFinder\BaseParser;
 use Facebook\DefinitionFinder\TreeParser;
 use Facebook\HackRouter\PrivateImpl\{ClassFacts, ControllerFacts};
@@ -32,7 +36,7 @@ final class Codegen {
 
   const type TUriBuilderCodegenConfig = shape(
     'baseClass' => ?classname<UriBuilderCodegenBase<UriBuilderBase>>,
-    'parameterCodegenBuilder' => ?classname<RequestParameterCodegenBuilder>,
+    'parameterCodegenBuilder' => ?RequestParameterCodegenBuilder,
     'output' =>
       (function(classname<IncludeInUriMap>): ?self::TUriBuilderOutput),
   );
@@ -52,7 +56,7 @@ final class Codegen {
     'getParameters' => ?RequestParametersCodegenBuilder::TGetParameters,
     'baseClass' =>
       ?classname<RequestParametersCodegenBase<RequestParametersBase>>,
-    'parameterCodegenBuilder' => ?classname<RequestParameterCodegenBuilder>,
+    'parameterCodegenBuilder' => ?RequestParameterCodegenBuilder,
     'trait' => shape(
       'methodName' => string,
       'methodImplementation' =>
@@ -72,6 +76,7 @@ final class Codegen {
   );
 
   const type TCodegenConfig = shape(
+    'hackCodegenConfig' => ?IHackCodegenConfig,
     'controllerBase' => ?classname<IncludeInUriMap>,
     'generatedFrom' => ?CodegenGeneratedFrom,
     'router' => ?self::TRouterCodegenConfig,
@@ -88,7 +93,8 @@ final class Codegen {
 
   <<__Memoize>>
   private function getGeneratedFrom(): CodegenGeneratedFrom {
-    return $this->config['generatedFrom'] ?? cg\codegen_generated_from_script();
+    return $this->config['generatedFrom']
+      ?? $this->cg->codegenGeneratedFromScript();
   }
 
   public function build(): void {
@@ -99,6 +105,8 @@ final class Codegen {
 
   private ControllerFacts<IncludeInUriMap> $controllerFacts;
   private classname<IncludeInUriMap> $controllerBase;
+  private HackCodegenFactory $cg;
+  private IHackCodegenConfig $cgConfig;
 
   private function __construct(
     BaseParser $parser,
@@ -110,6 +118,10 @@ final class Codegen {
       $this->controllerBase,
       new ClassFacts($parser),
     ));
+    $codegen_config = $config['hackCodegenConfig'] ??
+      new HackCodegenConfig();
+    $this->cgConfig = $codegen_config;
+    $this->cg = new HackCodegenFactory($codegen_config);
   }
 
   private function buildRouter(): void {
@@ -120,7 +132,7 @@ final class Codegen {
 
     $uri_map = (new UriMapBuilder($this->controllerFacts))->getUriMap();
 
-    (new RouterCodegenBuilder($this->controllerBase, $uri_map))
+    (new RouterCodegenBuilder($this->controllerBase, $uri_map, $this->cg))
       ->setCreateAbstractClass($config['abstract'])
       ->setGeneratedFrom($this->getGeneratedFrom())
       ->renderToFile(
@@ -137,9 +149,9 @@ final class Codegen {
     }
     $base = $config['baseClass'] ?? UriBuilderCodegen::class;
     $param_builder = $config['parameterCodegenBuilder']
-      ?? RequestParameterCodegenBuilder::class;
+      ?? new RequestParameterCodegenBuilder($this->cgConfig);
     $get_output = $config['output'];
-    $builder = (new UriBuilderCodegenBuilder($base, $param_builder))
+    $builder = (new UriBuilderCodegenBuilder($base, $param_builder, $this->cg))
       ->setGeneratedFrom($this->getGeneratedFrom());
 
     $controllers = $this->controllerFacts->getControllers()->keys();
@@ -168,7 +180,7 @@ final class Codegen {
     }
     $base = $config['baseClass'] ?? RequestParametersCodegen::class;
     $param_builder = $config['parameterCodegenBuilder']
-      ?? RequestParameterCodegenBuilder::class;
+      ?? new RequestParameterCodegenBuilder($this->cgConfig);
     $get_output = $config['output'];
     $getParameters = $config['getParameters'] ?? (
       (classname<HasUriPattern> $class) ==>
@@ -183,6 +195,7 @@ final class Codegen {
       $config['trait']['methodImplementation'],
       $base,
       $param_builder,
+      $this->cg,
     ))->setGeneratedFrom($this->getGeneratedFrom());
     foreach ($config['trait']['requireExtends'] ?? [] as $what) {
       $builder->traitRequireExtends($what);
