@@ -32,6 +32,7 @@ final class RequestParametersCodegenBuilderTest extends BaseCodegenTestCase {
   private function getBuilder(
   ): RequestParametersCodegenBuilder<RequestParameters> {
     return (new RequestParametersCodegenBuilder(
+      $this->getCodegenConfig(),
       (classname<HasUriPattern> $class) ==> {
         $class = TypeAssert::isClassnameOf(
           WebController::class,
@@ -53,7 +54,6 @@ final class RequestParametersCodegenBuilderTest extends BaseCodegenTestCase {
       ),
       RequestParametersCodegen::class,
       new RequestParameterCodegenBuilder($this->getCodegenConfig()),
-      $this->getCodegenFactory(),
     ))
     ->traitRequireExtends(
       \Facebook\HackRouter\CodeGen\Tests\WebController::class

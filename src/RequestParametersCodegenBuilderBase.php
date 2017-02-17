@@ -18,7 +18,8 @@ use \Facebook\HackCodegen\{
   CodegenFileType,
   CodegenTrait,
   CodegenGeneratedFrom,
-  HackCodegenFactory
+  HackCodegenFactory,
+  IHackCodegenConfig
 };
 
 abstract class RequestParametersCodegenBuilderBase<TBase> {
@@ -36,13 +37,15 @@ abstract class RequestParametersCodegenBuilderBase<TBase> {
   );
 
   protected CodegenGeneratedFrom $generatedFrom;
+  protected HackCodegenFactory $cg;
 
   public function __construct(
+    IHackCodegenConfig $hackCodegenConfig,
     protected classname<TBase> $base,
     protected RequestParameterCodegenBuilder $parameterBuilder,
-    protected HackCodegenFactory $cg,
   ) {
-    $this->generatedFrom = $cg->codegenGeneratedFromScript();
+    $this->cg = new HackCodegenFactory($hackCodegenConfig);
+    $this->generatedFrom = $this->cg->codegenGeneratedFromScript();
   }
 
   final public function renderToFile(

@@ -25,9 +25,9 @@ final class UriBuilderCodegenBuilderTest extends BaseCodegenTestCase {
 
   private function getBuilder(): UriBuilderCodegenBuilder<UriBuilder> {
     return new UriBuilderCodegenBuilder(
+      $this->getCodegenConfig(),
       UriBuilderCodegen::class,
       new RequestParameterCodegenBuilder($this->getCodegenConfig()),
-      $this->getCodegenFactory(),
     );
   }
 

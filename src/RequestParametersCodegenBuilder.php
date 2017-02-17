@@ -15,7 +15,8 @@ use Facebook\HackCodegen\{
   CodegenClass,
   CodegenTrait,
   CodegenMethod,
-  HackCodegenFactory
+  HackCodegenFactory,
+  IHackCodegenConfig
 };
 use Facebook\HackRouter\PrivateImpl\RequestParameterRequirementState;
 
@@ -32,13 +33,13 @@ extends RequestParametersCodegenBuilderBase<RequestParametersCodegenBase<T>> {
   private Vector<classname<mixed>> $traitRequiredInterfaces = Vector {};
 
   public function __construct(
+    IHackCodegenConfig $codegen_config,
     private self::TGetParameters $getParameters,
     private self::TGetTraitMethodBody $getTraitMethodBody,
     classname<RequestParametersCodegenBase<T>> $base,
     RequestParameterCodegenBuilder $parameterBuilder,
-    HackCodegenFactory $cg,
   ) {
-    parent::__construct($base, $parameterBuilder, $cg);
+    parent::__construct($codegen_config, $base, $parameterBuilder);
   }
 
   <<__Override>>

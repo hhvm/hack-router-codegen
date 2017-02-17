@@ -19,20 +19,23 @@ use \Facebook\HackCodegen\{
   CodegenGeneratedFrom,
   HackBuilderKeys,
   HackBuilderValues,
-  HackCodegenFactory
+  HackCodegenFactory,
+  IHackCodegenConfig
 };
 use \Facebook\DefinitionFinder\BaseParser;
 
 final class RouterCodegenBuilder<T as IncludeInUriMap> {
   private CodegenGeneratedFrom $generatedFrom;
+  private HackCodegenFactory $cg;
   private bool $createAbstract = false;
 
   public function __construct(
+    private IHackCodegenConfig $codegenConfig,
     private classname<T> $responderClass,
     private ImmMap<HttpMethod, ImmMap<string, classname<T>>> $uriMap,
-    private HackCodegenFactory $cg,
   ) {
-    $this->generatedFrom = $cg->codegenGeneratedFromScript();
+    $this->cg = new HackCodegenFactory($codegenConfig);
+    $this->generatedFrom = $this->cg->codegenGeneratedFromScript();
   }
 
   public function setCreateAbstractClass(bool $abstract): this {

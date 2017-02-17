@@ -41,9 +41,9 @@ final class RouterCodegenBuilderTest extends BaseCodegenTestCase {
       new ClassFacts($parser),
     ));
     $router_builder = new RouterCodegenBuilder(
+      $this->getCodegenConfig(),
       GetRequestExampleController::class,
       $uri_map_builder->getUriMap(),
-      $this->getCodegenFactory(),
     );
     return $router_builder;
   }

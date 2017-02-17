@@ -94,7 +94,7 @@ final class Codegen {
   <<__Memoize>>
   private function getGeneratedFrom(): CodegenGeneratedFrom {
     return $this->config['generatedFrom']
-      ?? $this->cg->codegenGeneratedFromScript();
+      ?? $this->getHackCodegenFactory()->codegenGeneratedFromScript();
   }
 
   public function build(): void {
@@ -104,24 +104,29 @@ final class Codegen {
   }
 
   private ControllerFacts<IncludeInUriMap> $controllerFacts;
-  private classname<IncludeInUriMap> $controllerBase;
-  private HackCodegenFactory $cg;
-  private IHackCodegenConfig $cgConfig;
+
+  private function getControllerBase(): classname<IncludeInUriMap> {
+    return $this->config['controllerBase'] ?? IncludeInUriMap::class;
+  }
+
+  <<__Memoize>>
+  private function getHackCodegenConfig(): IHackCodegenConfig {
+    return $this->config['hackCodegenConfig'] ?? new HackCodegenConfig();
+  }
+
+  <<__Memoize>>
+  private function getHackCodegenFactory(): HackCodegenFactory {
+    return new HackCodegenFactory($this->getHackCodegenConfig());
+  }
 
   private function __construct(
     BaseParser $parser,
     private self::TCodegenConfig $config,
   ) {
-    $this->controllerBase =
-      $config['controllerBase'] ?? IncludeInUriMap::class;
     $this->controllerFacts = (new ControllerFacts(
-      $this->controllerBase,
+      $this->getControllerBase(),
       new ClassFacts($parser),
     ));
-    $codegen_config = $config['hackCodegenConfig'] ??
-      new HackCodegenConfig();
-    $this->cgConfig = $codegen_config;
-    $this->cg = new HackCodegenFactory($codegen_config);
   }
 
   private function buildRouter(): void {
@@ -132,7 +137,11 @@ final class Codegen {
 
     $uri_map = (new UriMapBuilder($this->controllerFacts))->getUriMap();
 
-    (new RouterCodegenBuilder($this->controllerBase, $uri_map, $this->cg))
+    (new RouterCodegenBuilder(
+      $this->getHackCodegenConfig(),
+      $this->getControllerBase(),
+      $uri_map,
+    ))
       ->setCreateAbstractClass($config['abstract'])
       ->setGeneratedFrom($this->getGeneratedFrom())
       ->renderToFile(
@@ -149,9 +158,13 @@ final class Codegen {
     }
     $base = $config['baseClass'] ?? UriBuilderCodegen::class;
     $param_builder = $config['parameterCodegenBuilder']
-      ?? new RequestParameterCodegenBuilder($this->cgConfig);
+      ?? new RequestParameterCodegenBuilder($this->getHackCodegenConfig());
     $get_output = $config['output'];
-    $builder = (new UriBuilderCodegenBuilder($base, $param_builder, $this->cg))
+    $builder = (new UriBuilderCodegenBuilder(
+      $this->getHackCodegenConfig(),
+      $base,
+      $param_builder,
+    ))
       ->setGeneratedFrom($this->getGeneratedFrom());
 
     $controllers = $this->controllerFacts->getControllers()->keys();
@@ -180,7 +193,7 @@ final class Codegen {
     }
     $base = $config['baseClass'] ?? RequestParametersCodegen::class;
     $param_builder = $config['parameterCodegenBuilder']
-      ?? new RequestParameterCodegenBuilder($this->cgConfig);
+      ?? new RequestParameterCodegenBuilder($this->getHackCodegenConfig());
     $get_output = $config['output'];
     $getParameters = $config['getParameters'] ?? (
       (classname<HasUriPattern> $class) ==>
@@ -191,11 +204,11 @@ final class Codegen {
     $get_trait_impl = $config['trait']['methodImplementation'];
 
     $builder = (new RequestParametersCodegenBuilder(
+      $this->getHackCodegenConfig(),
       $getParameters,
       $config['trait']['methodImplementation'],
       $base,
       $param_builder,
-      $this->cg,
     ))->setGeneratedFrom($this->getGeneratedFrom());
     foreach ($config['trait']['requireExtends'] ?? [] as $what) {
       $builder->traitRequireExtends($what);
