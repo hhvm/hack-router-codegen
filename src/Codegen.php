@@ -82,6 +82,7 @@ final class Codegen {
     'router' => ?self::TRouterCodegenConfig,
     'uriBuilders' => ?self::TUriBuilderCodegenConfig,
     'requestParameters' => ?self::TRequestParametersCodegenConfig,
+    'discardChanges' => ?bool,
   );
 
   public static function forTree(
@@ -144,6 +145,9 @@ final class Codegen {
     ))
       ->setCreateAbstractClass($config['abstract'])
       ->setGeneratedFrom($this->getGeneratedFrom())
+      ->setDiscardChanges(
+        Shapes::idx($this->config, 'discardChanges', false),
+      )
       ->renderToFile(
         $config['file'],
         Shapes::idx($config, 'namespace'),
@@ -165,7 +169,10 @@ final class Codegen {
       $base,
       $param_builder,
     ))
-      ->setGeneratedFrom($this->getGeneratedFrom());
+      ->setGeneratedFrom($this->getGeneratedFrom())
+      ->setDiscardChanges(
+        Shapes::idx($this->config, 'discardChanges', false),
+      );
 
     $controllers = $this->controllerFacts->getControllers()->keys();
     foreach ($controllers as $controller) {
@@ -209,7 +216,9 @@ final class Codegen {
       $config['trait']['methodImplementation'],
       $base,
       $param_builder,
-    ))->setGeneratedFrom($this->getGeneratedFrom());
+    ))
+      ->setDiscardChanges(Shapes::idx($this->config, 'discardChanges', false))
+      ->setGeneratedFrom($this->getGeneratedFrom());
     foreach ($config['trait']['requireExtends'] ?? [] as $what) {
       $builder->traitRequireExtends($what);
     }

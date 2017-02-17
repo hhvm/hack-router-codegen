@@ -58,6 +58,13 @@ final class RouterCodegenBuilder<T as IncludeInUriMap> {
     return $this->getCodegenFile($path, $namespace, $classname)->save();
   }
 
+  private bool $discardChanges = false;
+
+  public function setDiscardChanges(bool $discard): this {
+    $this->discardChanges = $discard;
+    return $this;
+  }
+
   <<TestsBypassVisibility>>
   private function getCodegenFile(
     string $path,
@@ -65,6 +72,7 @@ final class RouterCodegenBuilder<T as IncludeInUriMap> {
     string $classname,
   ): CodegenFile{
     $file = $this->cg->codegenFile($path)
+      ->setDoClobber($this->discardChanges)
       ->setFileType(CodegenFileType::HACK_STRICT)
       ->setGeneratedFrom($this->generatedFrom)
       ->addClass($this->getCodegenClass($classname));

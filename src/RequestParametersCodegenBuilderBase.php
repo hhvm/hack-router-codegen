@@ -62,11 +62,19 @@ abstract class RequestParametersCodegenBuilderBase<TBase> {
     return $this;
   }
 
+  private bool $discardChanges = false;
+
+  final public function setDiscardChanges(bool $discard): this {
+    $this->discardChanges = $discard;
+    return $this;
+  }
+
   final private function getCodegenFile(
     string $path,
     self::TSpec $spec,
   ): CodegenFile {
     $file = ($this->cg->codegenFile($path)
+      ->setDoClobber($this->discardChanges)
       ->setFileType(CodegenFileType::HACK_STRICT)
       ->setGeneratedFrom($this->generatedFrom)
       ->addClass($this->getCodegenClass($spec))
