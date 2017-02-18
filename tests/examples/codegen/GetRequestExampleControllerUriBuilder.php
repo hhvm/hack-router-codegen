@@ -6,42 +6,38 @@
  * /Users/fred/code/hack-router-codegen/vendor/phpunit/phpunit/phpunit
  *
  *
- * @generated SignedSource<<2549bc7d11100a74f86848684264fade>>
+ * @generated SignedSource<<d296f4e5f1afd61139d806c7b4b88ddc>>
  */
 namespace Facebook\HackRouter\CodeGen\Tests\Generated;
 
-final class GetRequestExampleControllerUriBuilder
+abstract final class GetRequestExampleControllerUriBuilder
   extends \Facebook\HackRouter\UriBuilderCodegen {
 
   const classname<\Facebook\HackRouter\HasUriPattern> CONTROLLER =
     \Facebook\HackRouter\CodeGen\Tests\GetRequestExampleController::class;
+  const type TParameters = shape(
+    'MyString' => string,
+    'MyInt' => int,
+    'MyEnum' => \Facebook\HackRouter\CodeGen\Tests\MyEnum,
+  );
 
-  final public function setMyString(string $value): this {
-    $this->getBuilder()->setString('MyString', $value);
-    return $this;
-  }
-
-  final public function setMyInt(int $value): this {
-    $this->getBuilder()->setInt('MyInt', $value);
-    return $this;
-  }
-
-  final public function setMyEnum(
-    \Facebook\HackRouter\CodeGen\Tests\MyEnum $value,
-  ): this {
-    $this->getBuilder()->setEnum(
-      \Facebook\HackRouter\CodeGen\Tests\MyEnum::class,
-      'MyEnum',
-      $value,
-    );
-    return $this;
+  public static function getPath(self::TParameters $parameters): string {
+    return self::createInnerBuilder()
+      ->setString('MyString', $parameters['MyString'])
+      ->setInt('MyInt', $parameters['MyInt'])
+      ->setEnum(
+        \Facebook\HackRouter\CodeGen\Tests\MyEnum::class,
+        'MyEnum',
+        $parameters['MyEnum'],
+      )->getPath();
   }
 }
 
 trait GetRequestExampleControllerUriBuilderTrait {
 
-  final public static function getUriBuilder(
-  ): GetRequestExampleControllerUriBuilder {
-    return new GetRequestExampleControllerUriBuilder();
+  final public static function getPath(
+    GetRequestExampleControllerUriBuilder::TParameters $parameters,
+  ): string {
+    return GetRequestExampleControllerUriBuilder::getPath($parameters);
   }
 }

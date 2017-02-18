@@ -110,7 +110,7 @@ class RequestParameterCodegenBuilder {
     return $specs->at($type);
   }
 
-  final protected static function getUriSpec(
+  final public static function getUriSpec(
     UriParameter $param,
   ): classname<UriParameterCodegenSpec> {
     $spec = self::getRequestSpec($param);

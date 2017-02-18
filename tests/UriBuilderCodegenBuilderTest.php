@@ -28,6 +28,8 @@ final class UriBuilderCodegenBuilderTest extends BaseCodegenTestCase {
       $this->getCodegenConfig(),
       UriBuilderCodegen::class,
       new RequestParameterCodegenBuilder($this->getCodegenConfig()),
+      'getPath',
+      'string',
     );
   }
 
@@ -42,44 +44,35 @@ final class UriBuilderCodegenBuilderTest extends BaseCodegenTestCase {
         ),
         'trait' => shape(
           'name' => self::CODEGEN_CLASS.'Trait',
-          'method' => 'getUriBuilder',
+          'method' => 'getPath',
         ),
       ),
     );
   }
 
-  private function assertBuilderWorks(
-    GetRequestExampleControllerUriBuilder $builder,
+  public function testUriBuilderClass(
   ): void {
-    $path = $builder
-      ->setMyString('some value')
-      ->setMyInt(42)
-      ->setMyEnum(CodeGen\Tests\MyEnum::HERP)
-      ->getPath();
+    $path = GetRequestExampleControllerUriBuilder::getPath(shape(
+      'MyString' => 'some value',
+      'MyInt' => 42,
+      'MyEnum' => CodeGen\Tests\MyEnum::HERP,
+    ));
     $this->assertSame(
       '/some value/42/derp',
       $path,
     );
   }
 
-  public function testUriBuilderClass(): void {
-    $this->assertBuilderWorks(new GetRequestExampleControllerUriBuilder());
-  }
-
-  public function testUriBuilderTrait(): void {
-    $builder = GetRequestExampleController::getUriBuilder();
-    $this->assertInstanceOf(
-      GetRequestExampleControllerUriBuilder::class,
-      $builder,
+  public function testUriBuilderTrait(
+  ): void {
+    $path = GetRequestExampleController::getPath(shape(
+      'MyString' => 'some value',
+      'MyInt' => 42,
+      'MyEnum' => CodeGen\Tests\MyEnum::HERP,
+    ));
+    $this->assertSame(
+      '/some value/42/derp',
+      $path,
     );
-    $this->assertBuilderWorks($builder);
-  }
-
-  /**
-   * @expectedException \HH\InvariantException
-   * @expectedExceptionMessageRegExp /Parameter "[^"]+" must be set/
-   */
-  public function testThrowsIfUnsetParam(): void {
-    (new GetRequestExampleControllerUriBuilder())->getPath();
   }
 }

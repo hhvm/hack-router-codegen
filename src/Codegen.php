@@ -37,6 +37,10 @@ final class Codegen {
   const type TUriBuilderCodegenConfig = shape(
     'baseClass' => ?classname<UriBuilderCodegenBase<UriBuilderBase>>,
     'parameterCodegenBuilder' => ?RequestParameterCodegenBuilder,
+    'returnSpec' => ?shape(
+      'type' => string,
+      'getter' => string,
+    ),
     'output' =>
       (function(classname<IncludeInUriMap>): ?self::TUriBuilderOutput),
   );
@@ -164,10 +168,17 @@ final class Codegen {
     $param_builder = $config['parameterCodegenBuilder']
       ?? new RequestParameterCodegenBuilder($this->getHackCodegenConfig());
     $get_output = $config['output'];
+    $return_spec = $config['returnSpec'] ?? shape(
+      'getter' => 'getPath',
+      'type' => 'string',
+    );
+
     $builder = (new UriBuilderCodegenBuilder(
       $this->getHackCodegenConfig(),
       $base,
       $param_builder,
+      $return_spec['getter'],
+      $return_spec['type'],
     ))
       ->setGeneratedFrom($this->getGeneratedFrom())
       ->setDiscardChanges(

@@ -16,11 +16,6 @@ abstract class UriBuilderCodegenBase<+T as UriBuilderBase> {
 
   abstract protected static function createInnerBuilder(): T;
 
-  <<__Memoize>>
-  final protected function getBuilder(): T {
-    return static::createInnerBuilder();
-  }
-
   final protected static function getParts(
   ): ImmVector<UriPatternPart> {
     $controller = static::CONTROLLER;

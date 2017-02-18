@@ -13,5 +13,4 @@ namespace Facebook\HackRouter;
 
 abstract class UriBuilderCodegen
 extends UriBuilderCodegenWithStandardUriBuilder {
-  use UriBuilderCodegenGetPath<UriBuilder>;
 }
