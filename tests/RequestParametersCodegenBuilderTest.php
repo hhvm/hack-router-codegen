@@ -89,20 +89,33 @@ final class RequestParametersCodegenBuilderTest extends BaseCodegenTestCase {
   }
 
   public function testCanGetParameter(): void {
-    $values = ImmMap { 'MyString' => __FUNCTION__ };
+    $values = ImmMap {
+      'MyString' => __FUNCTION__,
+      'MyInt' => (string) __LINE__,
+      'MyEnum' => (string) CodeGen\Tests\MyEnum::HERP,
+    };
     $params = $this->getCodegenParametersForValues($values);
-    $this->assertSame(__FUNCTION__, $params->getMyString());
+    $this->assertSame(__FUNCTION__, $params->get()['MyString']);
   }
 
   public function testCanGetOptionalParameter(): void {
-    $values = ImmMap { 'MyOptionalParam' => __FUNCTION__ };
+    $values = ImmMap {
+      'MyString' => __FUNCTION__,
+      'MyInt' => (string) __LINE__,
+      'MyEnum' => (string) CodeGen\Tests\MyEnum::HERP,
+      'MyOptionalParam' => __FUNCTION__,
+    };
     $params = $this->getCodegenParametersForValues($values);
-    $this->assertSame(__FUNCTION__, $params->getMyOptionalParam());
+    $this->assertSame(__FUNCTION__, $params->get()['MyOptionalParam']);
   }
 
   public function testGetNullForMissingOptionalParameter(): void {
-    $values = ImmMap { };
+    $values = ImmMap {
+      'MyString' => __FUNCTION__,
+      'MyInt' => (string) __LINE__,
+      'MyEnum' => (string) CodeGen\Tests\MyEnum::HERP,
+    };
     $params = $this->getCodegenParametersForValues($values);
-    $this->assertSame(null, $params->getMyOptionalParam());
+    $this->assertSame(null, $params->get()['MyOptionalParam']);
   }
 }

@@ -6,30 +6,28 @@
  * /Users/fred/code/hack-router-codegen/vendor/phpunit/phpunit/phpunit
  *
  *
- * @generated SignedSource<<64b405b6ebb11ce8aae1d939aa1be8ff>>
+ * @generated SignedSource<<8b79ae990ea41d52f4bcc4c0774dc5b1>>
  */
 namespace Facebook\HackRouter\CodeGen\Tests\Generated;
 
-class GetRequestExampleControllerParameters
+final class GetRequestExampleControllerParameters
   extends \Facebook\HackRouter\RequestParametersCodegen {
 
-  final public function getMyString(): string {
-    return $this->getParameters()->getString('MyString');
-  }
+  const type TParameters = shape(
+    'MyString' => string,
+    'MyInt' => int,
+    'MyEnum' => \Facebook\HackRouter\CodeGen\Tests\MyEnum,
+    'MyOptionalParam' => ?string,
+  );
 
-  final public function getMyInt(): int {
-    return $this->getParameters()->getInt('MyInt');
-  }
-
-  final public function getMyEnum(): \Facebook\HackRouter\CodeGen\Tests\MyEnum {
-    return $this->getParameters()->getEnum(
-      \Facebook\HackRouter\CodeGen\Tests\MyEnum::class,
-      'MyEnum',
+  public function get(): self::TParameters {
+    $p = $this->getParameters();
+    return shape(
+      "MyString" => $p->getString('MyString'),
+      "MyInt" => $p->getInt('MyInt'),
+      "MyEnum" => $p->getEnum(\Facebook\HackRouter\CodeGen\Tests\MyEnum::class, 'MyEnum'),
+      "MyOptionalParam" => $p->getOptionalString('MyOptionalParam'),
     );
-  }
-
-  final public function getMyOptionalParam(): ?string {
-    return $this->getParameters()->getOptionalString('MyOptionalParam');
   }
 }
 
@@ -37,9 +35,11 @@ trait GetRequestExampleControllerParametersTrait {
 
   require extends \Facebook\HackRouter\CodeGen\Tests\WebController;
 
+  <<__Memoize>>
   final protected function getParameters(
-  ): GetRequestExampleControllerParameters {
-    $params = $this->__getParametersImpl();
-    return new GetRequestExampleControllerParameters($params);
+  ): GetRequestExampleControllerParameters::TParameters {
+    $raw = $this->__getParametersImpl();
+    return (new GetRequestExampleControllerParameters($raw))
+      ->get();
   }
 }

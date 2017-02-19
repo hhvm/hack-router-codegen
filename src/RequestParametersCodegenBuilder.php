@@ -15,6 +15,7 @@ use Facebook\HackCodegen\{
   CodegenClass,
   CodegenTrait,
   CodegenMethod,
+  HackBuilderValues,
   HackCodegenFactory,
   IHackCodegenConfig
 };
@@ -47,20 +48,67 @@ extends RequestParametersCodegenBuilderBase<RequestParametersCodegenBase<T>> {
     $param_builder = $this->parameterBuilder;
     $controller = $spec['controller'];
 
-    $common = $this->cg->codegenClass($spec['class']['name'])
-      ->setExtends("\\".$this->base);
+    $body = $this->cg
+      ->codegenHackBuilder()
+      ->addAssignment(
+        '$p',
+        '$this->getParameters()',
+        HackBuilderValues::literal(),
+      )
+      ->addLine('return shape(')
+      ->indent();
 
     $getParameters = $this->getParameters;
-    foreach ($getParameters($controller) as $parameter) {
-      $common->addMethod($param_builder->getGetter(
-        $parameter['spec'],
-        $parameter['optional']
-          ? RequestParameterRequirementState::IS_OPTIONAL
-          : RequestParameterRequirementState::IS_REQUIRED,
-      ));
-    }
+    $param_shape = [];
 
-    return $common;
+    foreach ($getParameters($controller) as $parameter) {
+      $param_spec = $parameter['spec'];
+      $request_spec = $param_builder::getRequestSpec($param_spec);
+      $getter_spec = $request_spec::getGetterSpec($param_spec);
+
+      $type = $getter_spec['type'];
+      if ($parameter['optional']) {
+        $type = '?'.$type;
+      }
+
+      $param_shape[$param_spec->getName()] = $type;
+      $body
+        ->ensureNewLine()
+        ->addf('"%s" => ', $param_spec->getName())
+        ->addMultilineCall(
+          sprintf(
+            '$p->get%s%s',
+            $parameter['optional'] ? 'Optional' : '',
+            $getter_spec['accessorSuffix'],
+          ),
+          $getter_spec['args']->map(
+            $arg ==> $arg->render(
+              $param_spec,
+            ),
+          )->toVector(),
+          /* semicolon at end = */ false,
+        )
+        ->add(',');
+    }
+    $body
+      ->ensureNewLine()
+      ->unindent()
+      ->addLine(');');
+
+    return $this->cg
+      ->codegenClass($spec['class']['name'])
+      ->setIsFinal(true)
+      ->setExtends("\\".$this->base)
+      ->addTypeConst(
+        'TParameters',
+        $this->cg->codegenShape($param_shape)->render(),
+      )
+      ->addMethod(
+        $this->cg
+          ->codegenMethod('get')
+          ->setReturnType('self::TParameters')
+          ->setBody($body->getCode())
+      );
   }
 
   <<__Override>>
@@ -71,15 +119,37 @@ extends RequestParametersCodegenBuilderBase<RequestParametersCodegenBase<T>> {
       "Can't codegen a trait without a trait spec",
     );
 
-    $getTraitMethodBody = $this->getTraitMethodBody;
-    $trait = ($this->cg->codegenTrait($trait['name'])
-      ->addMethod($this->cg->codegenMethod($trait['method'])
-        ->setIsFinal(true)
-        ->setProtected()
-        ->setReturnType($spec['class']['name'])
-        ->setBody($getTraitMethodBody($spec))
-      )
-    );
+    $impl = '$this->__getParametersImpl()';
+
+    $trait = $this->cg
+      ->codegenTrait($trait['name'])
+      ->addMethod(
+        $this->cg->codegenMethod($trait['method'])
+          ->setIsFinal(true)
+          ->setProtected()
+          ->setIsMemoized(true)
+          ->setReturnTypef(
+            '%s::TParameters',
+            $spec['class']['name'],
+          )
+          ->setBody(
+            $this->cg
+              ->codegenHackBuilder()
+              ->addAssignment(
+                '$raw',
+                $impl,
+                HackBuilderValues::literal(),
+              )
+              ->addLinef(
+                'return (new %s($raw))',
+                $spec['class']['name'],
+              )
+              ->indent()
+              ->addLine('->get();')
+              ->getCode()
+          ),
+      );
+
     foreach ($this->traitRequiredClasses as $class) {
       $trait->addRequireClass('\\'.$class);
     }

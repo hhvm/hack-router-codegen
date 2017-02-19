@@ -97,7 +97,7 @@ class RequestParameterCodegenBuilder {
       );
   }
 
-  final protected static function getRequestSpec(
+  final public static function getRequestSpec(
     RequestParameter $param,
   ): classname<RequestParameterCodegenSpec> {
     $specs = self::getParameterSpecs();
