@@ -19,9 +19,9 @@ use Facebook\HackCodegen\{
 
 abstract class BaseCodegenTestCase extends \PHPUnit\Framework\TestCase {
   protected function getCodegenConfig(): HackCodegenConfig {
-    return new HackCodegenConfig(__DIR__.'/../');
+    return new HackCodegenConfig(realpath(__DIR__.'/../'));
   }
-  
+
   protected function getCodegenFactory(): HackCodegenFactory {
     return new HackCodegenFactory($this->getCodegenConfig());
   }

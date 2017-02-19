@@ -2,11 +2,10 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * To re-generate this file run
- * /Users/fred/code/hack-router-codegen/vendor/phpunit/phpunit/phpunit
+ * To re-generate this file run vendor/phpunit/phpunit/phpunit
  *
  *
- * @generated SignedSource<<294f395a99462244d5a8e44eea0e061d>>
+ * @generated SignedSource<<4acefab006582bb7ab2e1c57944e540a>>
  */
 namespace Facebook\HackRouter\CodeGen\Tests\Generated;
 
