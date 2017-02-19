@@ -112,18 +112,19 @@ final class RouterCodegenBuilder<T as IncludeInUriMap> {
 
   private function getUriMapBody(): string {
     $map = $this->uriMap;
-    $parts = Map { };
-    foreach ($map as $method => $routes) {
-      $parts["\\".HttpMethod::class.'::'.$method] = $routes;
-    }
-    $parts = $parts->immutable();
 
     return $this->cg->codegenHackBuilder()
       ->addAssignment(
         '$map',
-        $parts,
+        $map,
         HackBuilderValues::immMap(
-          HackBuilderKeys::literal(),
+          HackBuilderKeys::lambda(($_config, $method) ==>
+            sprintf(
+              "\\%s::%s",
+              HttpMethod::class,
+              $method,
+            ),
+          ),
           HackBuilderValues::immMap(
             HackBuilderKeys::export(),
             HackBuilderValues::classname(),
