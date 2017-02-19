@@ -5,10 +5,11 @@
  * To re-generate this file run vendor/phpunit/phpunit/phpunit
  *
  *
- * @generated SignedSource<<747ee77e26b9ace800ebcf6100e63d1a>>
+ * @generated SignedSource<<89040ee7cfa57531e1cd336a09322d89>>
  */
 namespace Facebook\HackRouter\CodeGen\Tests\Generated;
 
+<<Codegen>>
 abstract final class GetRequestExampleControllerUriBuilder
   extends \Facebook\HackRouter\UriBuilderCodegen {
 
@@ -32,6 +33,7 @@ abstract final class GetRequestExampleControllerUriBuilder
   }
 }
 
+<<Codegen>>
 trait GetRequestExampleControllerUriBuilderTrait {
 
   final public static function getPath(

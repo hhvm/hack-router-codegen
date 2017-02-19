@@ -5,10 +5,11 @@
  * To re-generate this file run vendor/phpunit/phpunit/phpunit
  *
  *
- * @generated SignedSource<<4acefab006582bb7ab2e1c57944e540a>>
+ * @generated SignedSource<<c6eb258d7e5c2ab8f161deafaf7aee19>>
  */
 namespace Facebook\HackRouter\CodeGen\Tests\Generated;
 
+<<Codegen>>
 final class MySiteRouter
   extends \Facebook\HackRouter\BaseRouter<classname<\Facebook\HackRouter\CodeGen\Tests\GetRequestExampleController>> {
 

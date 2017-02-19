@@ -96,6 +96,7 @@ extends RequestParametersCodegenBuilderBase<RequestParametersCodegenBase<T>> {
 
     return $this->cg
       ->codegenClass($spec['class']['name'])
+      ->setUserAttribute('Codegen')
       ->setIsFinal(true)
       ->setExtends("\\".$this->base)
       ->addTypeConst(
@@ -121,6 +122,7 @@ extends RequestParametersCodegenBuilderBase<RequestParametersCodegenBase<T>> {
 
     $trait = $this->cg
       ->codegenTrait($trait['name'])
+      ->setUserAttribute('Codegen')
       ->addMethod(
         $this->cg->codegenMethod($trait['method'])
           ->setIsFinal(true)

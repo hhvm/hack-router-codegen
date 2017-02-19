@@ -5,10 +5,11 @@
  * To re-generate this file run vendor/phpunit/phpunit/phpunit
  *
  *
- * @generated SignedSource<<73d4f33180d0953bd253e6fa0e600382>>
+ * @generated SignedSource<<011323bb344522c03cbdeb7cebc19883>>
  */
 namespace Facebook\HackRouter\CodeGen\Tests\Generated;
 
+<<Codegen>>
 final class GetRequestExampleControllerParameters
   extends \Facebook\HackRouter\RequestParametersCodegen {
 
@@ -30,6 +31,7 @@ final class GetRequestExampleControllerParameters
   }
 }
 
+<<Codegen>>
 trait GetRequestExampleControllerParametersTrait {
 
   require extends \Facebook\HackRouter\CodeGen\Tests\WebController;

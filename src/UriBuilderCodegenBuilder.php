@@ -74,6 +74,7 @@ extends RequestParametersCodegenBuilderBase<UriBuilderCodegenBase<T>> {
 
     $common = $this->cg
       ->codegenClass($spec['class']['name'])
+      ->setUserAttribute('Codegen')
       ->addConst(
         sprintf("classname<\\%s> CONTROLLER", HasUriPattern::class),
         $controller,
@@ -129,6 +130,7 @@ extends RequestParametersCodegenBuilderBase<UriBuilderCodegenBase<T>> {
 
     return $this->cg
       ->codegenTrait($trait['name'])
+      ->setUserAttribute('Codegen')
       ->addMethod($method);
   }
 }
