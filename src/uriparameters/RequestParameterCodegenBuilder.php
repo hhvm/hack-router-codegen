@@ -92,7 +92,7 @@ class RequestParameterCodegenBuilder {
               $arg ==> $arg->render($param, $value_var),
             )->toVector(),
           )
-          ->addReturn('$this')
+          ->addReturnf('$this')
           ->getCode(),
       );
   }

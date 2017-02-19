@@ -130,7 +130,7 @@ final class RouterCodegenBuilder<T as IncludeInUriMap> {
           ),
         ),
       )
-      ->addReturn('$map')
+      ->addReturnf('$map')
       ->getCode();
   }
 }

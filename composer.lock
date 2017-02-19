@@ -50,16 +50,16 @@
         },
         {
             "name": "facebook/hack-codegen",
-            "version": "v2.0.0",
+            "version": "v2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hhvm/hack-codegen.git",
-                "reference": "0baa1ec909167423d2c5c458e0d5b7d787692abd"
+                "reference": "4525842eee2ed7c79d2cdccaecd8d54773020d99"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hhvm/hack-codegen/zipball/0baa1ec909167423d2c5c458e0d5b7d787692abd",
-                "reference": "0baa1ec909167423d2c5c458e0d5b7d787692abd",
+                "url": "https://api.github.com/repos/hhvm/hack-codegen/zipball/4525842eee2ed7c79d2cdccaecd8d54773020d99",
+                "reference": "4525842eee2ed7c79d2cdccaecd8d54773020d99",
                 "shasum": ""
             },
             "require": {
@@ -109,7 +109,7 @@
                 "code generation",
                 "hack"
             ],
-            "time": "2017-02-15T02:32:57+00:00"
+            "time": "2017-02-19T01:18:51+00:00"
         },
         {
             "name": "facebook/hack-router",
