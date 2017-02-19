@@ -40,63 +40,6 @@ class RequestParameterCodegenBuilder {
     };
   }
 
-  public function getGetter(
-    RequestParameter $param,
-    RequestParameterRequirementState $required,
-  ): CodegenMethod {
-    $spec = self::getRequestSpec($param);
-    $spec = $spec::getGetterSpec($param);
-
-    if ($required === RequestParameterRequirementState::IS_REQUIRED) {
-      $type = $spec['type'];
-      $method = 'get'.$spec['accessorSuffix'];
-    } else {
-      $type = '?'.$spec['type'];
-      $method = 'getOptional'.$spec['accessorSuffix'];
-    }
-
-    return $this->cg->codegenMethod('get'.$param->getName())
-      ->setIsFinal(true)
-      ->setReturnType($type)
-      ->setBody(
-        $this->cg->codegenHackBuilder()
-          ->add('return ')
-          ->addMultilineCall(
-            '$this->getParameters()->'.$method,
-            $spec['args']->map($arg ==> $arg->render($param))->toVector(),
-          )
-          ->getCode(),
-      );
-  }
-
-  public function getSetter(
-    UriParameter $param,
-  ): CodegenMethod {
-    $spec = self::getUriSpec($param);
-    $spec = $spec::getSetterSpec($param);
-
-    $value_var = '$value';
-
-    $cg = $this->cg;
-    return $cg->codegenMethod('set'.$param->getName())
-      ->setParameters(Vector {
-        $spec['type'].' '.$value_var,
-      })
-      ->setIsFinal(true)
-      ->setReturnType('this')
-      ->setBody(
-        $cg->codegenHackBuilder()
-          ->addMultilineCall(
-            '$this->getBuilder()->set'.$spec['accessorSuffix'],
-            $spec['args']->map(
-              $arg ==> $arg->render($param, $value_var),
-            )->toVector(),
-          )
-          ->addReturnf('$this')
-          ->getCode(),
-      );
-  }
-
   final public static function getRequestSpec(
     RequestParameter $param,
   ): classname<RequestParameterCodegenSpec> {
