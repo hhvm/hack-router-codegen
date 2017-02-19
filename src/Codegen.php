@@ -63,8 +63,7 @@ final class Codegen {
     'parameterCodegenBuilder' => ?RequestParameterCodegenBuilder,
     'trait' => shape(
       'methodName' => string,
-      'methodImplementation' =>
-        RequestParametersCodegenBuilder::TGetTraitMethodBody,
+      'getRawParametersCode' => string,
       'requireExtends' => ?ImmSet<classname<mixed>>,
       'requireImplements' => ?ImmSet<classname<mixed>>,
     ),
@@ -219,12 +218,11 @@ final class Codegen {
           $param ==> shape('spec' => $param, 'optional' => false),
         )
     );
-    $get_trait_impl = $config['trait']['methodImplementation'];
 
     $builder = (new RequestParametersCodegenBuilder(
       $this->getHackCodegenConfig(),
       $getParameters,
-      $config['trait']['methodImplementation'],
+      $config['trait']['getRawParametersCode'],
       $base,
       $param_builder,
     ))

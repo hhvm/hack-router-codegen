@@ -28,7 +28,6 @@ extends RequestParametersCodegenBuilderBase<RequestParametersCodegenBase<T>> {
       'spec' => RequestParameter,
       'optional' => bool,
     )>);
-  const type TGetTraitMethodBody = (function(self::TSpec):string);
 
   private Vector<classname<mixed>> $traitRequiredClasses = Vector {};
   private Vector<classname<mixed>> $traitRequiredInterfaces = Vector {};
@@ -36,7 +35,7 @@ extends RequestParametersCodegenBuilderBase<RequestParametersCodegenBase<T>> {
   public function __construct(
     IHackCodegenConfig $codegen_config,
     private self::TGetParameters $getParameters,
-    private self::TGetTraitMethodBody $getTraitMethodBody,
+    private string $getRawParametersCode,
     classname<RequestParametersCodegenBase<T>> $base,
     RequestParameterCodegenBuilder $parameterBuilder,
   ) {
@@ -119,7 +118,6 @@ extends RequestParametersCodegenBuilderBase<RequestParametersCodegenBase<T>> {
       "Can't codegen a trait without a trait spec",
     );
 
-    $impl = '$this->__getParametersImpl()';
 
     $trait = $this->cg
       ->codegenTrait($trait['name'])
@@ -137,7 +135,7 @@ extends RequestParametersCodegenBuilderBase<RequestParametersCodegenBase<T>> {
               ->codegenHackBuilder()
               ->addAssignment(
                 '$raw',
-                $impl,
+                $this->getRawParametersCode,
                 HackBuilderValues::literal(),
               )
               ->addLinef(

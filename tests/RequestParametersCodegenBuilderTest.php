@@ -40,18 +40,7 @@ final class RequestParametersCodegenBuilderTest extends BaseCodegenTestCase {
         );
         return $class::__getParametersSpec();
       },
-      $spec ==> ($this->getCodegenFactory()->codegenHackBuilder()
-        ->addAssignment(
-          '$params',
-          '$this->__getParametersImpl()',
-          HackBuilderValues::literal(),
-        )
-        ->addReturnf(
-          'new %s($params)',
-          $spec['class']['name'],
-        )
-        ->getCode()
-      ),
+      '$this->__getParametersImpl()',
       RequestParametersCodegen::class,
       new RequestParameterCodegenBuilder($this->getCodegenConfig()),
     ))
