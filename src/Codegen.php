@@ -213,7 +213,7 @@ final class Codegen {
           'controller' => $controller,
           'namespace' => Shapes::idx($output, 'namespace'),
           'class' => $output['class'],
-          'trait' => $output['trait'],
+          'trait' => $output['trait'] ?? null,
         ),
       );
     }
