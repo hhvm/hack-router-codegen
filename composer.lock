@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "8f746aa0a7bd007fe8485d160e02f46d",
+    "content-hash": "3e1e7e58d33cbcb0515adf71866d0976",
     "packages": [
         {
             "name": "facebook/definition-finder",
@@ -50,7 +50,7 @@
         },
         {
             "name": "facebook/hack-codegen",
-            "version": "dev-master",
+            "version": "v2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hhvm/hack-codegen.git",
@@ -109,7 +109,7 @@
                 "code generation",
                 "hack"
             ],
-            "time": "2017-02-20 22:03:57"
+            "time": "2017-02-20T22:03:57+00:00"
         },
         {
             "name": "facebook/hack-router",
@@ -1685,8 +1685,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "facebook/hack-router": 5,
-        "facebook/hack-codegen": 20
+        "facebook/hack-router": 5
     },
     "prefer-stable": false,
     "prefer-lowest": false,
