@@ -76,6 +76,10 @@ final class Codegen {
     'namespace' => ?string,
     'class' => string,
     'abstract' => bool,
+    'cliLookup' => ?shape(
+      'class' => string,
+      'file' => string,
+    ),
   );
 
   const type TCodegenConfig = shape(
@@ -148,13 +152,25 @@ final class Codegen {
     ))
       ->setCreateAbstractClass($config['abstract'])
       ->setGeneratedFrom($this->getGeneratedFrom())
-      ->setDiscardChanges(
-        Shapes::idx($this->config, 'discardChanges', false),
-      )
+      ->setDiscardChanges($this->config['discardChanges'] ?? false)
       ->renderToFile(
         $config['file'],
         Shapes::idx($config, 'namespace'),
         $config['class'],
+      );
+
+    $cli_config = $config['cliLookup'] ?? null;
+    if ($cli_config === null) {
+      return;
+    }
+    (new RouterCLILookupCodegenBuilder($this->getHackCodegenConfig()))
+      ->setGeneratedFrom($this->getGeneratedFrom())
+      ->setDiscardChanges($this->config['discardChanges'] ?? false)
+      ->renderToFile(
+        $cli_config['file'],
+        Shapes::idx($config, 'namespace'),
+        $config['class'],
+        $cli_config['class'],
       );
   }
 

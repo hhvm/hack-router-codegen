@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "53f45ea21e2aebfc81d9c062edce63fe",
+    "content-hash": "8f746aa0a7bd007fe8485d160e02f46d",
     "packages": [
         {
             "name": "facebook/definition-finder",
@@ -50,16 +50,16 @@
         },
         {
             "name": "facebook/hack-codegen",
-            "version": "v2.1.0",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hhvm/hack-codegen.git",
-                "reference": "4525842eee2ed7c79d2cdccaecd8d54773020d99"
+                "reference": "58be8fb372d6c5dbc63673879e39424e18f6295a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hhvm/hack-codegen/zipball/4525842eee2ed7c79d2cdccaecd8d54773020d99",
-                "reference": "4525842eee2ed7c79d2cdccaecd8d54773020d99",
+                "url": "https://api.github.com/repos/hhvm/hack-codegen/zipball/58be8fb372d6c5dbc63673879e39424e18f6295a",
+                "reference": "58be8fb372d6c5dbc63673879e39424e18f6295a",
                 "shasum": ""
             },
             "require": {
@@ -109,7 +109,7 @@
                 "code generation",
                 "hack"
             ],
-            "time": "2017-02-19T01:18:51+00:00"
+            "time": "2017-02-20 22:03:57"
         },
         {
             "name": "facebook/hack-router",
@@ -1685,7 +1685,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "facebook/hack-router": 5
+        "facebook/hack-router": 5,
+        "facebook/hack-codegen": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
