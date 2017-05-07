@@ -25,7 +25,7 @@ final class UpdateCodegen {
     Codegen::forTree(
       __DIR__.'/../src/',
       shape(
-        'controller_base' => WebController::class,
+        'controllerBase' => WebController::class,
         'router' => shape(
           'abstract' => false,
           'file' => __DIR__.'/../codegen/Router.php',
