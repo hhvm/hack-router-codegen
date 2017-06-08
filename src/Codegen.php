@@ -228,12 +228,12 @@ final class Codegen {
     $param_builder = $config['parameterCodegenBuilder']
       ?? new RequestParameterCodegenBuilder($this->getHackCodegenConfig());
     $get_output = $config['output'];
-    $getParameters = $config['getParameters'] ?? (
-      (classname<HasUriPattern> $class) ==>
-        $class::getUriPattern()->getParameters()->map(
+    $getParameters = $config['getParameters'] ??
+      function (classname<HasUriPattern> $class) {
+        return $class::getUriPattern()->getParameters()->map(
           $param ==> shape('spec' => $param, 'optional' => false),
-        )
-    );
+        );
+      };
 
     $builder = (new RequestParametersCodegenBuilder(
       $this->getHackCodegenConfig(),
