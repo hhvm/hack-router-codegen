@@ -197,7 +197,7 @@ final class Codegen {
     ))
       ->setGeneratedFrom($this->getGeneratedFrom())
       ->setDiscardChanges(
-        Shapes::idx($this->config, 'discardChanges', false),
+        Shapes::idx($this->config ?? shape(), 'discardChanges', false),
       );
 
     $controllers = $this->controllerFacts->getControllers()->keys();
@@ -242,7 +242,7 @@ final class Codegen {
       $base,
       $param_builder,
     ))
-      ->setDiscardChanges(Shapes::idx($this->config, 'discardChanges', false))
+      ->setDiscardChanges(Shapes::idx($this->config ?? shape(), 'discardChanges', false))
       ->setGeneratedFrom($this->getGeneratedFrom());
     foreach ($config['trait']['requireExtends'] ?? [] as $what) {
       $builder->traitRequireExtends($what);
