@@ -16,7 +16,7 @@ Building a Request Router
 
 ```Hack
 <?hh
-require_once(__DIR__.'/../vendor/autoload.php');
+require_once(__DIR__.'/../vendor/hh_autoload.php');
 
 use \Facebook\HackRouter\Codegen;
 

@@ -11,7 +11,7 @@
  */
 namespace Facebook\HackRouter\CodeGen\Tests\Generated;
 /* BEGIN MANUAL SECTION init */
-require_once(__DIR__.'/../../../vendor/autoload.php');
+require_once(__DIR__.'/../../../vendor/hh_autoload.php');
 /* END MANUAL SECTION */
 
 <<Codegen>>
