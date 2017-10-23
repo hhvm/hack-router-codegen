@@ -20,7 +20,7 @@ use \Facebook\HackRouter\CodeGen\Tests\Generated\{
   GetRequestExampleControllerParameters
 };
 use \Facebook\HackRouter\CodeGen\Tests\WebController;
-use \FredEmmott\TypeAssert\TypeAssert;
+use namespace \Facebook\TypeAssert;
 
 final class RequestParametersCodegenBuilderTest extends BaseCodegenTestCase {
   use TestTypechecksTestTrait;
@@ -34,7 +34,7 @@ final class RequestParametersCodegenBuilderTest extends BaseCodegenTestCase {
     return (new RequestParametersCodegenBuilder(
       $this->getCodegenConfig(),
       (classname<HasUriPattern> $class) ==> {
-        $class = TypeAssert::isClassnameOf(
+        $class = TypeAssert\classname_of(
           WebController::class,
           $class,
         );
