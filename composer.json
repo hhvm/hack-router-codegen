@@ -4,7 +4,7 @@
     "keywords": ["hack", "router", "routing", "hhvm"],
     "homepage": "https://github.com/hhvm/hack-router-codegen",
     "require": {
-        "facebook/hack-router": "^0.9",
+        "facebook/hack-router": "^0.10",
         "facebook/hack-codegen": "^2.2.0",
         "facebook/definition-finder": "^1.5.3",
         "hhvm/type-assert": "^3.0"
