@@ -24,20 +24,20 @@ use Facebook\HackRouter\PrivateImpl\{ClassFacts, ControllerFacts};
 final class Codegen {
   const type TUriBuilderOutput = shape(
     'file' => string,
-    'namespace' => ?string,
+    ?'namespace' => string,
     'class' => shape(
       'name' => string,
     ),
-    'trait' => ?shape(
+    ?'trait' => shape(
       'name' => string,
       'method' => string,
     ),
   );
 
   const type TUriBuilderCodegenConfig = shape(
-    'baseClass' => ?classname<UriBuilderCodegenBase<UriBuilderBase>>,
-    'parameterCodegenBuilder' => ?RequestParameterCodegenBuilder,
-    'returnSpec' => ?shape(
+    ?'baseClass' => classname<UriBuilderCodegenBase<UriBuilderBase>>,
+    ?'parameterCodegenBuilder' => RequestParameterCodegenBuilder,
+    ?'returnSpec' => shape(
       'type' => string,
       'getter' => string,
     ),
@@ -47,7 +47,7 @@ final class Codegen {
 
   const type TRequestParametersOutput = shape(
     'file' => string,
-    'namespace' => ?string,
+    ?'namespace' => string,
     'class' => shape(
       'name' => string,
     ),
@@ -57,15 +57,15 @@ final class Codegen {
   );
 
   const type TRequestParametersCodegenConfig = shape(
-    'getParameters' => ?RequestParametersCodegenBuilder::TGetParameters,
-    'baseClass' =>
-      ?classname<RequestParametersCodegenBase<RequestParametersBase>>,
-    'parameterCodegenBuilder' => ?RequestParameterCodegenBuilder,
+    ?'getParameters' => RequestParametersCodegenBuilder::TGetParameters,
+    ?'baseClass' =>
+      classname<RequestParametersCodegenBase<RequestParametersBase>>,
+    ?'parameterCodegenBuilder' => RequestParameterCodegenBuilder,
     'trait' => shape(
       'methodName' => string,
       'getRawParametersCode' => string,
-      'requireExtends' => ?ImmSet<classname<mixed>>,
-      'requireImplements' => ?ImmSet<classname<mixed>>,
+      ?'requireExtends' => ImmSet<classname<mixed>>,
+      ?'requireImplements' => ImmSet<classname<mixed>>,
     ),
     'output' =>
       (function(classname<IncludeInUriMap>): ?self::TRequestParametersOutput),
@@ -83,13 +83,13 @@ final class Codegen {
   );
 
   const type TCodegenConfig = shape(
-    'hackCodegenConfig' => ?IHackCodegenConfig,
-    'controllerBase' => ?classname<IncludeInUriMap>,
-    'generatedFrom' => ?CodegenGeneratedFrom,
-    'router' => ?self::TRouterCodegenConfig,
-    'uriBuilders' => ?self::TUriBuilderCodegenConfig,
-    'requestParameters' => ?self::TRequestParametersCodegenConfig,
-    'discardChanges' => ?bool,
+    ?'hackCodegenConfig' => IHackCodegenConfig,
+    ?'controllerBase' => classname<IncludeInUriMap>,
+    ?'generatedFrom' => CodegenGeneratedFrom,
+    ?'router' => self::TRouterCodegenConfig,
+    ?'uriBuilders' => self::TUriBuilderCodegenConfig,
+    ?'requestParameters' => self::TRequestParametersCodegenConfig,
+    ?'discardChanges' => bool,
   );
 
   public static function forTree(
