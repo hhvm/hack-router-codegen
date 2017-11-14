@@ -6,7 +6,7 @@
     "require": {
         "hhvm": ">=3.22.0",
         "facebook/hack-router": "^0.10",
-        "facebook/hack-codegen": "^2.2.0",
+        "facebook/hack-codegen": "^3.0.1",
         "facebook/definition-finder": "^1.5.3",
         "hhvm/type-assert": "^3.0"
     },

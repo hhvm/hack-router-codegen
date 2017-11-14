@@ -86,7 +86,7 @@ final class RouterCodegenBuilder<T as IncludeInUriMap> {
     string $classname,
   ): CodegenClass{
     $class = ($this->cg->codegenClass($classname)
-      ->setUserAttribute('Codegen')
+      ->addEmptyUserAttribute('Codegen')
       ->setExtends(sprintf(
         "\\%s<classname<\\%s>>",
         BaseRouter::class,

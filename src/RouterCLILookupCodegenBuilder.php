@@ -92,7 +92,7 @@ final class RouterCLILookupCodegenBuilder {
     string $utility_classname,
   ): CodegenClass {
     return $this->cg->codegenClass($utility_classname)
-      ->setUserAttribute('Codegen')
+      ->addEmptyUserAttribute('Codegen')
       ->setIsFinal(true)
       ->addMethod(
         $this->cg->codegenMethod('getRouter')
@@ -182,7 +182,7 @@ final class RouterCLILookupCodegenBuilder {
     }
 
     return $this->cg->codegenHackBuilder()
-      ->beginManualSection('init')
+      ->startManualSection('init')
       ->addAssignment(
         '$autoloader',
         'null',
