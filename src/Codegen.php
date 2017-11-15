@@ -73,10 +73,10 @@ final class Codegen {
 
   const type TRouterCodegenConfig = shape(
     'file' => string,
-    'namespace' => ?string,
+    ?'namespace' => string,
     'class' => string,
     'abstract' => bool,
-    'cliLookup' => ?shape(
+    ?'cliLookup' => shape(
       'class' => string,
       'file' => string,
     ),
