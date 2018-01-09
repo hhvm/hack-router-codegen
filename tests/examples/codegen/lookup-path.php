@@ -32,7 +32,7 @@ final class MySiteRouterCLILookup {
       'Too few NS parts found; expected everything to be in example NS',
     );
     $first = $parts[0];
-    $last = array_pop($parts);
+    $last = array_pop(&$parts);
     return '\\'.$first.'\\...\\'.$last;
     /* END MANUAL SECTION */
   }

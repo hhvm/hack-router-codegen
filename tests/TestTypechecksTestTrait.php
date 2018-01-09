@@ -22,8 +22,8 @@ trait TestTypechecksTestTrait {
     $out_array = [];
     exec(
       'hh_client',
-      $out_array,
-      $exit_code,
+      &$out_array,
+      &$exit_code,
     );
     $this->assertSame(0, $exit_code, "Typechecker errors found");
   }
