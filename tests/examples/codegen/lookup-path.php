@@ -26,13 +26,13 @@ final class MySiteRouterCLILookup {
 
   private function prettifyControllerName(string $controller): string {
     /* BEGIN MANUAL SECTION MySiteRouterCLILookup::prettifyControllerName */
-    $parts = explode('\\', $controller);
+    $parts = \explode('\\', $controller);
     invariant(
-      count($parts) > 3,
+      \count($parts) > 3,
       'Too few NS parts found; expected everything to be in example NS',
     );
     $first = $parts[0];
-    $last = array_pop(&$parts);
+    $last = \array_pop(&$parts);
     return '\\'.$first.'\\...\\'.$last;
     /* END MANUAL SECTION */
   }
