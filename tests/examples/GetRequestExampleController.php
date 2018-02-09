@@ -57,6 +57,7 @@ final class GetRequestExampleController extends WebController {
   use Generated\GetRequestExampleControllerUriBuilderTrait;
   use Generated\GetRequestExampleControllerParametersTrait;
 
+  <<__Override>>
   public static function getUriPattern(): UriPattern {
     return (new UriPattern())
       ->literal('/')

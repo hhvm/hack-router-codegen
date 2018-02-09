@@ -31,7 +31,7 @@ final class UriMapBuilderTest extends \PHPUnit_Framework_TestCase {
       new ClassFacts($parser),
     ));
   }
-  
+
   public function testCreatesRoutes(): void {
     $scanned = FileParser::FromFile(
       __DIR__.'/examples/GetRequestExampleController.php',

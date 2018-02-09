@@ -20,6 +20,7 @@ abstract class SimpleParameterCodegenSpec extends UriParameterCodegenSpec {
   );
   abstract protected static function getSimpleSpec(): self::TSimpleSpec;
 
+  <<__Override>>
   final public static function getGetterSpec(
     RequestParameter $_,
   ): self::TSpec {
@@ -33,6 +34,7 @@ abstract class SimpleParameterCodegenSpec extends UriParameterCodegenSpec {
     );
   }
 
+  <<__Override>>
   public static function getSetterSpec(
     UriParameter $_,
   ): self::TSpec {

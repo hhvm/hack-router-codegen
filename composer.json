@@ -12,7 +12,8 @@
     },
     "require-dev": {
         "91carriage/phpunit-hhi": "^5.5",
-        "phpunit/phpunit": "^5.5"
+        "phpunit/phpunit": "^5.5",
+        "hhvm/hhast": "^1.0"
     },
     "extra": {
         "branch-alias": {

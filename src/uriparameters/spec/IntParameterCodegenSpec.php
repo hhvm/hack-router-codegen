@@ -14,6 +14,7 @@ namespace Facebook\HackRouter;
 use \Facebook\HackRouter\UriParameterCodegenArgument as Arg;
 
 final class IntParameterCodegenSpec extends SimpleParameterCodegenSpec {
+  <<__Override>>
   protected static function getSimpleSpec(): self::TSimpleSpec {
     return shape(
       'type' => 'int',

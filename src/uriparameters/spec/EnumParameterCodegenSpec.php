@@ -38,6 +38,7 @@ final class EnumParameterCodegenSpec extends UriParameterCodegenSpec {
     return self::getType($param).'::class';
   }
 
+  <<__Override>>
   final public static function getGetterSpec(
     RequestParameter $param,
   ): self::TSpec {
@@ -51,6 +52,7 @@ final class EnumParameterCodegenSpec extends UriParameterCodegenSpec {
     );
   }
 
+  <<__Override>>
   public static function getSetterSpec(
     UriParameter $param,
   ): self::TSpec {
