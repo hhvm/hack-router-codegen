@@ -43,7 +43,7 @@ final class UriMapBuilder<TBase as IncludeInUriMap> {
     }
 
     foreach ($map as $submap) {
-      natsort(&$submap);
+      \natsort(&$submap);
     }
 
     return $map

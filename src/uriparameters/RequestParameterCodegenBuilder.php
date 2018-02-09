@@ -44,7 +44,7 @@ class RequestParameterCodegenBuilder {
     RequestParameter $param,
   ): classname<RequestParameterCodegenSpec> {
     $specs = self::getParameterSpecs();
-    $type = get_class($param);
+    $type = \get_class($param);
     invariant(
       $specs->containsKey($type),
       "Don't know how to render a %s",
@@ -58,7 +58,7 @@ class RequestParameterCodegenBuilder {
   ): classname<UriParameterCodegenSpec> {
     $spec = self::getRequestSpec($param);
     invariant(
-      is_subclass_of($spec, UriParameterCodegenSpec::class),
+      \is_subclass_of($spec, UriParameterCodegenSpec::class),
       "Expected %s to be a %s",
       $spec,
       UriParameterCodegenSpec::class,

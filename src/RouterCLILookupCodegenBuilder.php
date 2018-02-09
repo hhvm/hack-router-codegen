@@ -138,7 +138,7 @@ final class RouterCLILookupCodegenBuilder {
             HackBuilderValues::literal(),
           )
           ->startForeachLoop(
-            sprintf('\\%s::getValues()', HttpMethod::class),
+            \sprintf('\\%s::getValues()', HttpMethod::class),
             null,
             '$method',
           )
@@ -174,9 +174,9 @@ final class RouterCLILookupCodegenBuilder {
     $full_autoloader_files = Set { };
     foreach ($autoloader_files as $file) {
       foreach ($autoloader_dirs as $dir) {
-        $full_autoloader_files[] = sprintf(
+        $full_autoloader_files[] = \sprintf(
           '__DIR__.%s',
-          var_export($dir.$file, true),
+          \var_export($dir.$file, true),
         );
       }
     }

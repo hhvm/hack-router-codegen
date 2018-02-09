@@ -29,7 +29,7 @@ final class UriParameterCodegenArgumentSpec {
 
   public static function ParameterName(): this {
     return new self(
-      ($param, $_value) ==> var_export($param->getName(), true),
+      ($param, $_value) ==> \var_export($param->getName(), true),
     );
   }
 

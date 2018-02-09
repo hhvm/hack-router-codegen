@@ -53,7 +53,7 @@ extends RequestParametersCodegenBuilderBase<UriBuilderCodegenBase<T>> {
           $setter_spec['args']->map(
             $arg ==> $arg->render(
               $param,
-              sprintf('$parameters[\'%s\']', $param->getName()),
+              \sprintf('$parameters[\'%s\']', $param->getName()),
             ),
           )->toVector(),
           /* semicolon at end = */ false,
@@ -68,7 +68,7 @@ extends RequestParametersCodegenBuilderBase<UriBuilderCodegenBase<T>> {
       ->setReturnType($this->uriType)
       ->setIsStatic(true)
       ->setBody($body->getCode());
-    if (count($param_shape) !== 0) {
+    if (\count($param_shape) !== 0) {
       $method->addParameter('self::TParameters $parameters');
     }
 
@@ -76,7 +76,7 @@ extends RequestParametersCodegenBuilderBase<UriBuilderCodegenBase<T>> {
       ->codegenClass($spec['class']['name'])
       ->addEmptyUserAttribute('Codegen')
       ->addConst(
-        sprintf("classname<\\%s> CONTROLLER", HasUriPattern::class),
+        \sprintf("classname<\\%s> CONTROLLER", HasUriPattern::class),
         $controller,
         /* comment = */ null,
         HackBuilderValues::classname(),

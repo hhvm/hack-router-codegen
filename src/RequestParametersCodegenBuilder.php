@@ -75,7 +75,7 @@ extends RequestParametersCodegenBuilderBase<RequestParametersCodegenBase<T>> {
         ->ensureNewLine()
         ->addf('"%s" => ', $param_spec->getName())
         ->addMultilineCall(
-          sprintf(
+          \sprintf(
             '$p->get%s%s',
             $parameter['optional'] ? 'Optional' : '',
             $getter_spec['accessorSuffix'],

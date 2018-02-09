@@ -87,7 +87,7 @@ final class RouterCodegenBuilder<T as IncludeInUriMap> {
   ): CodegenClass{
     $class = ($this->cg->codegenClass($classname)
       ->addEmptyUserAttribute('Codegen')
-      ->setExtends(sprintf(
+      ->setExtends(\sprintf(
         "\\%s<classname<\\%s>>",
         BaseRouter::class,
         $this->responderClass,
@@ -120,7 +120,7 @@ final class RouterCodegenBuilder<T as IncludeInUriMap> {
         $map,
         HackBuilderValues::immMap(
           HackBuilderKeys::lambda(($_config, $method) ==>
-            sprintf(
+            \sprintf(
               "\\%s::%s",
               HttpMethod::class,
               $method,

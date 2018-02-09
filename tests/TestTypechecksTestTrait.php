@@ -20,7 +20,7 @@ trait TestTypechecksTestTrait {
     $this->rebuild();
     $exit_code = 0;
     $out_array = [];
-    exec(
+    \exec(
       'hh_client',
       &$out_array,
       &$exit_code,

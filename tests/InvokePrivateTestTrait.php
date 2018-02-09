@@ -23,7 +23,7 @@ trait InvokePrivateTestTrait {
     invariant(
       $rm->getAttribute('TestsBypassVisibility') !== null,
       '%s::%s does not have <<TestsBypassVisibility>>',
-      get_class($object),
+      \get_class($object),
       $method,
     );
     $rm->setAccessible(true);

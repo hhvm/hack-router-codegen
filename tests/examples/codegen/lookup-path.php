@@ -26,13 +26,13 @@ final class MySiteRouterCLILookup {
 
   private function prettifyControllerName(string $controller): string {
     /* BEGIN MANUAL SECTION MySiteRouterCLILookup::prettifyControllerName */
-    $parts = explode('\\', $controller);
+    $parts = \explode('\\', $controller);
     invariant(
-      count($parts) > 3,
+      \count($parts) > 3,
       'Too few NS parts found; expected everything to be in example NS',
     );
     $first = $parts[0];
-    $last = array_pop(&$parts);
+    $last = \array_pop(&$parts);
     return '\\'.$first.'\\...\\'.$last;
     /* END MANUAL SECTION */
   }
@@ -61,17 +61,17 @@ final class MySiteRouterCLILookup {
   public function main(array<string> $argv): void {
     $path = $argv[1] ?? null;
     if ($path === null) {
-      fprintf(STDERR, "Usage: %s PATH\n", $argv[0]);
+      \fprintf(\STDERR, "Usage: %s PATH\n", $argv[0]);
       exit(1);
     }
     $controllers = $this->getControllersForPath($path);
     if ($controllers->isEmpty()) {
-      printf("No controller found for '%s'.\n", $path);
+      \printf("No controller found for '%s'.\n", $path);
       exit(1);
     }
     foreach ($controllers as $method => $controller) {
       $pretty = $this->prettifyControllerName($controller);
-      printf("%-8s %s\n", $method.':', $pretty);
+      \printf("%-8s %s\n", $method.':', $pretty);
     }
   }
 }

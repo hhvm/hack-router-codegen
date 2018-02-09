@@ -21,7 +21,7 @@ final class EnumParameterCodegenSpec extends UriParameterCodegenSpec {
       $param instanceof EnumRequestParameter,
       'Expected %s to be an enum parameter, got %s',
       $param->getName(),
-      get_class($param),
+      \get_class($param),
     );
     return $param;
   }

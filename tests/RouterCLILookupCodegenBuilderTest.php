@@ -46,19 +46,19 @@ final class RouterCLILookupCodegenBuilderTest extends BaseCodegenTestCase {
 
     $exit_code = null;
     $output = [];
-    exec(
-      vsprintf(
+    \exec(
+      \vsprintf(
         '%s -d hhvm.jit=0 %s %s',
         (ImmSet {
-          PHP_BINARY,
+          \PHP_BINARY,
           self::CODEGEN_PATH,
           $path,
-        })->map($x ==> escapeshellarg($x)),
+        })->map($x ==> \escapeshellarg($x)),
       ),
       &$output,
       &$exit_code,
     );
-    $output = implode("\n", $output);
+    $output = \implode("\n", $output);
     $this->assertSame(0, $exit_code);
     $this->assertRegExp(
       '/^HEAD:.+GetRequestExampleController$/m',
@@ -75,18 +75,18 @@ final class RouterCLILookupCodegenBuilderTest extends BaseCodegenTestCase {
 
     $exit_code = 0;
     $output = [];
-    exec(
-      vsprintf(
+    \exec(
+      \vsprintf(
         '%s -d hhvm.jit=0 %s /foo/bar',
         (ImmSet {
-          PHP_BINARY,
+          \PHP_BINARY,
           self::CODEGEN_PATH,
-        })->map($x ==> escapeshellarg($x)),
+        })->map($x ==> \escapeshellarg($x)),
       ),
       &$output,
       &$exit_code,
     );
-    $output = implode("\n", $output);
+    $output = \implode("\n", $output);
     $this->assertGreaterThan(0, $exit_code);
     $this->assertNotContains('HEAD', $output);
     $this->assertNotContains('GET', $output);
