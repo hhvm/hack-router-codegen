@@ -7,7 +7,7 @@
  * To re-generate this file run vendor/phpunit/phpunit/phpunit
  *
  *
- * @partially-generated SignedSource<<b246f714d429fe5492522d5e9759fbfd>>
+ * @partially-generated SignedSource<<394f3dc7b352d127b17bdb87263351ef>>
  */
 namespace Facebook\HackRouter\CodeGen\Tests\Generated;
 /* BEGIN MANUAL SECTION init */
@@ -26,13 +26,13 @@ final class MySiteRouterCLILookup {
 
   private function prettifyControllerName(string $controller): string {
     /* BEGIN MANUAL SECTION MySiteRouterCLILookup::prettifyControllerName */
-    $parts = \explode('\\', $controller);
+    $parts = explode('\\', $controller);
     invariant(
-      \count($parts) > 3,
+      count($parts) > 3,
       'Too few NS parts found; expected everything to be in example NS',
     );
     $first = $parts[0];
-    $last = \array_pop(&$parts);
+    $last = array_pop(&$parts);
     return '\\'.$first.'\\...\\'.$last;
     /* END MANUAL SECTION */
   }

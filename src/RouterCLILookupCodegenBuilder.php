@@ -194,13 +194,13 @@ final class RouterCLILookupCodegenBuilder {
         HackBuilderValues::immSet(HackBuilderValues::literal()),
       )
       ->startForeachLoop('$autoloader_candidates', null, '$candidate')
-      ->startIfBlock('file_exists($candidate)')
+      ->startIfBlock('\\file_exists($candidate)')
       ->addAssignment('$autoloader', '$candidate', HackBuilderValues::literal())
       ->addLine('break;')
       ->endIfBlock()
       ->endForeachLoop()
       ->startIfBlock('$autoloader === null')
-      ->addLine('fwrite(STDERR, "Can\'t find autoloader.\n");')
+      ->addLine('\\fwrite(\\STDERR, "Can\'t find autoloader.\n");')
       ->addLine('exit(1);')
       ->endIfBlock()
       ->addLine('require_once($autoloader);')
@@ -220,7 +220,7 @@ final class RouterCLILookupCodegenBuilder {
             HackBuilderValues::literal(),
           )
           ->startIfBlock('$path === null')
-          ->addLine('fprintf(STDERR, "Usage: %s PATH\n", $argv[0]);')
+          ->addLine('\\fprintf(\\STDERR, "Usage: %s PATH\n", $argv[0]);')
           ->addLine('exit(1);')
           ->endIfBlock()
           ->addAssignment(
@@ -229,7 +229,7 @@ final class RouterCLILookupCodegenBuilder {
             HackBuilderValues::literal(),
           )
           ->startIfBlock('$controllers->isEmpty()')
-          ->addLine('printf("No controller found for \'%s\'.\n", $path);')
+          ->addLine('\\printf("No controller found for \'%s\'.\n", $path);')
           ->addLine('exit(1);')
           ->endIfBlock()
           ->startForeachLoop('$controllers', '$method', '$controller')
@@ -238,7 +238,7 @@ final class RouterCLILookupCodegenBuilder {
             '$this->prettifyControllerName($controller)',
             HackBuilderValues::literal(),
           )
-          ->addLine('printf("%-8s %s\n", $method.\':\', $pretty);')
+          ->addLine('\\printf("%-8s %s\n", $method.\':\', $pretty);')
           ->endForeachLoop()
           ->getCode()
       );
