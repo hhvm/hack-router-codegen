@@ -5,7 +5,7 @@
     "homepage": "https://github.com/hhvm/hack-router-codegen",
     "require": {
         "hhvm": "^3.23.0",
-        "facebook/hack-router": "^0.13",
+        "facebook/hack-router": ">=0.14",
         "facebook/hack-codegen": "^3.0.1",
         "facebook/definition-finder": "^1.5.3",
         "hhvm/type-assert": "^3.0"
@@ -13,7 +13,7 @@
     "require-dev": {
         "91carriage/phpunit-hhi": "^5.5",
         "phpunit/phpunit": "^5.5",
-        "hhvm/hhast": "^1.0"
+        "hhvm/hhast": "^3.26"
     },
     "extra": {
         "branch-alias": {

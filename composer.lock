@@ -4,30 +4,31 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "6156aa690db7f723a2af1a806dd65315",
+    "content-hash": "64045ad40d3d549e0ebe0a9be17674d9",
     "packages": [
         {
             "name": "facebook/definition-finder",
-            "version": "v1.7.2",
+            "version": "v1.7.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hhvm/definition-finder.git",
-                "reference": "9fb89966a04281d0596dcb28d4e11b083415ebda"
+                "reference": "7bd8b3b926814b7530565298a1517dc974bfb1db"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hhvm/definition-finder/zipball/9fb89966a04281d0596dcb28d4e11b083415ebda",
-                "reference": "9fb89966a04281d0596dcb28d4e11b083415ebda",
+                "url": "https://api.github.com/repos/hhvm/definition-finder/zipball/7bd8b3b926814b7530565298a1517dc974bfb1db",
+                "reference": "7bd8b3b926814b7530565298a1517dc974bfb1db",
                 "shasum": ""
             },
             "require": {
                 "hhvm": "~3.23",
                 "hhvm/hhvm-autoload": "^1.6",
-                "hhvm/hsl": "^1.2"
+                "hhvm/hsl": "^1.2|^3.26",
+                "hhvm/type-assert": "^3.2"
             },
             "require-dev": {
                 "91carriage/phpunit-hhi": "~5.1",
-                "facebook/fbexpect": "^0.4.0",
+                "facebook/fbexpect": "^0.4.0|^1.0",
                 "hhvm/systemlib-extractor": "~1.0",
                 "phpunit/phpunit": "~5.1"
             },
@@ -41,6 +42,9 @@
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
             "description": "Find definitions in PHP or Hack files. Useful for autoloaders.",
             "homepage": "https://github.com/hhvm/definitions-finder",
             "keywords": [
@@ -49,31 +53,31 @@
                 "hack",
                 "hhvm"
             ],
-            "time": "2018-02-28T18:18:22+00:00"
+            "time": "2018-06-12T17:27:41+00:00"
         },
         {
             "name": "facebook/hack-codegen",
-            "version": "v3.0.7",
+            "version": "v3.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hhvm/hack-codegen.git",
-                "reference": "969e904c40bce3b7a57cdcea8559f2223819db89"
+                "reference": "db6d9c53d49dded3d139e14d42403e0d153f6175"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hhvm/hack-codegen/zipball/969e904c40bce3b7a57cdcea8559f2223819db89",
-                "reference": "969e904c40bce3b7a57cdcea8559f2223819db89",
+                "url": "https://api.github.com/repos/hhvm/hack-codegen/zipball/db6d9c53d49dded3d139e14d42403e0d153f6175",
+                "reference": "db6d9c53d49dded3d139e14d42403e0d153f6175",
                 "shasum": ""
             },
             "require": {
                 "hhvm": ">=3.23.0",
                 "hhvm/hhvm-autoload": "^1.5",
-                "hhvm/hsl": "^1.0.0"
+                "hhvm/hsl": "^1.0.0|^3.26.0"
             },
             "require-dev": {
                 "91carriage/phpunit-hhi": "^5.6",
-                "facebook/fbexpect": "^0.4.0",
-                "hhvm/hhast": "^0.4.0",
+                "facebook/fbexpect": "^0.4.0|^1.0.0",
+                "hhvm/hhast": "^0.4.0|^1.0.0",
                 "hhvm/type-assert": "^3.1",
                 "phpunit/phpunit": "^5.7"
             },
@@ -109,32 +113,32 @@
                 "code generation",
                 "hack"
             ],
-            "time": "2018-02-28T19:43:37+00:00"
+            "time": "2018-05-18T15:49:36+00:00"
         },
         {
             "name": "facebook/hack-router",
-            "version": "v0.13",
+            "version": "v0.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hhvm/hack-router.git",
-                "reference": "a3e4de12179eff2b5e86bda428a361649942068c"
+                "reference": "f691910b9de27c40cf27713c575f60c211b1ef19"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hhvm/hack-router/zipball/a3e4de12179eff2b5e86bda428a361649942068c",
-                "reference": "a3e4de12179eff2b5e86bda428a361649942068c",
+                "url": "https://api.github.com/repos/hhvm/hack-router/zipball/f691910b9de27c40cf27713c575f60c211b1ef19",
+                "reference": "f691910b9de27c40cf27713c575f60c211b1ef19",
                 "shasum": ""
             },
             "require": {
                 "hack-psr/psr7-http-message-hhi": "^0.2.0|^1.0.0",
-                "hhvm": "^3.23.0",
+                "hhvm": "^3.26.0",
                 "hhvm/hhvm-autoload": "^1.5.3",
-                "hhvm/hsl": "^1.0.0"
+                "hhvm/hsl": "^1.0.0|^3.26.0"
             },
             "require-dev": {
                 "91carriage/phpunit-hhi": "^5.1",
-                "facebook/fbexpect": "^0.4.0",
-                "hhvm/hhast": "^1.0",
+                "facebook/fbexpect": "^0.4.0|^1.0",
+                "hhvm/hhast": "^1.0|^3.26.0",
                 "phpunit/phpunit": "^5.1",
                 "zendframework/zend-diactoros": "^1.3"
             },
@@ -153,7 +157,7 @@
                 "router",
                 "routing"
             ],
-            "time": "2018-02-09T21:39:32+00:00"
+            "time": "2018-06-06T23:06:11+00:00"
         },
         {
             "name": "fredemmott/hack-error-suppressor",
@@ -229,16 +233,16 @@
         },
         {
             "name": "hhvm/hhvm-autoload",
-            "version": "v1.6.2",
+            "version": "v1.6.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hhvm/hhvm-autoload.git",
-                "reference": "2beebbb5982e77237ec853ee1231860c3c295bf3"
+                "reference": "2808fe06fa850532270c54155c0bdab1bf0f67da"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hhvm/hhvm-autoload/zipball/2beebbb5982e77237ec853ee1231860c3c295bf3",
-                "reference": "2beebbb5982e77237ec853ee1231860c3c295bf3",
+                "url": "https://api.github.com/repos/hhvm/hhvm-autoload/zipball/2808fe06fa850532270c54155c0bdab1bf0f67da",
+                "reference": "2808fe06fa850532270c54155c0bdab1bf0f67da",
                 "shasum": ""
             },
             "require": {
@@ -251,6 +255,7 @@
             },
             "require-dev": {
                 "91carriage/phpunit-hhi": "^5.5",
+                "facebook/fbexpect": "^1.1",
                 "phpunit/phpunit": "^5.5"
             },
             "bin": [
@@ -274,69 +279,74 @@
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
-            "time": "2018-02-27T18:31:14+00:00"
+            "time": "2018-06-12T20:21:07+00:00"
         },
         {
             "name": "hhvm/hsl",
-            "version": "v1.3.0",
+            "version": "v3.27.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hhvm/hsl.git",
-                "reference": "556bb0a0749226417dd0f53567571ecc008f37f2"
+                "reference": "f43f027681402f0a6807325400a761106fa10274"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hhvm/hsl/zipball/556bb0a0749226417dd0f53567571ecc008f37f2",
-                "reference": "556bb0a0749226417dd0f53567571ecc008f37f2",
+                "url": "https://api.github.com/repos/hhvm/hsl/zipball/f43f027681402f0a6807325400a761106fa10274",
+                "reference": "f43f027681402f0a6807325400a761106fa10274",
                 "shasum": ""
             },
             "require": {
+                "hhvm": "^3.27.0",
                 "hhvm/hhvm-autoload": "^1.4"
             },
             "require-dev": {
                 "91carriage/phpunit-hhi": "^5.7",
-                "facebook/definition-finder": "^1.6.1",
-                "facebook/fbexpect": "^0.4",
-                "hhvm": "^3.23.2",
+                "facebook/fbexpect": "^1.0.0",
                 "phpunit/phpunit": "^5.7"
             },
             "type": "library",
             "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
             "description": "The Hack Standard Library",
-            "time": "2018-02-05T22:10:31+00:00"
+            "time": "2018-06-07T01:25:22+00:00"
         },
         {
             "name": "hhvm/type-assert",
-            "version": "v3.2.1",
+            "version": "v3.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hhvm/type-assert.git",
-                "reference": "8f70814c8268f50e2fa728893d3ad9cad73df398"
+                "reference": "9bbe7cac2ff831142d74203479e72046cbc932f8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hhvm/type-assert/zipball/8f70814c8268f50e2fa728893d3ad9cad73df398",
-                "reference": "8f70814c8268f50e2fa728893d3ad9cad73df398",
+                "url": "https://api.github.com/repos/hhvm/type-assert/zipball/9bbe7cac2ff831142d74203479e72046cbc932f8",
+                "reference": "9bbe7cac2ff831142d74203479e72046cbc932f8",
                 "shasum": ""
             },
             "require": {
                 "hhvm": "^3.23.0",
                 "hhvm/hhvm-autoload": "^1.4",
-                "hhvm/hsl": "^1.0"
+                "hhvm/hsl": "^1.0|^3.26.0"
             },
             "require-dev": {
                 "91carriage/phpunit-hhi": "~5.1",
-                "facebook/fbexpect": "^0.2.0 | ^0.3.0 | ^0.4.0",
+                "facebook/fbexpect": "^0.4.0|^1.0.0",
                 "phpunit/phpunit": "~5.1"
             },
             "type": "library",
             "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
             "description": "Convert untyped data to typed data",
             "keywords": [
                 "TypeAssert",
                 "hack"
             ],
-            "time": "2018-02-09T17:05:23+00:00"
+            "time": "2018-05-09T18:23:07+00:00"
         },
         {
             "name": "psr/http-message",
@@ -392,14 +402,14 @@
     "packages-dev": [
         {
             "name": "91carriage/phpunit-hhi",
-            "version": "5.7.3",
+            "version": "5.7.4",
             "source": {
                 "type": "git",
                 "url": "https://git.simon.geek.nz/91-carriage/phpunit-hhi.git",
-                "reference": "e885e708b0658cc55f57a45c7b5720cdc617c4c9"
+                "reference": "29e50b1130dc6d72266460f1f303ba1f24937a40"
             },
             "require": {
-                "hhvm": ">=3.23.0"
+                "hhvm": ">=3.24.3"
             },
             "conflict": {
                 "phpunit/phpunit": "<5.7.15"
@@ -437,36 +447,36 @@
                 "phpunit",
                 "testing"
             ],
-            "time": "2018-02-09T19:25:38+00:00"
+            "time": "2018-03-02T23:37:33+00:00"
         },
         {
             "name": "doctrine/instantiator",
-            "version": "1.0.5",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/instantiator.git",
-                "reference": "8e884e78f9f0eb1329e445619e04456e64d8051d"
+                "reference": "185b8868aa9bf7159f5f953ed5afb2d7fcdc3bda"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/instantiator/zipball/8e884e78f9f0eb1329e445619e04456e64d8051d",
-                "reference": "8e884e78f9f0eb1329e445619e04456e64d8051d",
+                "url": "https://api.github.com/repos/doctrine/instantiator/zipball/185b8868aa9bf7159f5f953ed5afb2d7fcdc3bda",
+                "reference": "185b8868aa9bf7159f5f953ed5afb2d7fcdc3bda",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3,<8.0-DEV"
+                "php": "^7.1"
             },
             "require-dev": {
                 "athletic/athletic": "~0.1.8",
                 "ext-pdo": "*",
                 "ext-phar": "*",
-                "phpunit/phpunit": "~4.0",
-                "squizlabs/php_codesniffer": "~2.0"
+                "phpunit/phpunit": "^6.2.3",
+                "squizlabs/php_codesniffer": "^3.0.2"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0.x-dev"
+                    "dev-master": "1.2.x-dev"
                 }
             },
             "autoload": {
@@ -491,62 +501,101 @@
                 "constructor",
                 "instantiate"
             ],
-            "time": "2015-06-14T21:17:01+00:00"
+            "time": "2017-07-22T11:58:36+00:00"
         },
         {
-            "name": "hhvm/hhast",
-            "version": "v1.0.1",
+            "name": "facebook/hh-clilib",
+            "version": "v1.1.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/hhvm/hhast.git",
-                "reference": "97916ba3945d95f89ba6e33ceadbde16bfa0e02e"
+                "url": "https://github.com/hhvm/hh-clilib.git",
+                "reference": "2772c82a8f5fc715d5a2fbe801563f36fdda9943"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hhvm/hhast/zipball/97916ba3945d95f89ba6e33ceadbde16bfa0e02e",
-                "reference": "97916ba3945d95f89ba6e33ceadbde16bfa0e02e",
+                "url": "https://api.github.com/repos/hhvm/hh-clilib/zipball/2772c82a8f5fc715d5a2fbe801563f36fdda9943",
+                "reference": "2772c82a8f5fc715d5a2fbe801563f36fdda9943",
                 "shasum": ""
             },
             "require": {
-                "hhvm": "^3.24.0",
-                "hhvm/hsl": "^1.0.0",
+                "hhvm/hsl": "^3.26",
+                "hhvm/type-assert": "^3.2"
+            },
+            "require-dev": {
+                "91carriage/phpunit-hhi": "^5.7",
+                "facebook/fbexpect": "^1.1.0",
+                "hhvm/hhast": "^3.27.0",
+                "phpunit/phpunit": "^5.7"
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "time": "2018-06-20T03:25:12+00:00"
+        },
+        {
+            "name": "hhvm/hhast",
+            "version": "v3.27.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hhvm/hhast.git",
+                "reference": "8cd58881ccecaf81a0c330dd204f4e0089ef9104"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hhvm/hhast/zipball/8cd58881ccecaf81a0c330dd204f4e0089ef9104",
+                "reference": "8cd58881ccecaf81a0c330dd204f4e0089ef9104",
+                "shasum": ""
+            },
+            "require": {
+                "facebook/hh-clilib": "^1.1.1",
+                "hhvm": "^3.26.0",
+                "hhvm/hsl": "^1.0.0|^3.26.0",
                 "hhvm/type-assert": "^3.1"
             },
             "require-dev": {
                 "91carriage/phpunit-hhi": "^5.7",
-                "facebook/fbexpect": "^0.4.0",
+                "facebook/fbexpect": "^1.1.0",
                 "facebook/hack-codegen": "~3.0.3",
                 "hhvm/hhvm-autoload": "^1.5",
                 "phpunit/phpunit": "^5.7"
             },
             "bin": [
-                "bin/hhast-lint"
+                "bin/hhast-lint",
+                "bin/hhast-inspect"
             ],
             "type": "library",
             "notification-url": "https://packagist.org/downloads/",
-            "time": "2018-03-01T22:15:51+00:00"
+            "license": [
+                "MIT"
+            ],
+            "time": "2018-06-28T15:01:11+00:00"
         },
         {
             "name": "myclabs/deep-copy",
-            "version": "1.7.0",
+            "version": "1.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/myclabs/DeepCopy.git",
-                "reference": "3b8a3a99ba1f6a3952ac2747d989303cbd6b7a3e"
+                "reference": "3e01bdad3e18354c3dce54466b7fbe33a9f9f7f8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/3b8a3a99ba1f6a3952ac2747d989303cbd6b7a3e",
-                "reference": "3b8a3a99ba1f6a3952ac2747d989303cbd6b7a3e",
+                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/3e01bdad3e18354c3dce54466b7fbe33a9f9f7f8",
+                "reference": "3e01bdad3e18354c3dce54466b7fbe33a9f9f7f8",
                 "shasum": ""
             },
             "require": {
-                "php": "^5.6 || ^7.0"
+                "php": "^7.1"
+            },
+            "replace": {
+                "myclabs/deep-copy": "self.version"
             },
             "require-dev": {
                 "doctrine/collections": "^1.0",
                 "doctrine/common": "^2.6",
-                "phpunit/phpunit": "^4.1"
+                "phpunit/phpunit": "^7.1"
             },
             "type": "library",
             "autoload": {
@@ -569,7 +618,7 @@
                 "object",
                 "object graph"
             ],
-            "time": "2017-10-19T19:58:43+00:00"
+            "time": "2018-06-11T23:09:50+00:00"
         },
         {
             "name": "phpdocumentor/reflection-common",
@@ -627,29 +676,35 @@
         },
         {
             "name": "phpdocumentor/reflection-docblock",
-            "version": "3.3.2",
+            "version": "4.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpDocumentor/ReflectionDocBlock.git",
-                "reference": "bf329f6c1aadea3299f08ee804682b7c45b326a2"
+                "reference": "94fd0001232e47129dd3504189fa1c7225010d08"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/bf329f6c1aadea3299f08ee804682b7c45b326a2",
-                "reference": "bf329f6c1aadea3299f08ee804682b7c45b326a2",
+                "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/94fd0001232e47129dd3504189fa1c7225010d08",
+                "reference": "94fd0001232e47129dd3504189fa1c7225010d08",
                 "shasum": ""
             },
             "require": {
-                "php": "^5.6 || ^7.0",
+                "php": "^7.0",
                 "phpdocumentor/reflection-common": "^1.0.0",
                 "phpdocumentor/type-resolver": "^0.4.0",
                 "webmozart/assert": "^1.0"
             },
             "require-dev": {
-                "mockery/mockery": "^0.9.4",
-                "phpunit/phpunit": "^4.4"
+                "doctrine/instantiator": "~1.0.5",
+                "mockery/mockery": "^1.0",
+                "phpunit/phpunit": "^6.4"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "phpDocumentor\\Reflection\\": [
@@ -668,7 +723,7 @@
                 }
             ],
             "description": "With this component, a library can provide support for annotations via DocBlocks or otherwise retrieve information that is embedded in a DocBlock.",
-            "time": "2017-11-10T14:09:06+00:00"
+            "time": "2017-11-30T07:14:17+00:00"
         },
         {
             "name": "phpdocumentor/type-resolver",
@@ -719,23 +774,23 @@
         },
         {
             "name": "phpspec/prophecy",
-            "version": "1.7.5",
+            "version": "1.7.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/prophecy.git",
-                "reference": "dfd6be44111a7c41c2e884a336cc4f461b3b2401"
+                "reference": "33a7e3c4fda54e912ff6338c48823bd5c0f0b712"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/dfd6be44111a7c41c2e884a336cc4f461b3b2401",
-                "reference": "dfd6be44111a7c41c2e884a336cc4f461b3b2401",
+                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/33a7e3c4fda54e912ff6338c48823bd5c0f0b712",
+                "reference": "33a7e3c4fda54e912ff6338c48823bd5c0f0b712",
                 "shasum": ""
             },
             "require": {
                 "doctrine/instantiator": "^1.0.2",
                 "php": "^5.3|^7.0",
                 "phpdocumentor/reflection-docblock": "^2.0|^3.0.2|^4.0",
-                "sebastian/comparator": "^1.1|^2.0",
+                "sebastian/comparator": "^1.1|^2.0|^3.0",
                 "sebastian/recursion-context": "^1.0|^2.0|^3.0"
             },
             "require-dev": {
@@ -778,7 +833,7 @@
                 "spy",
                 "stub"
             ],
-            "time": "2018-02-19T10:16:54+00:00"
+            "time": "2018-04-18T13:57:24+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -982,29 +1037,29 @@
         },
         {
             "name": "phpunit/php-token-stream",
-            "version": "1.4.12",
+            "version": "2.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-token-stream.git",
-                "reference": "1ce90ba27c42e4e44e6d8458241466380b51fa16"
+                "reference": "791198a2c6254db10131eecfe8c06670700904db"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/1ce90ba27c42e4e44e6d8458241466380b51fa16",
-                "reference": "1ce90ba27c42e4e44e6d8458241466380b51fa16",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/791198a2c6254db10131eecfe8c06670700904db",
+                "reference": "791198a2c6254db10131eecfe8c06670700904db",
                 "shasum": ""
             },
             "require": {
                 "ext-tokenizer": "*",
-                "php": ">=5.3.3"
+                "php": "^7.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "~4.2"
+                "phpunit/phpunit": "^6.2.4"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.4-dev"
+                    "dev-master": "2.0-dev"
                 }
             },
             "autoload": {
@@ -1027,7 +1082,7 @@
             "keywords": [
                 "tokenizer"
             ],
-            "time": "2017-12-04T08:55:13+00:00"
+            "time": "2017-11-27T05:48:46+00:00"
         },
         {
             "name": "phpunit/phpunit",
@@ -1684,21 +1739,77 @@
             "time": "2016-10-03T07:35:21+00:00"
         },
         {
-            "name": "symfony/yaml",
-            "version": "v3.4.5",
+            "name": "symfony/polyfill-ctype",
+            "version": "v1.8.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/yaml.git",
-                "reference": "6af42631dcf89e9c616242c900d6c52bd53bd1bb"
+                "url": "https://github.com/symfony/polyfill-ctype.git",
+                "reference": "7cc359f1b7b80fc25ed7796be7d96adc9b354bae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/6af42631dcf89e9c616242c900d6c52bd53bd1bb",
-                "reference": "6af42631dcf89e9c616242c900d6c52bd53bd1bb",
+                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/7cc359f1b7b80fc25ed7796be7d96adc9b354bae",
+                "reference": "7cc359f1b7b80fc25ed7796be7d96adc9b354bae",
                 "shasum": ""
             },
             "require": {
-                "php": "^5.5.9|>=7.0.8"
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.8-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Polyfill\\Ctype\\": ""
+                },
+                "files": [
+                    "bootstrap.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                },
+                {
+                    "name": "Gert de Pagter",
+                    "email": "BackEndTea@gmail.com"
+                }
+            ],
+            "description": "Symfony polyfill for ctype functions",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "compatibility",
+                "ctype",
+                "polyfill",
+                "portable"
+            ],
+            "time": "2018-04-30T19:57:29+00:00"
+        },
+        {
+            "name": "symfony/yaml",
+            "version": "v4.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/yaml.git",
+                "reference": "80e4bfa9685fc4a09acc4a857ec16974a9cd944e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/80e4bfa9685fc4a09acc4a857ec16974a9cd944e",
+                "reference": "80e4bfa9685fc4a09acc4a857ec16974a9cd944e",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1.3",
+                "symfony/polyfill-ctype": "~1.8"
             },
             "conflict": {
                 "symfony/console": "<3.4"
@@ -1712,7 +1823,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.4-dev"
+                    "dev-master": "4.1-dev"
                 }
             },
             "autoload": {
@@ -1739,7 +1850,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2018-02-16T09:50:28+00:00"
+            "time": "2018-05-30T07:26:09+00:00"
         },
         {
             "name": "webmozart/assert",
