@@ -7,7 +7,7 @@
         "hhvm": "^3.23.0",
         "facebook/hack-router": ">=0.14",
         "facebook/hack-codegen": "^3.0.1",
-        "facebook/definition-finder": "^1.5.3",
+        "facebook/definition-finder": "^2.0",
         "hhvm/type-assert": "^3.0"
     },
     "require-dev": {

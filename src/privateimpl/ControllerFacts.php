@@ -10,8 +10,8 @@
 
 namespace Facebook\HackRouter\PrivateImpl;
 
-use type \Facebook\DefinitionFinder\ScannedBasicClass;
 use type \Facebook\DefinitionFinder\ScannedClass;
+use type \Facebook\DefinitionFinder\ScannedClassish;
 use type \Facebook\HackRouter\{
   HttpMethod,
   IncludeInUriMap,
@@ -41,9 +41,9 @@ final class ControllerFacts<T as IncludeInUriMap> {
 
   <<TestsBypassVisibility>>
   private function isUriMappable(
-    ScannedClass $class
+    ScannedClassish $class
   ): bool {
-    if (!$class instanceof ScannedBasicClass) {
+    if (!$class instanceof ScannedClass) {
       return false;
     }
     if ($class->isAbstract()) {

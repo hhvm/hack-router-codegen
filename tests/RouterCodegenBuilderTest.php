@@ -31,7 +31,7 @@ final class RouterCodegenBuilderTest extends BaseCodegenTestCase {
   <<__Memoize>>
   private function getBuilder(
   ): RouterCodegenBuilder<GetRequestExampleController> {
-    $parser = FileParser::FromFile(
+    $parser = FileParser::fromFile(
       __DIR__.'/examples/GetRequestExampleController.php',
     );
     $uri_map_builder = new UriMapBuilder(new ControllerFacts(
@@ -95,7 +95,7 @@ final class RouterCodegenBuilderTest extends BaseCodegenTestCase {
 
   public function testCreatesFinalByDefault(): void {
     $code = $this->renderToString($this->getBuilder());
-    $parser = FileParser::FromData($code);
+    $parser = FileParser::fromData($code);
     $class = $parser->getClass(MySiteRouter::class);
     $this->assertTrue($class->isFinal(), 'should be final');
     $this->assertFalse($class->isAbstract(), 'should not be abstract');
@@ -105,7 +105,7 @@ final class RouterCodegenBuilderTest extends BaseCodegenTestCase {
     $code = $this->renderToString(
       $this->getBuilder()->setCreateAbstractClass(true),
     );
-    $parser = FileParser::FromData($code);
+    $parser = FileParser::fromData($code);
     $class = $parser->getClass(MySiteRouter::class);
     $this->assertTrue($class->isAbstract(), 'should be abstract');
     $this->assertFalse($class->isFinal(), 'should not be final');

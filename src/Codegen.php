@@ -95,7 +95,8 @@ final class Codegen {
     string $source_root,
     self::TCodegenConfig $config,
   ): Codegen {
-    return new self(TreeParser::FromPath($source_root), $config);
+    return
+      new self(\HH\Asio\join(TreeParser::fromPathAsync($source_root)), $config);
   }
 
   <<__Memoize>>

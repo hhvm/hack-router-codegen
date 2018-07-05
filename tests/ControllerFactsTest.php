@@ -11,7 +11,7 @@
 namespace Facebook\HackRouter;
 
 use type \Facebook\DefinitionFinder\FileParser;
-use type \Facebook\DefinitionFinder\ScannedBasicClass;
+use type \Facebook\DefinitionFinder\ScannedClass;
 use type \Facebook\HackRouter\HttpMethod;
 use type \Facebook\HackRouter\PrivateImpl\{ClassFacts,
   ControllerFacts
@@ -31,7 +31,7 @@ final class ControllerFactsTest extends \PHPUnit_Framework_TestCase {
 
   private function isMappable(
     ControllerFacts<IncludeInUriMap> $facts,
-    ScannedBasicClass $class,
+    ScannedClass $class,
   ): bool {
     return (bool) $this->invokePrivate(
       $facts,
@@ -42,7 +42,7 @@ final class ControllerFactsTest extends \PHPUnit_Framework_TestCase {
 
   private function getMethods(
     ControllerFacts<IncludeInUriMap> $facts,
-    ScannedBasicClass $class,
+    ScannedClass $class,
   ): ImmSet<HttpMethod> {
     /* HH_IGNORE_ERROR[4110] mixed => ImmSet */
     return $this->invokePrivate(
@@ -57,7 +57,7 @@ final class ControllerFactsTest extends \PHPUnit_Framework_TestCase {
       "<?hh\n".
       "final class MyController\n".
       "implements Facebook\HackRouter\IncludeInUriMap {}";
-    $scanned = FileParser::FromData($code, __FUNCTION__);
+    $scanned = FileParser::fromData($code, __FUNCTION__);
     $class = $scanned->getClass('MyController');
     $facts = $this->getFacts($scanned);
     $this->assertTrue($this->isMappable($facts, $class));
@@ -69,7 +69,7 @@ final class ControllerFactsTest extends \PHPUnit_Framework_TestCase {
       "namespace MySite;\n".
       "final class MyController\n".
       "implements \Facebook\HackRouter\IncludeInUriMap {}";
-    $scanned = FileParser::FromData($code, __FUNCTION__);
+    $scanned = FileParser::fromData($code, __FUNCTION__);
     $class = $scanned->getClass('MySite\MyController');
     $facts = $this->getFacts($scanned);
     $this->assertTrue($this->isMappable($facts, $class));
@@ -80,7 +80,7 @@ final class ControllerFactsTest extends \PHPUnit_Framework_TestCase {
       "<?hh\n".
       "final class MyController\n".
       "implements \Facebook\HackRouter\IncludeInUriMap {}";
-    $scanned = FileParser::FromData($code, __FUNCTION__);
+    $scanned = FileParser::fromData($code, __FUNCTION__);
     $class = $scanned->getClass('MyController');
     $facts = $this->getFacts($scanned);
     $this->assertTrue($this->isMappable($facts, $class));
@@ -91,7 +91,7 @@ final class ControllerFactsTest extends \PHPUnit_Framework_TestCase {
       "<?hh\n".
       "use \Facebook\HackRouter\IncludeInUriMap;\n".
       "final class MyController implements IncludeInUriMap {}";
-    $scanned = FileParser::FromData($code, __FUNCTION__);
+    $scanned = FileParser::fromData($code, __FUNCTION__);
     $class = $scanned->getClass('MyController');
     $facts = $this->getFacts($scanned);
     $this->assertTrue($this->isMappable($facts, $class));
@@ -102,7 +102,7 @@ final class ControllerFactsTest extends \PHPUnit_Framework_TestCase {
       "<?hh\n".
       "abstract class MyController\n".
       "implements Facebook\HackRouter\IncludeInUriMap {}";
-    $scanned = FileParser::FromData($code, __FUNCTION__);
+    $scanned = FileParser::fromData($code, __FUNCTION__);
     $class = $scanned->getClass('MyController');
     $facts = $this->getFacts($scanned);
     $this->assertFalse($this->isMappable($facts, $class));
@@ -117,7 +117,7 @@ final class ControllerFactsTest extends \PHPUnit_Framework_TestCase {
       "<?hh\n".
       "class MyController\n".
       "implements Facebook\HackRouter\IncludeInUriMap {}";
-    $scanned = FileParser::FromData($code, __FUNCTION__);
+    $scanned = FileParser::fromData($code, __FUNCTION__);
     $class = $scanned->getClass('MyController');
     $facts = $this->getFacts($scanned);
     $_throws = $this->isMappable($facts, $class);
@@ -129,7 +129,7 @@ final class ControllerFactsTest extends \PHPUnit_Framework_TestCase {
       "abstract class BaseController\n".
       "implements Facebook\HackRouter\IncludeInUriMap {}\n".
       "final class MyController extends BaseController {}";
-    $scanned = FileParser::FromData($code, __FUNCTION__);
+    $scanned = FileParser::fromData($code, __FUNCTION__);
     $base = $scanned->getClass('BaseController');
     $final = $scanned->getClass('MyController');
 
@@ -145,7 +145,7 @@ final class ControllerFactsTest extends \PHPUnit_Framework_TestCase {
       "abstract class BaseController\n".
       "implements \Facebook\HackRouter\IncludeInUriMap {}\n".
       "final class MyController extends BaseController {}";
-    $scanned = FileParser::FromData($code, __FUNCTION__);
+    $scanned = FileParser::fromData($code, __FUNCTION__);
     $base = $scanned->getClass('Foo\\Bar\\BaseController');
     $final = $scanned->getClass('Foo\\Bar\\MyController');
 
@@ -160,7 +160,7 @@ final class ControllerFactsTest extends \PHPUnit_Framework_TestCase {
       "interface IController\n".
       "extends Facebook\HackRouter\IncludeInUriMap {}\n".
       "final class MyController implements IController {}";
-    $scanned = FileParser::FromData($code, __FUNCTION__);
+    $scanned = FileParser::fromData($code, __FUNCTION__);
     $class = $scanned->getClass('MyController');
 
     $facts = $this->getFacts($scanned);
@@ -175,7 +175,7 @@ final class ControllerFactsTest extends \PHPUnit_Framework_TestCase {
       "final class MyController {\n".
       "  use TController;\n".
       "}";
-    $scanned = FileParser::FromData($code, __FUNCTION__);
+    $scanned = FileParser::fromData($code, __FUNCTION__);
     $class = $scanned->getClass('MyController');
 
     $facts = $this->getFacts($scanned);
@@ -189,7 +189,7 @@ final class ControllerFactsTest extends \PHPUnit_Framework_TestCase {
       "\Facebook\HackRouter\IncludeInUriMap,\n".
       "\Facebook\HackRouter\SupportsGetRequests {\n".
       "}";
-    $scanned = FileParser::FromData($code, __FUNCTION__);
+    $scanned = FileParser::fromData($code, __FUNCTION__);
     $class = $scanned->getClass('MyController');
 
     $facts = $this->getFacts($scanned);
@@ -206,7 +206,7 @@ final class ControllerFactsTest extends \PHPUnit_Framework_TestCase {
       "\Facebook\HackRouter\IncludeInUriMap,\n".
       "\Facebook\HackRouter\SupportsPostRequests {\n".
       "}";
-    $scanned = FileParser::FromData($code, __FUNCTION__);
+    $scanned = FileParser::fromData($code, __FUNCTION__);
     $class = $scanned->getClass('MyController');
 
     $facts = $this->getFacts($scanned);
@@ -228,7 +228,7 @@ final class ControllerFactsTest extends \PHPUnit_Framework_TestCase {
       "\Facebook\HackRouter\SupportsGetRequests,\n".
       "\Facebook\HackRouter\SupportsPostRequests {\n".
       "}";
-    $scanned = FileParser::FromData($code, __FUNCTION__);
+    $scanned = FileParser::fromData($code, __FUNCTION__);
     $class = $scanned->getClass('MyController');
 
     $facts = $this->getFacts($scanned);
@@ -245,7 +245,7 @@ final class ControllerFactsTest extends \PHPUnit_Framework_TestCase {
       "final class MyController implements\n".
       "\Facebook\HackRouter\IncludeInUriMap {\n".
       "}";
-    $scanned = FileParser::FromData($code, __FUNCTION__);
+    $scanned = FileParser::fromData($code, __FUNCTION__);
     $class = $scanned->getClass('MyController');
 
     $facts = $this->getFacts($scanned);

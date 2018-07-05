@@ -11,7 +11,7 @@
 namespace Facebook\HackRouter;
 
 use type \Facebook\DefinitionFinder\FileParser;
-use type \Facebook\DefinitionFinder\ScannedBasicClass;
+use type \Facebook\DefinitionFinder\ScannedClass;
 use type \Facebook\HackRouter\HttpMethod;
 use type \Facebook\HackRouter\CodeGen\Tests\GetRequestExampleController;
 use type \Facebook\HackRouter\PrivateImpl\{ClassFacts,
@@ -31,7 +31,7 @@ final class UriMapBuilderTest extends \PHPUnit_Framework_TestCase {
   }
 
   public function testCreatesRoutes(): void {
-    $scanned = FileParser::FromFile(
+    $scanned = FileParser::fromFile(
       __DIR__.'/examples/GetRequestExampleController.php',
     );
     $class = $scanned->getClass(GetRequestExampleController::class);
@@ -44,7 +44,7 @@ final class UriMapBuilderTest extends \PHPUnit_Framework_TestCase {
   }
 
   public function testNoMapForUnusedMethods(): void {
-    $scanned = FileParser::FromFile(
+    $scanned = FileParser::fromFile(
       __DIR__.'/examples/GetRequestExampleController.php',
     );
     $class = $scanned->getClass(GetRequestExampleController::class);

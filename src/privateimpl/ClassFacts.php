@@ -11,11 +11,11 @@
 namespace Facebook\HackRouter\PrivateImpl;
 
 use type Facebook\DefinitionFinder\BaseParser;
-use type Facebook\DefinitionFinder\ScannedBasicClass;
 use type Facebook\DefinitionFinder\ScannedClass;
+use type Facebook\DefinitionFinder\ScannedClassish;
 
 final class ClassFacts {
-  private ImmMap<string, ScannedClass> $classes;
+  private ImmMap<string, ScannedClassish> $classes;
 
   public function __construct(
     BaseParser $parser,
@@ -36,10 +36,10 @@ final class ClassFacts {
 
   public function getSubclassesOf<T>(
     classname<T> $wanted,
-  ): ImmMap<classname<T>, ScannedBasicClass> {
+  ): ImmMap<classname<T>, ScannedClass> {
     $mappable = Map { };
     foreach ($this->classes as $class) {
-      if (!$class instanceof ScannedBasicClass) {
+      if (!$class instanceof ScannedClass) {
         continue;
       }
       $name = $this->asClassname($wanted, $class->getName());
