@@ -8,6 +8,12 @@
     {
       "patterns": [ "tests/examples/codegen/*" ],
       "disableAllAutoFixes": true
+    },
+    {
+      "patterns": [ "tests/examples/codegen/lookup-path.php" ],
+      "disabledLinters": [
+        "Facebook\\HHAST\\Linters\\StrictModeOnlyLinter"
+      ]
     }
   ]
 }
