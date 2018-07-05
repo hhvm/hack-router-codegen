@@ -58,27 +58,27 @@
         },
         {
             "name": "facebook/hack-codegen",
-            "version": "v3.0.8",
+            "version": "v3.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hhvm/hack-codegen.git",
-                "reference": "db6d9c53d49dded3d139e14d42403e0d153f6175"
+                "reference": "b897ada51e4917fe0ad6cacc9b45047fa089d21b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hhvm/hack-codegen/zipball/db6d9c53d49dded3d139e14d42403e0d153f6175",
-                "reference": "db6d9c53d49dded3d139e14d42403e0d153f6175",
+                "url": "https://api.github.com/repos/hhvm/hack-codegen/zipball/b897ada51e4917fe0ad6cacc9b45047fa089d21b",
+                "reference": "b897ada51e4917fe0ad6cacc9b45047fa089d21b",
                 "shasum": ""
             },
             "require": {
-                "hhvm": ">=3.23.0",
+                "hhvm": ">=3.27.0",
                 "hhvm/hhvm-autoload": "^1.5",
                 "hhvm/hsl": "^1.0.0|^3.26.0"
             },
             "require-dev": {
                 "91carriage/phpunit-hhi": "^5.6",
                 "facebook/fbexpect": "^0.4.0|^1.0.0",
-                "hhvm/hhast": "^0.4.0|^1.0.0",
+                "hhvm/hhast": "^3.26.0",
                 "hhvm/type-assert": "^3.1",
                 "phpunit/phpunit": "^5.7"
             },
@@ -114,7 +114,7 @@
                 "code generation",
                 "hack"
             ],
-            "time": "2018-05-18T15:49:36+00:00"
+            "time": "2018-07-05T18:33:48+00:00"
         },
         {
             "name": "facebook/hack-router",
