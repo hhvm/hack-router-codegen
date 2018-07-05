@@ -10,7 +10,7 @@
 
 namespace Facebook\HackRouter;
 
-use Facebook\HackCodegen\{
+use type Facebook\HackCodegen\{
   HackCodegenConfig,
   HackCodegenFactory,
   IHackCodegenConfig

@@ -10,7 +10,7 @@
 
 namespace Facebook\HackRouter;
 
-use \Facebook\HackRouter\PrivateImpl\ControllerFacts;
+use type \Facebook\HackRouter\PrivateImpl\ControllerFacts;
 
 final class UriMapBuilder<TBase as IncludeInUriMap> {
 

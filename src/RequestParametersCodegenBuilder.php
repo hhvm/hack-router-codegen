@@ -10,7 +10,7 @@
 
 namespace Facebook\HackRouter;
 
-use Facebook\HackCodegen\{
+use type Facebook\HackCodegen\{
   CodegenClass,
   CodegenTrait,
   CodegenMethod,
@@ -18,7 +18,6 @@ use Facebook\HackCodegen\{
   HackCodegenFactory,
   IHackCodegenConfig
 };
-use Facebook\HackRouter\PrivateImpl\RequestParameterRequirementState;
 
 final class RequestParametersCodegenBuilder<T as RequestParametersBase>
 extends RequestParametersCodegenBuilderBase<RequestParametersCodegenBase<T>> {

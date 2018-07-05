@@ -10,9 +10,9 @@
 
 namespace Facebook\HackRouter\PrivateImpl;
 
-use Facebook\DefinitionFinder\BaseParser;
-use Facebook\DefinitionFinder\ScannedBasicClass;
-use Facebook\DefinitionFinder\ScannedClass;
+use type Facebook\DefinitionFinder\BaseParser;
+use type Facebook\DefinitionFinder\ScannedBasicClass;
+use type Facebook\DefinitionFinder\ScannedClass;
 
 final class ClassFacts {
   private ImmMap<string, ScannedClass> $classes;

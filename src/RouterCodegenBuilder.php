@@ -10,7 +10,7 @@
 
 namespace Facebook\HackRouter;
 
-use \Facebook\HackCodegen\{
+use type \Facebook\HackCodegen\{
   CodegenClass,
   CodegenFile,
   CodegenFileResult,
@@ -21,7 +21,7 @@ use \Facebook\HackCodegen\{
   HackCodegenFactory,
   IHackCodegenConfig
 };
-use \Facebook\DefinitionFinder\BaseParser;
+use type \Facebook\DefinitionFinder\BaseParser;
 
 final class RouterCodegenBuilder<T as IncludeInUriMap> {
   private CodegenGeneratedFrom $generatedFrom;

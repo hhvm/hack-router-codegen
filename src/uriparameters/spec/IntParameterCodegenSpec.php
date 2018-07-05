@@ -1,4 +1,4 @@
-<?hh //strict
+<?hh // strict
 /*
  *  Copyright (c) 2016-present, Facebook, Inc.
  *  All rights reserved.
@@ -9,8 +9,6 @@
  */
 
 namespace Facebook\HackRouter;
-
-use \Facebook\HackRouter\UriParameterCodegenArgument as Arg;
 
 final class IntParameterCodegenSpec extends SimpleParameterCodegenSpec {
   <<__Override>>

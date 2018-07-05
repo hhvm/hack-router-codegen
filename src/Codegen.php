@@ -10,15 +10,15 @@
 
 namespace Facebook\HackRouter;
 
-use Facebook\HackCodegen\{
+use type Facebook\HackCodegen\{
   CodegenGeneratedFrom,
   IHackCodegenConfig,
   HackCodegenConfig,
   HackCodegenFactory
 };
-use Facebook\DefinitionFinder\BaseParser;
-use Facebook\DefinitionFinder\TreeParser;
-use Facebook\HackRouter\PrivateImpl\{ClassFacts, ControllerFacts};
+use type Facebook\DefinitionFinder\BaseParser;
+use type Facebook\DefinitionFinder\TreeParser;
+use type Facebook\HackRouter\PrivateImpl\{ClassFacts, ControllerFacts};
 
 final class Codegen {
   const type TUriBuilderOutput = shape(

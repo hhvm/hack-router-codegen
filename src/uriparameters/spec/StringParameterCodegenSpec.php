@@ -10,7 +10,7 @@
 
 namespace Facebook\HackRouter;
 
-use \Facebook\HackRouter\UriParameterCodegenArgument as Arg;
+use type \Facebook\HackRouter\UriParameterCodegenArgument as Arg;
 
 final class StringParameterCodegenSpec extends SimpleParameterCodegenSpec {
   <<__Override>>

@@ -1,4 +1,4 @@
-<?hh //strict
+<?hh // strict
 /*
  *  Copyright (c) 2016-present, Facebook, Inc.
  *  All rights reserved.
@@ -10,7 +10,7 @@
 
 namespace Facebook\HackRouter;
 
-use \Facebook\HackRouter\UriParameterCodegenArgumentSpec as Args;
+use type \Facebook\HackRouter\UriParameterCodegenArgumentSpec as Args;
 
 final class EnumParameterCodegenSpec extends UriParameterCodegenSpec {
   private static function cast<T>(

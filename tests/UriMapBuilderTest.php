@@ -10,12 +10,11 @@
 
 namespace Facebook\HackRouter;
 
-use \Facebook\DefinitionFinder\FileParser;
-use \Facebook\DefinitionFinder\ScannedBasicClass;
-use \Facebook\HackRouter\HttpMethod;
-use \Facebook\HackRouter\CodeGen\Tests\GetRequestExampleController;
-use \Facebook\HackRouter\PrivateImpl\{
-  ClassFacts,
+use type \Facebook\DefinitionFinder\FileParser;
+use type \Facebook\DefinitionFinder\ScannedBasicClass;
+use type \Facebook\HackRouter\HttpMethod;
+use type \Facebook\HackRouter\CodeGen\Tests\GetRequestExampleController;
+use type \Facebook\HackRouter\PrivateImpl\{ClassFacts,
   ControllerFacts
 };
 

@@ -1,4 +1,4 @@
-<?hh //strict
+<?hh // strict
 /*
  *  Copyright (c) 2016-present, Facebook, Inc.
  *  All rights reserved.
@@ -10,9 +10,9 @@
 
 namespace Facebook\HackRouter;
 
-use Facebook\HackRouter\PrivateImpl\RequestParameterRequirementState;
+use type Facebook\HackRouter\PrivateImpl\RequestParameterRequirementState;
 
-use Facebook\HackCodegen\{
+use type Facebook\HackCodegen\{
   IHackCodegenConfig,
   HackCodegenFactory,
   CodegenMethod

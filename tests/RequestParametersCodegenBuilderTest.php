@@ -10,15 +10,15 @@
 
 namespace Facebook\HackRouter;
 
-use \Facebook\DefinitionFinder\FileParser;
-use \Facebook\HackCodegen\HackBuilderValues;
-use \Facebook\HackRouter\HttpMethod;
-use \Facebook\HackRouter\CodeGen\Tests\GetRequestExampleController;
-use \Facebook\HackRouter\CodeGen\Tests\Generated\{
+use type \Facebook\DefinitionFinder\FileParser;
+use type \Facebook\HackCodegen\HackBuilderValues;
+use type \Facebook\HackRouter\HttpMethod;
+use type \Facebook\HackRouter\CodeGen\Tests\GetRequestExampleController;
+use type \Facebook\HackRouter\CodeGen\Tests\Generated\{
   GetRequestExampleControllerUriBuilder,
   GetRequestExampleControllerParameters
 };
-use \Facebook\HackRouter\CodeGen\Tests\WebController;
+use type \Facebook\HackRouter\CodeGen\Tests\WebController;
 use namespace \Facebook\TypeAssert;
 
 final class RequestParametersCodegenBuilderTest extends BaseCodegenTestCase {

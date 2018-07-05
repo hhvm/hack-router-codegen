@@ -10,7 +10,7 @@
 
 namespace Facebook\HackRouter\CodeGen\Tests;
 
-use Facebook\HackRouter\{
+use type Facebook\HackRouter\{
   UriPattern,
   RequestParameter,
   RequestParameters,

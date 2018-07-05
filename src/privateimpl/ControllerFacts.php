@@ -10,9 +10,9 @@
 
 namespace Facebook\HackRouter\PrivateImpl;
 
-use \Facebook\DefinitionFinder\ScannedBasicClass;
-use \Facebook\DefinitionFinder\ScannedClass;
-use \Facebook\HackRouter\{
+use type \Facebook\DefinitionFinder\ScannedBasicClass;
+use type \Facebook\DefinitionFinder\ScannedClass;
+use type \Facebook\HackRouter\{
   HttpMethod,
   IncludeInUriMap,
   SupportsGetRequests,

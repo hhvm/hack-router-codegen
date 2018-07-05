@@ -10,14 +10,13 @@
 
 namespace Facebook\HackRouter;
 
-use \Facebook\DefinitionFinder\FileParser;
-use \Facebook\HackRouter\CodeGen\Tests\{
+use type \Facebook\DefinitionFinder\FileParser;
+use type \Facebook\HackRouter\CodeGen\Tests\{
   GetRequestExampleController,
   MyEnum
 };
-use \Facebook\HackRouter\CodeGen\Tests\Generated\MySiteRouter;
-use \Facebook\HackRouter\PrivateImpl\{
-  ClassFacts,
+use type \Facebook\HackRouter\CodeGen\Tests\Generated\MySiteRouter;
+use type \Facebook\HackRouter\PrivateImpl\{ClassFacts,
   ControllerFacts
 };
 
