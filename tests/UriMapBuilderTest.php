@@ -11,12 +11,11 @@
 namespace Facebook\HackRouter;
 
 use type \Facebook\DefinitionFinder\FileParser;
+use function Facebook\FBExpect\expect;
 use type \Facebook\DefinitionFinder\ScannedClass;
 use type \Facebook\HackRouter\HttpMethod;
 use type \Facebook\HackRouter\CodeGen\Tests\GetRequestExampleController;
-use type \Facebook\HackRouter\PrivateImpl\{ClassFacts,
-  ControllerFacts
-};
+use type \Facebook\HackRouter\PrivateImpl\{ClassFacts, ControllerFacts};
 
 final class UriMapBuilderTest extends \PHPUnit_Framework_TestCase {
   use InvokePrivateTestTrait;
@@ -24,10 +23,9 @@ final class UriMapBuilderTest extends \PHPUnit_Framework_TestCase {
   private function getBuilder(
     FileParser $parser,
   ): UriMapBuilder<IncludeInUriMap> {
-    return new UriMapBuilder(new ControllerFacts(
-      IncludeInUriMap::class,
-      new ClassFacts($parser),
-    ));
+    return new UriMapBuilder(
+      new ControllerFacts(IncludeInUriMap::class, new ClassFacts($parser)),
+    );
   }
 
   public function testCreatesRoutes(): void {
@@ -37,9 +35,8 @@ final class UriMapBuilderTest extends \PHPUnit_Framework_TestCase {
     $class = $scanned->getClass(GetRequestExampleController::class);
     $builder = $this->getBuilder($scanned);
 
-    $this->assertEquals(
+    expect($builder->getUriMap()[HttpMethod::GET]->values())->toBePHPEqual(
       ImmVector { GetRequestExampleController::class },
-      $builder->getUriMap()[HttpMethod::GET]->values(),
     );
   }
 
@@ -50,8 +47,7 @@ final class UriMapBuilderTest extends \PHPUnit_Framework_TestCase {
     $class = $scanned->getClass(GetRequestExampleController::class);
     $builder = $this->getBuilder($scanned);
     $map = $builder->getUriMap();
-    $this->assertFalse(
-      $map->containsKey(HttpMethod::POST),
+    expect($map->containsKey(HttpMethod::POST))->toBeFalse(
       'No POST controllers, should be no POST key',
     );
   }

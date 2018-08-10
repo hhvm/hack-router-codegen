@@ -10,23 +10,21 @@
 
 namespace Facebook\HackRouter;
 
+use function Facebook\FBExpect\expect;
 use type \Facebook\DefinitionFinder\FileParser;
 use type \Facebook\HackRouter\CodeGen\Tests\{
   GetRequestExampleController,
   MyEnum
 };
 use type \Facebook\HackRouter\CodeGen\Tests\Generated\MySiteRouter;
-use type \Facebook\HackRouter\PrivateImpl\{ClassFacts,
-  ControllerFacts
-};
+use type \Facebook\HackRouter\PrivateImpl\{ClassFacts, ControllerFacts};
 
 final class RouterCodegenBuilderTest extends BaseCodegenTestCase {
   use InvokePrivateTestTrait;
   use TestTypechecksTestTrait;
 
   const string CODEGEN_PATH = __DIR__.'/examples/codegen/MySiteRouter.php';
-  const string CODEGEN_NS =
-    "Facebook\\HackRouter\\CodeGen\\Tests\\Generated";
+  const string CODEGEN_NS = "Facebook\\HackRouter\\CodeGen\\Tests\\Generated";
 
   <<__Memoize>>
   private function getBuilder(
@@ -71,14 +69,14 @@ final class RouterCodegenBuilderTest extends BaseCodegenTestCase {
 
   public function testMapOnlyContainsUsedMethods(): void {
     $code = $this->renderToString($this->getBuilder());
-    $this->assertContains('HttpMethod::GET', $code);
-    $this->assertNotContains('HttpMethod::POST', $code);
+    expect($code)->toContain('HttpMethod::GET');
+    expect($code)->toNotContain('HttpMethod::POST');
   }
 
   public function testDefaultGeneratedFrom(): void {
     $code = $this->renderToString($this->getBuilder());
-    $this->assertContains('To re-generate this file run', $code);
-    $this->assertContains('vendor/phpunit/phpunit/phpunit', $code);
+    expect($code)->toContain('To re-generate this file run');
+    expect($code)->toContain('vendor/phpunit/phpunit/phpunit');
   }
 
   public function testOverriddenGeneratedFrom(): void {
@@ -87,28 +85,24 @@ final class RouterCodegenBuilderTest extends BaseCodegenTestCase {
         $this->getCodegenFactory()->codegenGeneratedFromClass(self::class),
       ),
     );
-    $this->assertContains(
-      'Generated from '.RouterCodegenBuilder::class,
-      $code,
-    );
+    expect($code)->toContain('Generated from '.RouterCodegenBuilder::class);
   }
 
   public function testCreatesFinalByDefault(): void {
     $code = $this->renderToString($this->getBuilder());
     $parser = FileParser::fromData($code);
     $class = $parser->getClass(MySiteRouter::class);
-    $this->assertTrue($class->isFinal(), 'should be final');
-    $this->assertFalse($class->isAbstract(), 'should not be abstract');
+    expect($class->isFinal())->toBeTrue('should be final');
+    expect($class->isAbstract())->toBeFalse('should not be abstract');
   }
 
   public function testCanCreateAbstract(): void {
     $code = $this->renderToString(
-      $this->getBuilder()->setCreateAbstractClass(true),
-    );
+      $this->getBuilder()->setCreateAbstractClass(true));
     $parser = FileParser::fromData($code);
     $class = $parser->getClass(MySiteRouter::class);
-    $this->assertTrue($class->isAbstract(), 'should be abstract');
-    $this->assertFalse($class->isFinal(), 'should not be final');
+    expect($class->isAbstract())->toBeTrue('should be abstract');
+    expect($class->isFinal())->toBeFalse('should not be final');
   }
 
   public function testIsStrict(): void {
@@ -128,23 +122,14 @@ final class RouterCodegenBuilderTest extends BaseCodegenTestCase {
       HttpMethod::GET,
       '/foo/123/derp',
     );
-    $this->assertSame(GetRequestExampleController::class, $controller);
+    expect($controller)->toBeSame(GetRequestExampleController::class);
     $params = new RequestParameters(
       GetRequestExampleController::getUriPattern()->getParameters(),
       [],
       $params,
     );
-    $this->assertSame(
-      'foo',
-      $params->getString('MyString'),
-    );
-    $this->assertSame(
-      123,
-      $params->getInt('MyInt'),
-    );
-    $this->assertSame(
-      MyEnum::HERP,
-      $params->getEnum(MyEnum::class, 'MyEnum'),
-    );
+    expect($params->getString('MyString'))->toBeSame('foo');
+    expect($params->getInt('MyInt'))->toBeSame(123);
+    expect($params->getEnum(MyEnum::class, 'MyEnum'))->toBeSame(MyEnum::HERP);
   }
 }

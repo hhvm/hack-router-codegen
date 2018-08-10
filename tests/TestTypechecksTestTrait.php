@@ -9,6 +9,7 @@
  */
 
 namespace Facebook\HackRouter;
+use function Facebook\FBExpect\expect;
 
 trait TestTypechecksTestTrait {
   require extends \PHPUnit_Framework_TestCase;
@@ -24,6 +25,6 @@ trait TestTypechecksTestTrait {
       &$out_array,
       &$exit_code,
     );
-    $this->assertSame(0, $exit_code, "Typechecker errors found");
+    expect($exit_code)->toBeSame(0, "Typechecker errors found");
   }
 }

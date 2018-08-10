@@ -10,6 +10,7 @@
 
 namespace Facebook\HackRouter;
 
+use function Facebook\FBExpect\expect;
 use type \Facebook\DefinitionFinder\FileParser;
 use type \Facebook\HackCodegen\HackBuilderValues;
 use type \Facebook\HackRouter\HttpMethod;
@@ -79,31 +80,31 @@ final class RequestParametersCodegenBuilderTest extends BaseCodegenTestCase {
   public function testCanGetParameter(): void {
     $values = ImmMap {
       'MyString' => __FUNCTION__,
-      'MyInt' => (string) __LINE__,
-      'MyEnum' => (string) CodeGen\Tests\MyEnum::HERP,
+      'MyInt' => (string)__LINE__,
+      'MyEnum' => (string)CodeGen\Tests\MyEnum::HERP,
     };
     $params = $this->getCodegenParametersForValues($values);
-    $this->assertSame(__FUNCTION__, $params->get()['MyString']);
+    expect($params->get()['MyString'])->toBeSame(__FUNCTION__);
   }
 
   public function testCanGetOptionalParameter(): void {
     $values = ImmMap {
       'MyString' => __FUNCTION__,
-      'MyInt' => (string) __LINE__,
-      'MyEnum' => (string) CodeGen\Tests\MyEnum::HERP,
+      'MyInt' => (string)__LINE__,
+      'MyEnum' => (string)CodeGen\Tests\MyEnum::HERP,
       'MyOptionalParam' => __FUNCTION__,
     };
     $params = $this->getCodegenParametersForValues($values);
-    $this->assertSame(__FUNCTION__, $params->get()['MyOptionalParam']);
+    expect($params->get()['MyOptionalParam'])->toBeSame(__FUNCTION__);
   }
 
   public function testGetNullForMissingOptionalParameter(): void {
     $values = ImmMap {
       'MyString' => __FUNCTION__,
-      'MyInt' => (string) __LINE__,
-      'MyEnum' => (string) CodeGen\Tests\MyEnum::HERP,
+      'MyInt' => (string)__LINE__,
+      'MyEnum' => (string)CodeGen\Tests\MyEnum::HERP,
     };
     $params = $this->getCodegenParametersForValues($values);
-    $this->assertSame(null, $params->get()['MyOptionalParam']);
+    expect($params->get()['MyOptionalParam'])->toBeSame(null);
   }
 }
