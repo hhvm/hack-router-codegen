@@ -13,7 +13,6 @@ namespace Facebook\HackRouter;
 use type Facebook\HackCodegen\{
   HackCodegenConfig,
   HackCodegenFactory,
-  IHackCodegenConfig
 };
 
 abstract class BaseCodegenTestCase extends \PHPUnit\Framework\TestCase {

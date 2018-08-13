@@ -11,13 +11,13 @@
 namespace Facebook\HackRouter;
 
 use function Facebook\FBExpect\expect;
-use type \Facebook\DefinitionFinder\FileParser;
-use type \Facebook\HackRouter\CodeGen\Tests\{
+use type Facebook\DefinitionFinder\FileParser;
+use type Facebook\HackRouter\CodeGen\Tests\{
   GetRequestExampleController,
   MyEnum
 };
-use type \Facebook\HackRouter\CodeGen\Tests\Generated\MySiteRouter;
-use type \Facebook\HackRouter\PrivateImpl\{ClassFacts, ControllerFacts};
+use type Facebook\HackRouter\CodeGen\Tests\Generated\MySiteRouter;
+use type Facebook\HackRouter\PrivateImpl\{ClassFacts, ControllerFacts};
 
 final class RouterCodegenBuilderTest extends BaseCodegenTestCase {
   use InvokePrivateTestTrait;

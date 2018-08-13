@@ -10,7 +10,7 @@
 
 namespace Facebook\HackRouter;
 
-use type \Facebook\HackRouter\UriParameterCodegenArgumentSpec as Args;
+use type Facebook\HackRouter\UriParameterCodegenArgumentSpec as Args;
 
 abstract class SimpleParameterCodegenSpec extends UriParameterCodegenSpec {
   const type TSimpleSpec = shape(
@@ -28,7 +28,7 @@ abstract class SimpleParameterCodegenSpec extends UriParameterCodegenSpec {
       'type' => $spec['type'],
       'accessorSuffix' => $spec['accessorSuffix'],
       'args' => ImmVector {
-        Args::ParameterName(),
+        Args::parameterName(),
       },
     );
   }
@@ -42,8 +42,8 @@ abstract class SimpleParameterCodegenSpec extends UriParameterCodegenSpec {
       'type' => $spec['type'],
       'accessorSuffix' => $spec['accessorSuffix'],
       'args' => ImmVector {
-        Args::ParameterName(),
-        Args::ParameterValue(),
+        Args::parameterName(),
+        Args::parameterValue(),
       },
     );
   }

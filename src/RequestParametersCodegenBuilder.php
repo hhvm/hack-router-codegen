@@ -13,9 +13,7 @@ namespace Facebook\HackRouter;
 use type Facebook\HackCodegen\{
   CodegenClass,
   CodegenTrait,
-  CodegenMethod,
   HackBuilderValues,
-  HackCodegenFactory,
   IHackCodegenConfig
 };
 

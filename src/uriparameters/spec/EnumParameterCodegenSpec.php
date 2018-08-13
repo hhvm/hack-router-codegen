@@ -10,7 +10,7 @@
 
 namespace Facebook\HackRouter;
 
-use type \Facebook\HackRouter\UriParameterCodegenArgumentSpec as Args;
+use type Facebook\HackRouter\UriParameterCodegenArgumentSpec as Args;
 
 final class EnumParameterCodegenSpec extends UriParameterCodegenSpec {
   private static function cast<T>(
@@ -45,8 +45,8 @@ final class EnumParameterCodegenSpec extends UriParameterCodegenSpec {
       'type' => self::getType($param),
       'accessorSuffix' => 'Enum',
       'args' => ImmVector {
-        Args::Custom(($_, $_) ==> self::getTypeName($param)),
-        Args::ParameterName(),
+        Args::custom(($_, $_) ==> self::getTypeName($param)),
+        Args::parameterName(),
       },
     );
   }
@@ -60,9 +60,9 @@ final class EnumParameterCodegenSpec extends UriParameterCodegenSpec {
       'type' => self::getType($param),
       'accessorSuffix' => 'Enum',
       'args' => ImmVector {
-        Args::Custom(($_, $_) ==> self::getTypeName($param)),
-        Args::ParameterName(),
-        Args::ParameterValue(),
+        Args::custom(($_, $_) ==> self::getTypeName($param)),
+        Args::parameterName(),
+        Args::parameterValue(),
       },
     );
   }

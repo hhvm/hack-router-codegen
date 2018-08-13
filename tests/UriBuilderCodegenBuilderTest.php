@@ -11,10 +11,8 @@
 namespace Facebook\HackRouter;
 
 use function Facebook\FBExpect\expect;
-use type \Facebook\DefinitionFinder\FileParser;
-use type \Facebook\HackRouter\HttpMethod;
-use type \Facebook\HackRouter\CodeGen\Tests\GetRequestExampleController;
-use type \Facebook\HackRouter\CodeGen\Tests\Generated\GetRequestExampleControllerUriBuilder;
+use type Facebook\HackRouter\CodeGen\Tests\GetRequestExampleController;
+use type Facebook\HackRouter\CodeGen\Tests\Generated\GetRequestExampleControllerUriBuilder;
 
 final class UriBuilderCodegenBuilderTest extends BaseCodegenTestCase {
   use TestTypechecksTestTrait;

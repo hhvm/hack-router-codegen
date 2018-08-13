@@ -26,13 +26,13 @@ final class UriParameterCodegenArgumentSpec {
     return $renderer($param, $value_variable);
   }
 
-  public static function ParameterName(): this {
+  public static function parameterName(): this {
     return new self(
       ($param, $_value) ==> \var_export($param->getName(), true),
     );
   }
 
-  public static function ParameterValue(): this {
+  public static function parameterValue(): this {
     return new self(
       ($_param, $value) ==> {
         invariant(
@@ -45,7 +45,7 @@ final class UriParameterCodegenArgumentSpec {
     );
   }
 
-  public static function Custom(self::TRenderer $renderer): this {
+  public static function custom(self::TRenderer $renderer): this {
     return new self($renderer);
   }
 }

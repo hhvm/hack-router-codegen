@@ -11,8 +11,8 @@
 namespace Facebook\HackRouter;
 
 use function Facebook\FBExpect\expect;
-use type \Facebook\HackRouter\CodeGen\Tests\Generated\MySiteRouter;
-use type \Facebook\HackRouter\CodeGen\Tests\{
+use type Facebook\HackRouter\CodeGen\Tests\Generated\MySiteRouter;
+use type Facebook\HackRouter\CodeGen\Tests\{
   GetRequestExampleController,
   MyEnum
 };

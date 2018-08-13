@@ -11,10 +11,10 @@
 namespace Facebook\HackRouter;
 
 use function Facebook\FBExpect\expect;
-use type \Facebook\DefinitionFinder\FileParser;
-use type \Facebook\DefinitionFinder\ScannedClass;
-use type \Facebook\HackRouter\HttpMethod;
-use type \Facebook\HackRouter\PrivateImpl\{ClassFacts, ControllerFacts};
+use type Facebook\DefinitionFinder\FileParser;
+use type Facebook\DefinitionFinder\ScannedClass;
+use type Facebook\HackRouter\HttpMethod;
+use type Facebook\HackRouter\PrivateImpl\{ClassFacts, ControllerFacts};
 
 final class ControllerFactsTest extends \PHPUnit_Framework_TestCase {
   use InvokePrivateTestTrait;
