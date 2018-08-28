@@ -10,7 +10,7 @@
 
 namespace Facebook\HackRouter;
 
-use type \Facebook\HackRouter\UriParameterCodegenArgumentSpec as Args;
+use type Facebook\HackRouter\UriParameterCodegenArgumentSpec as Args;
 
 final class EnumParameterCodegenSpec extends UriParameterCodegenSpec {
   private static function cast<T>(

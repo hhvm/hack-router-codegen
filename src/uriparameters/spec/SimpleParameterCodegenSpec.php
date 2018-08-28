@@ -10,7 +10,7 @@
 
 namespace Facebook\HackRouter;
 
-use type \Facebook\HackRouter\UriParameterCodegenArgumentSpec as Args;
+use type Facebook\HackRouter\UriParameterCodegenArgumentSpec as Args;
 
 abstract class SimpleParameterCodegenSpec extends UriParameterCodegenSpec {
   const type TSimpleSpec = shape(
