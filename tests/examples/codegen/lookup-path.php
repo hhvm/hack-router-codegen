@@ -4,10 +4,10 @@
  * This file is partially generated. Only make modifications between BEGIN
  * MANUAL SECTION and END MANUAL SECTION designators.
  *
- * To re-generate this file run vendor/phpunit/phpunit/phpunit
+ * To re-generate this file run vendor/hhvm/hacktest/bin/hacktest
  *
  *
- * @partially-generated SignedSource<<394f3dc7b352d127b17bdb87263351ef>>
+ * @partially-generated SignedSource<<e35d1a9eac8d64dead43575ef8f71fc3>>
  */
 namespace Facebook\HackRouter\CodeGen\Tests\Generated;
 /* BEGIN MANUAL SECTION init */

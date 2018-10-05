@@ -15,7 +15,7 @@ use type Facebook\HackCodegen\{
   HackCodegenFactory,
 };
 
-abstract class BaseCodegenTestCase extends \PHPUnit\Framework\TestCase {
+abstract class BaseCodegenTestCase extends \Facebook\HackTest\HackTest {
   protected function getCodegenConfig(): HackCodegenConfig {
     return (new HackCodegenConfig())
       ->withRootDir(\realpath(__DIR__.'/../'));

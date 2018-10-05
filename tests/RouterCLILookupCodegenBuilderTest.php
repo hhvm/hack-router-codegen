@@ -11,6 +11,7 @@
 namespace Facebook\HackRouter;
 
 use type Facebook\HackRouter\CodeGen\Tests\Generated\MySiteRouter;
+use function Facebook\FBExpect\expect;
 use type Facebook\HackRouter\CodeGen\Tests\{
   GetRequestExampleController,
   MyEnum
@@ -58,15 +59,9 @@ final class RouterCLILookupCodegenBuilderTest extends BaseCodegenTestCase {
       &$exit_code,
     );
     $output = \implode("\n", $output);
-    $this->assertSame(0, $exit_code);
-    $this->assertRegExp(
-      '/^HEAD:.+GetRequestExampleController$/m',
-      $output,
-    );
-    $this->assertRegExp(
-      '/^GET:.+GetRequestExampleController$/m',
-      $output,
-    );
+    expect($exit_code)->toBeSame(0);
+    expect($output)->toMatchRegExp('/^HEAD:.+GetRequestExampleController$/m');
+    expect($output)->toMatchRegExp('/^GET:.+GetRequestExampleController$/m');
   }
 
   public function testCantLookupInvalidPath(): void {
@@ -86,11 +81,11 @@ final class RouterCLILookupCodegenBuilderTest extends BaseCodegenTestCase {
       &$exit_code,
     );
     $output = \implode("\n", $output);
-    $this->assertGreaterThan(0, $exit_code);
-    $this->assertNotContains('HEAD', $output);
-    $this->assertNotContains('GET', $output);
+    expect($exit_code)->toBeGreaterThan(0);
+    expect($output)->toNotContain('HEAD');
+    expect($output)->toNotContain('GET');
     // Brittle - don't care about this string, just that there's a friendly
     // error message rather than a hack error, exception, etc
-    $this->assertContains('No controller found', $output);
+    expect($output)->toContain('No controller found');
   }
 }

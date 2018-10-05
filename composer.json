@@ -11,9 +11,9 @@
         "hhvm/type-assert": "^3.0"
     },
     "require-dev": {
-        "91carriage/phpunit-hhi": "^5.5",
-        "phpunit/phpunit": "^5.5",
-        "hhvm/hhast": "^3.28"
+        "hhvm/hhast": "^3.28",
+        "hhvm/hacktest": "^1.1",
+        "facebook/fbexpect": "^2.1"
     },
     "extra": {
         "branch-alias": {

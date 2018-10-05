@@ -11,6 +11,7 @@
 namespace Facebook\HackRouter;
 
 use type Facebook\HackRouter\CodeGen\Tests\GetRequestExampleController;
+use function Facebook\FBExpect\expect;
 use type Facebook\HackRouter\CodeGen\Tests\Generated\GetRequestExampleControllerUriBuilder
 ;
 
@@ -55,10 +56,7 @@ final class UriBuilderCodegenBuilderTest extends BaseCodegenTestCase {
       'MyInt' => 42,
       'MyEnum' => CodeGen\Tests\MyEnum::HERP,
     ));
-    $this->assertSame(
-      '/some value/42/derp',
-      $path,
-    );
+    expect($path)->toBeSame('/some value/42/derp');
   }
 
   public function testUriBuilderTrait(
@@ -68,9 +66,6 @@ final class UriBuilderCodegenBuilderTest extends BaseCodegenTestCase {
       'MyInt' => 42,
       'MyEnum' => CodeGen\Tests\MyEnum::HERP,
     ));
-    $this->assertSame(
-      '/some value/42/derp',
-      $path,
-    );
+    expect($path)->toBeSame('/some value/42/derp');
   }
 }

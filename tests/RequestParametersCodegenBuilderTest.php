@@ -11,6 +11,7 @@
 namespace Facebook\HackRouter;
 
 use type Facebook\HackRouter\CodeGen\Tests\GetRequestExampleController;
+use function Facebook\FBExpect\expect;
 use type Facebook\HackRouter\CodeGen\Tests\Generated\GetRequestExampleControllerParameters
 ;
 use type Facebook\HackRouter\CodeGen\Tests\WebController;
@@ -78,7 +79,7 @@ final class RequestParametersCodegenBuilderTest extends BaseCodegenTestCase {
       'MyEnum' => (string) CodeGen\Tests\MyEnum::HERP,
     };
     $params = $this->getCodegenParametersForValues($values);
-    $this->assertSame(__FUNCTION__, $params->get()['MyString']);
+    expect($params->get()['MyString'])->toBeSame(__FUNCTION__);
   }
 
   public function testCanGetOptionalParameter(): void {
@@ -89,7 +90,7 @@ final class RequestParametersCodegenBuilderTest extends BaseCodegenTestCase {
       'MyOptionalParam' => __FUNCTION__,
     };
     $params = $this->getCodegenParametersForValues($values);
-    $this->assertSame(__FUNCTION__, $params->get()['MyOptionalParam']);
+    expect($params->get()['MyOptionalParam'])->toBeSame(__FUNCTION__);
   }
 
   public function testGetNullForMissingOptionalParameter(): void {
@@ -99,6 +100,6 @@ final class RequestParametersCodegenBuilderTest extends BaseCodegenTestCase {
       'MyEnum' => (string) CodeGen\Tests\MyEnum::HERP,
     };
     $params = $this->getCodegenParametersForValues($values);
-    $this->assertSame(null, $params->get()['MyOptionalParam']);
+    expect($params->get()['MyOptionalParam'])->toBeSame(null);
   }
 }

@@ -11,7 +11,7 @@
 namespace Facebook\HackRouter;
 
 trait InvokePrivateTestTrait {
-  require extends \PHPUnit_Framework_TestCase;
+  require extends \Facebook\HackTest\HackTest;
   final protected function invokePrivate<T>(
     T $object,
     string $method,

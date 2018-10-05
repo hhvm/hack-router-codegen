@@ -11,13 +11,14 @@
 namespace Facebook\HackRouter;
 
 use type Facebook\DefinitionFinder\FileParser;
+use function Facebook\FBExpect\expect;
 use type Facebook\DefinitionFinder\ScannedClass;
 use type Facebook\HackRouter\HttpMethod;
 use type Facebook\HackRouter\PrivateImpl\{ClassFacts,
   ControllerFacts
 };
 
-final class ControllerFactsTest extends \PHPUnit_Framework_TestCase {
+final class ControllerFactsTest extends \Facebook\HackTest\HackTest {
   use InvokePrivateTestTrait;
 
   private function getFacts(
@@ -60,7 +61,7 @@ final class ControllerFactsTest extends \PHPUnit_Framework_TestCase {
     $scanned = FileParser::fromData($code, __FUNCTION__);
     $class = $scanned->getClass('MyController');
     $facts = $this->getFacts($scanned);
-    $this->assertTrue($this->isMappable($facts, $class));
+    expect($this->isMappable($facts, $class))->toBeTrue();
   }
 
   public function testMappableDirectlyFromNamespace(): void {
@@ -72,7 +73,7 @@ final class ControllerFactsTest extends \PHPUnit_Framework_TestCase {
     $scanned = FileParser::fromData($code, __FUNCTION__);
     $class = $scanned->getClass('MySite\MyController');
     $facts = $this->getFacts($scanned);
-    $this->assertTrue($this->isMappable($facts, $class));
+    expect($this->isMappable($facts, $class))->toBeTrue();
   }
 
   public function testMappableDirectlyWithPrecedingBackSlash(): void {
@@ -83,7 +84,7 @@ final class ControllerFactsTest extends \PHPUnit_Framework_TestCase {
     $scanned = FileParser::fromData($code, __FUNCTION__);
     $class = $scanned->getClass('MyController');
     $facts = $this->getFacts($scanned);
-    $this->assertTrue($this->isMappable($facts, $class));
+    expect($this->isMappable($facts, $class))->toBeTrue();
   }
 
   public function testMappableDirectlyWithUsedInterface(): void {
@@ -94,7 +95,7 @@ final class ControllerFactsTest extends \PHPUnit_Framework_TestCase {
     $scanned = FileParser::fromData($code, __FUNCTION__);
     $class = $scanned->getClass('MyController');
     $facts = $this->getFacts($scanned);
-    $this->assertTrue($this->isMappable($facts, $class));
+    expect($this->isMappable($facts, $class))->toBeTrue();
   }
 
   public function testAbstractIsNotMappable(): void {
@@ -105,22 +106,19 @@ final class ControllerFactsTest extends \PHPUnit_Framework_TestCase {
     $scanned = FileParser::fromData($code, __FUNCTION__);
     $class = $scanned->getClass('MyController');
     $facts = $this->getFacts($scanned);
-    $this->assertFalse($this->isMappable($facts, $class));
+    expect($this->isMappable($facts, $class))->toBeFalse();
   }
 
-  /**
-   * @expectedException \HH\InvariantException
-   * @expectedExceptionMessage MyController
-   */
   public function testNoNonFinalNonAbstract(): void {
-    $code =
-      "<?hh\n".
-      "class MyController\n".
+    expect(() ==> {
+      $code = "<?hh\n".
+        "class MyController\n".
       "implements Facebook\HackRouter\IncludeInUriMap {}";
-    $scanned = FileParser::fromData($code, __FUNCTION__);
-    $class = $scanned->getClass('MyController');
-    $facts = $this->getFacts($scanned);
-    $_throws = $this->isMappable($facts, $class);
+      $scanned = FileParser::fromData($code, __FUNCTION__);
+      $class = $scanned->getClass('MyController');
+      $facts = $this->getFacts($scanned);
+      $_throws = $this->isMappable($facts, $class);
+    })->toThrow(InvariantException::class);
   }
 
   public function testMappableByParentClass(): void {
@@ -134,8 +132,8 @@ final class ControllerFactsTest extends \PHPUnit_Framework_TestCase {
     $final = $scanned->getClass('MyController');
 
     $facts = $this->getFacts($scanned);
-    $this->assertTrue($this->isMappable($facts, $final));
-    $this->assertFalse($this->isMappable($facts, $base));
+    expect($this->isMappable($facts, $final))->toBeTrue();
+    expect($this->isMappable($facts, $base))->toBeFalse();
   }
 
   public function testMappableByParentClassInNamespace(): void {
@@ -150,8 +148,8 @@ final class ControllerFactsTest extends \PHPUnit_Framework_TestCase {
     $final = $scanned->getClass('Foo\\Bar\\MyController');
 
     $facts = $this->getFacts($scanned);
-    $this->assertTrue($this->isMappable($facts, $final));
-    $this->assertFalse($this->isMappable($facts, $base));
+    expect($this->isMappable($facts, $final))->toBeTrue();
+    expect($this->isMappable($facts, $base))->toBeFalse();
   }
 
   public function testMappableByDerivedInterface(): void {
@@ -164,7 +162,7 @@ final class ControllerFactsTest extends \PHPUnit_Framework_TestCase {
     $class = $scanned->getClass('MyController');
 
     $facts = $this->getFacts($scanned);
-    $this->assertTrue($this->isMappable($facts, $class));
+    expect($this->isMappable($facts, $class))->toBeTrue();
   }
 
   public function testMappableByTrait(): void {
@@ -179,7 +177,7 @@ final class ControllerFactsTest extends \PHPUnit_Framework_TestCase {
     $class = $scanned->getClass('MyController');
 
     $facts = $this->getFacts($scanned);
-    $this->assertTrue($this->isMappable($facts, $class));
+    expect($this->isMappable($facts, $class))->toBeTrue();
   }
 
   public function testGetController(): void {
@@ -193,9 +191,8 @@ final class ControllerFactsTest extends \PHPUnit_Framework_TestCase {
     $class = $scanned->getClass('MyController');
 
     $facts = $this->getFacts($scanned);
-    $this->assertEquals(
+    expect($this->getMethods($facts, $class))->toBePHPEqual(
       ImmSet { HttpMethod::GET },
-      $this->getMethods($facts, $class),
     );
   }
 
@@ -210,45 +207,36 @@ final class ControllerFactsTest extends \PHPUnit_Framework_TestCase {
     $class = $scanned->getClass('MyController');
 
     $facts = $this->getFacts($scanned);
-    $this->assertEquals(
+    expect($this->getMethods($facts, $class))->toBePHPEqual(
       ImmSet { HttpMethod::POST },
-      $this->getMethods($facts, $class),
     );
   }
 
-  /**
-   * @expectedException \HH\InvariantException
-   * @expectedExceptionMessage multiple HTTP methods
-   */
   public function testGetAndPostController(): void {
-    $code =
-      "<?hh\n".
-      "final class MyController implements\n".
+    expect(() ==> {
+      $code = "<?hh\n".
+        "final class MyController implements\n".
       "\Facebook\HackRouter\IncludeInUriMap,\n".
       "\Facebook\HackRouter\SupportsGetRequests,\n".
       "\Facebook\HackRouter\SupportsPostRequests {\n".
       "}";
-    $scanned = FileParser::fromData($code, __FUNCTION__);
-    $class = $scanned->getClass('MyController');
-
-    $facts = $this->getFacts($scanned);
-    $_throws = $this->getMethods($facts, $class);
+      $scanned = FileParser::fromData($code, __FUNCTION__);
+      $class = $scanned->getClass('MyController');
+      $facts = $this->getFacts($scanned);
+      $_throws = $this->getMethods($facts, $class);
+    })->toThrow(InvariantException::class);
   }
 
-  /**
-   * @expectedException \HH\InvariantException
-   * @expectedExceptionMessage but does not implement
-   */
   public function testControllerWithNoSupportedMethods(): void {
-    $code =
-      "<?hh\n".
-      "final class MyController implements\n".
+    expect(() ==> {
+      $code = "<?hh\n".
+        "final class MyController implements\n".
       "\Facebook\HackRouter\IncludeInUriMap {\n".
       "}";
-    $scanned = FileParser::fromData($code, __FUNCTION__);
-    $class = $scanned->getClass('MyController');
-
-    $facts = $this->getFacts($scanned);
-    $_throws = $this->getMethods($facts, $class);
+      $scanned = FileParser::fromData($code, __FUNCTION__);
+      $class = $scanned->getClass('MyController');
+      $facts = $this->getFacts($scanned);
+      $_throws = $this->getMethods($facts, $class);
+    })->toThrow(InvariantException::class);
   }
 }
