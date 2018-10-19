@@ -7,14 +7,13 @@
  * To re-generate this file run vendor/hhvm/hacktest/bin/hacktest
  *
  *
- * @partially-generated SignedSource<<e35d1a9eac8d64dead43575ef8f71fc3>>
+ * @partially-generated SignedSource<<c2a6908f351ee9d3092c29f200fadd8d>>
  */
 namespace Facebook\HackRouter\CodeGen\Tests\Generated;
 /* BEGIN MANUAL SECTION init */
 require_once(__DIR__.'/../../../vendor/hh_autoload.php');
 /* END MANUAL SECTION */
 
-<<Codegen>>
 final class MySiteRouterCLILookup {
 
   private function getRouter(

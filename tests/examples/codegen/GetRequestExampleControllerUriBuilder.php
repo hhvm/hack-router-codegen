@@ -5,11 +5,10 @@
  * To re-generate this file run vendor/hhvm/hacktest/bin/hacktest
  *
  *
- * @generated SignedSource<<68bb7bbb334597ea27c26d4f85474887>>
+ * @generated SignedSource<<fb2712b0dca435a5b5faac2196f2a096>>
  */
 namespace Facebook\HackRouter\CodeGen\Tests\Generated;
 
-<<Codegen>>
 abstract final class GetRequestExampleControllerUriBuilder
   extends \Facebook\HackRouter\UriBuilderCodegen {
 
@@ -33,7 +32,6 @@ abstract final class GetRequestExampleControllerUriBuilder
   }
 }
 
-<<Codegen>>
 trait GetRequestExampleControllerUriBuilderTrait {
 
   final public static function getPath(

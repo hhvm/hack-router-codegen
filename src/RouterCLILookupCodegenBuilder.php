@@ -91,7 +91,6 @@ final class RouterCLILookupCodegenBuilder {
     string $utility_classname,
   ): CodegenClass {
     return $this->cg->codegenClass($utility_classname)
-      ->addEmptyUserAttribute('Codegen')
       ->setIsFinal(true)
       ->addMethod(
         $this->cg->codegenMethod('getRouter')

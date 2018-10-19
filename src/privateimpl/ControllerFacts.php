@@ -16,7 +16,8 @@ use type Facebook\HackRouter\{
   HttpMethod,
   IncludeInUriMap,
   SupportsGetRequests,
-  SupportsPostRequests
+  SupportsPostRequests,
+  TestsBypassVisibility,
 };
 
 final class ControllerFacts<T as IncludeInUriMap> {

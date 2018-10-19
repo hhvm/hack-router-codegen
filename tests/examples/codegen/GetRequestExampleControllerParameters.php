@@ -5,11 +5,10 @@
  * To re-generate this file run vendor/hhvm/hacktest/bin/hacktest
  *
  *
- * @generated SignedSource<<bdef8ec11f7457aa33b9b29478e04d0a>>
+ * @generated SignedSource<<0e9bf7c34daf198ab5439077c13199b2>>
  */
 namespace Facebook\HackRouter\CodeGen\Tests\Generated;
 
-<<Codegen>>
 final class GetRequestExampleControllerParameters
   extends \Facebook\HackRouter\RequestParametersCodegen {
 
@@ -31,7 +30,6 @@ final class GetRequestExampleControllerParameters
   }
 }
 
-<<Codegen>>
 trait GetRequestExampleControllerParametersTrait {
 
   require extends \Facebook\HackRouter\CodeGen\Tests\WebController;
