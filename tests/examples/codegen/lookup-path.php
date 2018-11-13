@@ -7,11 +7,28 @@
  * To re-generate this file run vendor/hhvm/hacktest/bin/hacktest
  *
  *
- * @partially-generated SignedSource<<c2a6908f351ee9d3092c29f200fadd8d>>
+ * @partially-generated SignedSource<<0fa275c7316beecbc717f17462599df8>>
  */
 namespace Facebook\HackRouter\CodeGen\Tests\Generated;
 /* BEGIN MANUAL SECTION init */
-require_once(__DIR__.'/../../../vendor/hh_autoload.php');
+$autoloader = null;
+$autoloader_candidates = ImmSet {
+  __DIR__.'/vendor/hh_autoload.php',
+  __DIR__.'/../vendor/hh_autoload.php',
+  __DIR__.'/../../vendor/hh_autoload.php',
+  __DIR__.'/../../../vendor/hh_autoload.php',
+};
+foreach ($autoloader_candidates as $candidate) {
+  if (\file_exists($candidate)) {
+    $autoloader = $candidate;
+    break;
+  }
+}
+if ($autoloader === null) {
+  \fwrite(\STDERR, "Can't find autoloader.\n");
+  exit(1);
+}
+require_once($autoloader);
 /* END MANUAL SECTION */
 
 final class MySiteRouterCLILookup {
@@ -25,14 +42,7 @@ final class MySiteRouterCLILookup {
 
   private function prettifyControllerName(string $controller): string {
     /* BEGIN MANUAL SECTION MySiteRouterCLILookup::prettifyControllerName */
-    $parts = \explode('\\', $controller);
-    invariant(
-      \count($parts) > 3,
-      'Too few NS parts found; expected everything to be in example NS',
-    );
-    $first = $parts[0];
-    $last = \array_pop(&$parts);
-    return '\\'.$first.'\\...\\'.$last;
+    return $controller;
     /* END MANUAL SECTION */
   }
 
@@ -45,7 +55,7 @@ final class MySiteRouterCLILookup {
       foreach (\Facebook\HackRouter\HttpMethod::getValues() as $method) {
         try {
           list($controller, $_params) =
-            $router->routeRequest($method, $path);
+            $router->routeMethodAndPath($method, $path);
           $controllers[$method] = $controller;
         } catch (\Facebook\HackRouter\MethodNotAllowedException $_) {
           // Ignore

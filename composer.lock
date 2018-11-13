@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8e9148d2c7ff7794e2173791c42ff46c",
+    "content-hash": "6e16618cd759d08dac3887f3d908cf5b",
     "packages": [
         {
             "name": "facebook/definition-finder",
-            "version": "v2.2.0",
+            "version": "v2.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hhvm/definition-finder.git",
-                "reference": "d7f98fbf7bafd73dd5a73e39530f86c453a6824a"
+                "reference": "1c952746196c285c93620c54ccc69e5c182a57fe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hhvm/definition-finder/zipball/d7f98fbf7bafd73dd5a73e39530f86c453a6824a",
-                "reference": "d7f98fbf7bafd73dd5a73e39530f86c453a6824a",
+                "url": "https://api.github.com/repos/hhvm/definition-finder/zipball/1c952746196c285c93620c54ccc69e5c182a57fe",
+                "reference": "1c952746196c285c93620c54ccc69e5c182a57fe",
                 "shasum": ""
             },
             "require": {
@@ -57,7 +57,7 @@
                 "hack",
                 "hhvm"
             ],
-            "time": "2018-10-19T15:55:47+00:00"
+            "time": "2018-10-25T19:50:52+00:00"
         },
         {
             "name": "facebook/difflib",
@@ -95,27 +95,28 @@
         },
         {
             "name": "facebook/hack-codegen",
-            "version": "v3.3.1",
+            "version": "v4.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hhvm/hack-codegen.git",
-                "reference": "0b8d145d5ab6be726e0cd201447ea2b64f239a8c"
+                "reference": "c9de775742094762412fb4ed9ab3283a80efc886"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hhvm/hack-codegen/zipball/0b8d145d5ab6be726e0cd201447ea2b64f239a8c",
-                "reference": "0b8d145d5ab6be726e0cd201447ea2b64f239a8c",
+                "url": "https://api.github.com/repos/hhvm/hack-codegen/zipball/c9de775742094762412fb4ed9ab3283a80efc886",
+                "reference": "c9de775742094762412fb4ed9ab3283a80efc886",
                 "shasum": ""
             },
             "require": {
-                "hhvm": ">=3.27.0",
-                "hhvm/hhvm-autoload": "^1.5",
-                "hhvm/hsl": "^1.0.0|^3.26.0"
+                "hhvm": ">=3.28.0",
+                "hhvm/hhvm-autoload": "^1.6",
+                "hhvm/hsl": "^3.28.0"
             },
             "require-dev": {
-                "facebook/fbexpect": "^2.0.0",
+                "facebook/difflib": "^1.0",
+                "facebook/fbexpect": "^2.1.0",
                 "hhvm/hacktest": "^1.0",
-                "hhvm/hhast": "^3.26.0",
+                "hhvm/hhast": "^3.28.0",
                 "hhvm/type-assert": "^3.1"
             },
             "bin": [
@@ -150,24 +151,47 @@
                 "code generation",
                 "hack"
             ],
-            "time": "2018-10-19T16:36:20+00:00"
+            "time": "2018-11-07T22:08:39+00:00"
         },
         {
-            "name": "facebook/hack-router",
-            "version": "v0.16",
+            "name": "facebook/hack-http-request-response-interfaces",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/hhvm/hack-router.git",
-                "reference": "5fded0e9e27c92deefcd605739aa84014d19ecc8"
+                "url": "https://github.com/facebookexperimental/hack-http-request-response-interfaces.git",
+                "reference": "b83a106d343c1086d72e895e8a60e1edb05efd88"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hhvm/hack-router/zipball/5fded0e9e27c92deefcd605739aa84014d19ecc8",
-                "reference": "5fded0e9e27c92deefcd605739aa84014d19ecc8",
+                "url": "https://api.github.com/repos/facebookexperimental/hack-http-request-response-interfaces/zipball/b83a106d343c1086d72e895e8a60e1edb05efd88",
+                "reference": "b83a106d343c1086d72e895e8a60e1edb05efd88",
+                "shasum": ""
+            },
+            "require-dev": {
+                "hhvm/hhast": "^3.28.0"
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "Common interface for HTTP messages",
+            "homepage": "https://github.com/facebookexperimental/hack-http-request-response-interfaces",
+            "time": "2018-11-09T19:49:24+00:00"
+        },
+        {
+            "name": "facebook/hack-router",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hhvm/hack-router.git",
+                "reference": "a5fe04c7d685535322653ccf9569643374a23ca5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hhvm/hack-router/zipball/a5fe04c7d685535322653ccf9569643374a23ca5",
+                "reference": "a5fe04c7d685535322653ccf9569643374a23ca5",
                 "shasum": ""
             },
             "require": {
-                "hack-psr/psr7-http-message-hhi": "^1.0.0",
+                "facebook/hack-http-request-response-interfaces": "dev-master",
                 "hhvm": "^3.28.0",
                 "hhvm/hhvm-autoload": "^1.5.3",
                 "hhvm/hsl": "^3.28.0"
@@ -176,7 +200,8 @@
                 "facebook/fbexpect": "^2.0",
                 "hhvm/hacktest": "^1.1",
                 "hhvm/hhast": "^3.28.0",
-                "zendframework/zend-diactoros": "^1.3"
+                "usox/hack-http-factory-interfaces": "dev-master",
+                "usox/hackttp": "dev-master"
             },
             "type": "library",
             "extra": {
@@ -185,6 +210,9 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
             "description": "URI routing for Hack",
             "homepage": "https://github.com/hhvm/hack-router",
             "keywords": [
@@ -193,7 +221,7 @@
                 "router",
                 "routing"
             ],
-            "time": "2018-10-19T20:52:00+00:00"
+            "time": "2018-11-13T22:52:31+00:00"
         },
         {
             "name": "facebook/hh-clilib",
@@ -229,41 +257,6 @@
                 "MIT"
             ],
             "time": "2018-09-14T20:36:22+00:00"
-        },
-        {
-            "name": "hack-psr/psr7-http-message-hhi",
-            "version": "v1.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/fredemmott/psr7-http-message-hhi.git",
-                "reference": "163404a2284e2c45ce06d400ba35a3f6cc95b1b0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/fredemmott/psr7-http-message-hhi/zipball/163404a2284e2c45ce06d400ba35a3f6cc95b1b0",
-                "reference": "163404a2284e2c45ce06d400ba35a3f6cc95b1b0",
-                "shasum": ""
-            },
-            "require": {
-                "psr/http-message": "^1.0"
-            },
-            "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Typechecker definitions for PSR-7",
-            "homepage": "https://github.com/fredemmott/psr7-http-message-hhi",
-            "keywords": [
-                "hack",
-                "hhi",
-                "hhvm",
-                "http-message",
-                "psr",
-                "psr-7",
-                "psr7"
-            ],
-            "time": "2018-02-09T20:54:15+00:00"
         },
         {
             "name": "hhvm/hhast",
@@ -434,56 +427,6 @@
                 "hack"
             ],
             "time": "2018-10-18T18:02:20+00:00"
-        },
-        {
-            "name": "psr/http-message",
-            "version": "1.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/php-fig/http-message.git",
-                "reference": "f6561bf28d520154e4b0ec72be95418abe6d9363"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/http-message/zipball/f6561bf28d520154e4b0ec72be95418abe6d9363",
-                "reference": "f6561bf28d520154e4b0ec72be95418abe6d9363",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Psr\\Http\\Message\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "PHP-FIG",
-                    "homepage": "http://www.php-fig.org/"
-                }
-            ],
-            "description": "Common interface for HTTP messages",
-            "homepage": "https://github.com/php-fig/http-message",
-            "keywords": [
-                "http",
-                "http-message",
-                "psr",
-                "psr-7",
-                "request",
-                "response"
-            ],
-            "time": "2016-08-06T14:39:51+00:00"
         }
     ],
     "packages-dev": [
@@ -557,7 +500,10 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "facebook/hack-router": 20,
+        "facebook/hack-http-request-response-interfaces": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

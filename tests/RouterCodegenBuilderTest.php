@@ -124,7 +124,7 @@ final class RouterCodegenBuilderTest extends BaseCodegenTestCase {
      * top-level */
     require_once(self::CODEGEN_PATH);
     $router = new MySiteRouter();
-    list($controller, $params) = $router->routeRequest(
+    list($controller, $params) = $router->routeMethodAndPath(
       HttpMethod::GET,
       '/foo/123/derp',
     );

@@ -12,6 +12,7 @@ namespace Facebook\HackRouter;
 
 use type Facebook\HackCodegen\{
   CodegenClass,
+  CodegenShapeMember,
   CodegenTrait,
   HackBuilderValues,
   IHackCodegenConfig
@@ -33,7 +34,7 @@ extends RequestParametersCodegenBuilderBase<UriBuilderCodegenBase<T>> {
   protected function getCodegenClass(self::TSpec $spec): CodegenClass {
     $param_builder = $this->parameterBuilder;
     $controller = $spec['controller'];
-    $param_shape = [];
+    $param_shape = vec[];
 
     $body = $this->cg
       ->codegenHackBuilder()
@@ -43,7 +44,8 @@ extends RequestParametersCodegenBuilderBase<UriBuilderCodegenBase<T>> {
     foreach ($controller::getUriPattern()->getParameters() as $param) {
       $param_spec = $param_builder::getUriSpec($param);
       $setter_spec = $param_spec::getSetterSpec($param);
-      $param_shape[$param->getName()] = $setter_spec['type'];
+      $param_shape[] =
+        new CodegenShapeMember($param->getName(), $setter_spec['type']);
       $body
         ->ensureNewLine()
         ->addMultilineCall(
@@ -72,15 +74,17 @@ extends RequestParametersCodegenBuilderBase<UriBuilderCodegenBase<T>> {
 
     $common = $this->cg
       ->codegenClass($spec['class']['name'])
-      ->addConst(
-        \sprintf("classname<\\%s> CONTROLLER", HasUriPattern::class),
-        $controller,
-        /* comment = */ null,
-        HackBuilderValues::classname(),
+      ->addConstant(
+        $this->cg->codegenClassConstant('CONTROLLER')
+          ->setTypef('classname<\\%s>', HasUriPattern::class)
+          ->setValue($controller, HackBuilderValues::classname()),
       )
-      ->addTypeConst(
-        'TParameters',
-        $this->cg->codegenShape($param_shape)->render(),
+      ->addTypeConstant(
+        $this->cg->codegenTypeConstant('TParameters')
+          ->setValue(
+            $this->cg->codegenShape(...$param_shape),
+            HackBuilderValues::codegen(),
+          )
       )
       ->addMethod($method)
       ->setIsAbstract(true)

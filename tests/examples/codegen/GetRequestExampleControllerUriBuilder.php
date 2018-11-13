@@ -5,15 +5,14 @@
  * To re-generate this file run vendor/hhvm/hacktest/bin/hacktest
  *
  *
- * @generated SignedSource<<fb2712b0dca435a5b5faac2196f2a096>>
+ * @generated SignedSource<<d0e5134ed8258f1477e8fcecb4812021>>
  */
 namespace Facebook\HackRouter\CodeGen\Tests\Generated;
 
 abstract final class GetRequestExampleControllerUriBuilder
   extends \Facebook\HackRouter\UriBuilderCodegen {
 
-  const classname<\Facebook\HackRouter\HasUriPattern> CONTROLLER =
-    \Facebook\HackRouter\CodeGen\Tests\GetRequestExampleController::class;
+  const classname<\Facebook\HackRouter\HasUriPattern> CONTROLLER = \Facebook\HackRouter\CodeGen\Tests\GetRequestExampleController::class;
   const type TParameters = shape(
     'MyString' => string,
     'MyInt' => int,

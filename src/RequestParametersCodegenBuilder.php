@@ -12,18 +12,20 @@ namespace Facebook\HackRouter;
 
 use type Facebook\HackCodegen\{
   CodegenClass,
+  CodegenShapeMember,
   CodegenTrait,
   HackBuilderValues,
-  IHackCodegenConfig
+  IHackCodegenConfig,
 };
 
 final class RequestParametersCodegenBuilder<T as RequestParametersBase>
-extends RequestParametersCodegenBuilderBase<RequestParametersCodegenBase<T>> {
-  const type TGetParameters =
-    (function(classname<HasUriPattern>): ImmVector<shape(
-      'spec' => RequestParameter,
-      'optional' => bool,
-    )>);
+  extends RequestParametersCodegenBuilderBase<RequestParametersCodegenBase<T>> {
+  const type TGetParameters = (function(
+    classname<HasUriPattern>,
+  ): ImmVector<shape(
+    'spec' => RequestParameter,
+    'optional' => bool,
+  )>);
 
   private Vector<classname<mixed>> $traitRequiredClasses = Vector {};
   private Vector<classname<mixed>> $traitRequiredInterfaces = Vector {};
@@ -54,7 +56,7 @@ extends RequestParametersCodegenBuilderBase<RequestParametersCodegenBase<T>> {
       ->indent();
 
     $getParameters = $this->getParameters;
-    $param_shape = [];
+    $param_shape = vec[];
 
     foreach ($getParameters($controller) as $parameter) {
       $param_spec = $parameter['spec'];
@@ -66,7 +68,7 @@ extends RequestParametersCodegenBuilderBase<RequestParametersCodegenBase<T>> {
         $type = '?'.$type;
       }
 
-      $param_shape[$param_spec->getName()] = $type;
+      $param_shape[] = new CodegenShapeMember($param_spec->getName(), $type);
       $body
         ->ensureNewLine()
         ->addf('"%s" => ', $param_spec->getName())
@@ -76,11 +78,8 @@ extends RequestParametersCodegenBuilderBase<RequestParametersCodegenBase<T>> {
             $parameter['optional'] ? 'Optional' : '',
             $getter_spec['accessorSuffix'],
           ),
-          $getter_spec['args']->map(
-            $arg ==> $arg->render(
-              $param_spec,
-            ),
-          )->toVector(),
+          $getter_spec['args']->map($arg ==> $arg->render($param_spec))
+            ->toVector(),
           /* semicolon at end = */ false,
         )
         ->add(',');
@@ -94,38 +93,37 @@ extends RequestParametersCodegenBuilderBase<RequestParametersCodegenBase<T>> {
       ->codegenClass($spec['class']['name'])
       ->setIsFinal(true)
       ->setExtends("\\".$this->base)
-      ->addTypeConst(
-        'TParameters',
-        $this->cg->codegenShape($param_shape)->render(),
+      ->addTypeConstant(
+        $this->cg
+          ->codegenTypeConstant('TParameters')
+          ->setValue(
+            $this->cg->codegenShape(...$param_shape),
+            HackBuilderValues::codegen(),
+          ),
       )
       ->addMethod(
         $this->cg
           ->codegenMethod('get')
           ->setReturnType('self::TParameters')
-          ->setBody($body->getCode())
+          ->setBody($body->getCode()),
       );
   }
 
   <<__Override>>
   protected function getCodegenTrait(self::TSpec $spec): CodegenTrait {
     $trait = Shapes::idx($spec, 'trait');
-    invariant(
-      $trait !== null,
-      "Can't codegen a trait without a trait spec",
-    );
+    invariant($trait !== null, "Can't codegen a trait without a trait spec");
 
 
     $trait = $this->cg
       ->codegenTrait($trait['name'])
       ->addMethod(
-        $this->cg->codegenMethod($trait['method'])
+        $this->cg
+          ->codegenMethod($trait['method'])
           ->setIsFinal(true)
           ->setProtected()
           ->setIsMemoized(true)
-          ->setReturnTypef(
-            '%s::TParameters',
-            $spec['class']['name'],
-          )
+          ->setReturnTypef('%s::TParameters', $spec['class']['name'])
           ->setBody(
             $this->cg
               ->codegenHackBuilder()
@@ -134,13 +132,10 @@ extends RequestParametersCodegenBuilderBase<RequestParametersCodegenBase<T>> {
                 $this->getRawParametersCode,
                 HackBuilderValues::literal(),
               )
-              ->addLinef(
-                'return (new %s($raw))',
-                $spec['class']['name'],
-              )
+              ->addLinef('return (new %s($raw))', $spec['class']['name'])
               ->indent()
               ->addLine('->get();')
-              ->getCode()
+              ->getCode(),
           ),
       );
 

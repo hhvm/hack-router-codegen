@@ -143,7 +143,7 @@ final class RouterCLILookupCodegenBuilder {
           ->startTryBlock()
           ->addLine('list($controller, $_params) =')
           ->indent()
-          ->addLine('$router->routeRequest($method, $path);')
+          ->addLine('$router->routeMethodAndPath($method, $path);')
           ->unindent()
           ->addLine('$controllers[$method] = $controller;')
           ->addCatchBlock('\\'.MethodNotAllowedException::class, '$_')
