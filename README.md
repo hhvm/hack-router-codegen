@@ -34,7 +34,7 @@ final class UpdateCodegen {
       ),
     )->build;
   }
-);
+};
 ```
 
 
