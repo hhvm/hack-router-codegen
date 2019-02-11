@@ -4,15 +4,16 @@
     "keywords": ["hack", "router", "routing", "hhvm"],
     "homepage": "https://github.com/hhvm/hack-router-codegen",
     "require": {
-        "hhvm": "^3.28.0",
-        "facebook/hack-router": "^0.17",
+        "hhvm": "^4.0",
+        "facebook/hack-router": "^0.18",
         "facebook/hack-http-request-response-interfaces": "^0.1",
         "facebook/hack-codegen": "^4.0.1",
         "facebook/definition-finder": "^2.0",
         "hhvm/type-assert": "^3.0"
     },
     "require-dev": {
-        "hhvm/hhast": "^3.28",
+        "hhvm/hhast": "^4.0",
+        "hhvm/hhvm-autoload": "^2.0",
         "hhvm/hacktest": "^1.1",
         "facebook/fbexpect": "^2.1",
         "usox/hackttp": "^0.1"
