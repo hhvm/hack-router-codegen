@@ -6,7 +6,7 @@
     "require": {
         "hhvm": "^4.0",
         "facebook/hack-router": "^0.18",
-        "facebook/hack-http-request-response-interfaces": "^0.1",
+        "facebook/hack-http-request-response-interfaces": "^0.2",
         "facebook/hack-codegen": "^4.0.1",
         "facebook/definition-finder": "^2.0",
         "hhvm/type-assert": "^3.0"
@@ -16,7 +16,7 @@
         "hhvm/hhvm-autoload": "^2.0",
         "hhvm/hacktest": "^1.1",
         "facebook/fbexpect": "^2.1",
-        "usox/hackttp": "^0.1"
+        "usox/hackttp": "^0.3"
     },
     "extra": {
         "branch-alias": {
