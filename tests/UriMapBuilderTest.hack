@@ -31,7 +31,7 @@ final class UriMapBuilderTest extends \Facebook\HackTest\HackTest {
 
   public function testCreatesRoutes(): void {
     $scanned = FileParser::fromFile(
-      __DIR__.'/examples/GetRequestExampleController.php',
+      __DIR__.'/examples/GetRequestExampleController.hack',
     );
     $class = $scanned->getClass(GetRequestExampleController::class);
     $builder = $this->getBuilder($scanned);
@@ -43,7 +43,7 @@ final class UriMapBuilderTest extends \Facebook\HackTest\HackTest {
 
   public function testNoMapForUnusedMethods(): void {
     $scanned = FileParser::fromFile(
-      __DIR__.'/examples/GetRequestExampleController.php',
+      __DIR__.'/examples/GetRequestExampleController.hack',
     );
     $class = $scanned->getClass(GetRequestExampleController::class);
     $builder = $this->getBuilder($scanned);

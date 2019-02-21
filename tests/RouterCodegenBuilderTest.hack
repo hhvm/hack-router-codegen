@@ -32,7 +32,7 @@ final class RouterCodegenBuilderTest extends BaseCodegenTestCase {
   private function getBuilder(
   ): RouterCodegenBuilder<GetRequestExampleController> {
     $parser = FileParser::fromFile(
-      __DIR__.'/examples/GetRequestExampleController.php',
+      __DIR__.'/examples/GetRequestExampleController.hack',
     );
     $uri_map_builder = new UriMapBuilder(new ControllerFacts(
       GetRequestExampleController::class,
