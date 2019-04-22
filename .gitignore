@@ -2,6 +2,7 @@ vendor/
 *.swp
 www.pid
 .DS_Store
+composer.lock
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
