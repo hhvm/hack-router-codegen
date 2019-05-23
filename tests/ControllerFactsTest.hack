@@ -52,81 +52,81 @@ final class ControllerFactsTest extends \Facebook\HackTest\HackTest {
     );
   }
 
-  public function testMappableDirectly(): void {
+  public async function testMappableDirectly(): Awaitable<void> {
     $code =
       "<?hh\n".
       "final class MyController\n".
       "implements Facebook\HackRouter\IncludeInUriMap {}";
-    $scanned = FileParser::fromData($code, __FUNCTION__);
+    $scanned = await FileParser::fromDataAsync($code, __FUNCTION__);
     $class = $scanned->getClass('MyController');
     $facts = $this->getFacts($scanned);
     expect($this->isMappable($facts, $class))->toBeTrue();
   }
 
-  public function testMappableDirectlyFromNamespace(): void {
+  public async function testMappableDirectlyFromNamespace(): Awaitable<void> {
     $code =
       "<?hh\n".
       "namespace MySite;\n".
       "final class MyController\n".
       "implements \Facebook\HackRouter\IncludeInUriMap {}";
-    $scanned = FileParser::fromData($code, __FUNCTION__);
+    $scanned = await FileParser::fromDataAsync($code, __FUNCTION__);
     $class = $scanned->getClass('MySite\MyController');
     $facts = $this->getFacts($scanned);
     expect($this->isMappable($facts, $class))->toBeTrue();
   }
 
-  public function testMappableDirectlyWithPrecedingBackSlash(): void {
+  public async function testMappableDirectlyWithPrecedingBackSlash(): Awaitable<void> {
     $code =
       "<?hh\n".
       "final class MyController\n".
       "implements \Facebook\HackRouter\IncludeInUriMap {}";
-    $scanned = FileParser::fromData($code, __FUNCTION__);
+    $scanned = await FileParser::fromDataAsync($code, __FUNCTION__);
     $class = $scanned->getClass('MyController');
     $facts = $this->getFacts($scanned);
     expect($this->isMappable($facts, $class))->toBeTrue();
   }
 
-  public function testMappableDirectlyWithUsedInterface(): void {
+  public async function testMappableDirectlyWithUsedInterface(): Awaitable<void> {
     $code =
       "<?hh\n".
       "use \Facebook\HackRouter\IncludeInUriMap;\n".
       "final class MyController implements IncludeInUriMap {}";
-    $scanned = FileParser::fromData($code, __FUNCTION__);
+    $scanned = await FileParser::fromDataAsync($code, __FUNCTION__);
     $class = $scanned->getClass('MyController');
     $facts = $this->getFacts($scanned);
     expect($this->isMappable($facts, $class))->toBeTrue();
   }
 
-  public function testAbstractIsNotMappable(): void {
+  public async function testAbstractIsNotMappable(): Awaitable<void> {
     $code =
       "<?hh\n".
       "abstract class MyController\n".
       "implements Facebook\HackRouter\IncludeInUriMap {}";
-    $scanned = FileParser::fromData($code, __FUNCTION__);
+    $scanned = await FileParser::fromDataAsync($code, __FUNCTION__);
     $class = $scanned->getClass('MyController');
     $facts = $this->getFacts($scanned);
     expect($this->isMappable($facts, $class))->toBeFalse();
   }
 
-  public function testNoNonFinalNonAbstract(): void {
-    expect(() ==> {
+  public async function testNoNonFinalNonAbstract(): Awaitable<void> {
+    expect(async () ==> {
       $code = "<?hh\n".
         "class MyController\n".
       "implements Facebook\HackRouter\IncludeInUriMap {}";
-      $scanned = FileParser::fromData($code, __FUNCTION__);
+      $scanned = await FileParser::fromDataAsync($code, __FUNCTION__);
       $class = $scanned->getClass('MyController');
       $facts = $this->getFacts($scanned);
       $_throws = $this->isMappable($facts, $class);
     })->toThrow(InvariantException::class);
   }
 
-  public function testMappableByParentClass(): void {
+  public async function testMappableByParentClass(): Awaitable<void> {
     $code =
       "<?hh\n".
       "abstract class BaseController\n".
       "implements Facebook\HackRouter\IncludeInUriMap {}\n".
       "final class MyController extends BaseController {}";
-    $scanned = FileParser::fromData($code, __FUNCTION__);
+    $scanned = await FileParser::fromDataAsync($code, __FUNCTION__);
     $base = $scanned->getClass('BaseController');
     $final = $scanned->getClass('MyController');
 
@@ -135,14 +135,14 @@ final class ControllerFactsTest extends \Facebook\HackTest\HackTest {
     expect($this->isMappable($facts, $base))->toBeFalse();
   }
 
-  public function testMappableByParentClassInNamespace(): void {
+  public async function testMappableByParentClassInNamespace(): Awaitable<void> {
     $code =
       "<?hh\n".
       "namespace Foo\Bar;\n".
       "abstract class BaseController\n".
       "implements \Facebook\HackRouter\IncludeInUriMap {}\n".
       "final class MyController extends BaseController {}";
-    $scanned = FileParser::fromData($code, __FUNCTION__);
+    $scanned = await FileParser::fromDataAsync($code, __FUNCTION__);
     $base = $scanned->getClass('Foo\\Bar\\BaseController');
     $final = $scanned->getClass('Foo\\Bar\\MyController');
 
@@ -151,20 +151,20 @@ final class ControllerFactsTest extends \Facebook\HackTest\HackTest {
     expect($this->isMappable($facts, $base))->toBeFalse();
   }
 
-  public function testMappableByDerivedInterface(): void {
+  public async function testMappableByDerivedInterface(): Awaitable<void> {
     $code =
       "<?hh\n".
       "interface IController\n".
       "extends Facebook\HackRouter\IncludeInUriMap {}\n".
       "final class MyController implements IController {}";
-    $scanned = FileParser::fromData($code, __FUNCTION__);
+    $scanned = await FileParser::fromDataAsync($code, __FUNCTION__);
     $class = $scanned->getClass('MyController');
 
     $facts = $this->getFacts($scanned);
     expect($this->isMappable($facts, $class))->toBeTrue();
   }
 
-  public function testMappableByTrait(): void {
+  public async function testMappableByTrait(): Awaitable<void> {
     $code =
       "<?hh\n".
       "trait TController\n".
@@ -172,21 +172,21 @@ final class ControllerFactsTest extends \Facebook\HackTest\HackTest {
       "final class MyController {\n".
       "  use TController;\n".
       "}";
-    $scanned = FileParser::fromData($code, __FUNCTION__);
+    $scanned = await FileParser::fromDataAsync($code, __FUNCTION__);
     $class = $scanned->getClass('MyController');
 
     $facts = $this->getFacts($scanned);
     expect($this->isMappable($facts, $class))->toBeTrue();
   }
 
-  public function testGetController(): void {
+  public async function testGetController(): Awaitable<void> {
     $code =
       "<?hh\n".
       "final class MyController implements\n".
       "\Facebook\HackRouter\IncludeInUriMap,\n".
       "\Facebook\HackRouter\SupportsGetRequests {\n".
       "}";
-    $scanned = FileParser::fromData($code, __FUNCTION__);
+    $scanned = await FileParser::fromDataAsync($code, __FUNCTION__);
     $class = $scanned->getClass('MyController');
 
     $facts = $this->getFacts($scanned);
@@ -195,14 +195,14 @@ final class ControllerFactsTest extends \Facebook\HackTest\HackTest {
     );
   }
 
-  public function testPostController(): void {
+  public async function testPostController(): Awaitable<void> {
     $code =
       "<?hh\n".
       "final class MyController implements\n".
       "\Facebook\HackRouter\IncludeInUriMap,\n".
       "\Facebook\HackRouter\SupportsPostRequests {\n".
       "}";
-    $scanned = FileParser::fromData($code, __FUNCTION__);
+    $scanned = await FileParser::fromDataAsync($code, __FUNCTION__);
     $class = $scanned->getClass('MyController');
 
     $facts = $this->getFacts($scanned);
@@ -211,28 +211,28 @@ final class ControllerFactsTest extends \Facebook\HackTest\HackTest {
     );
   }
 
-  public function testGetAndPostController(): void {
-    expect(() ==> {
+  public async function testGetAndPostController(): Awaitable<void> {
+    expect(async () ==> {
       $code = "<?hh\n".
         "final class MyController implements\n".
       "\Facebook\HackRouter\IncludeInUriMap,\n".
       "\Facebook\HackRouter\SupportsGetRequests,\n".
       "\Facebook\HackRouter\SupportsPostRequests {\n".
       "}";
-      $scanned = FileParser::fromData($code, __FUNCTION__);
+      $scanned = await FileParser::fromDataAsync($code, __FUNCTION__);
       $class = $scanned->getClass('MyController');
       $facts = $this->getFacts($scanned);
       $_throws = $this->getMethods($facts, $class);
     })->toThrow(InvariantException::class);
   }
 
-  public function testControllerWithNoSupportedMethods(): void {
-    expect(() ==> {
+  public async function testControllerWithNoSupportedMethods(): Awaitable<void> {
+    expect(async () ==> {
       $code = "<?hh\n".
         "final class MyController implements\n".
       "\Facebook\HackRouter\IncludeInUriMap {\n".
       "}";
-      $scanned = FileParser::fromData($code, __FUNCTION__);
+      $scanned = await FileParser::fromDataAsync($code, __FUNCTION__);
       $class = $scanned->getClass('MyController');
       $facts = $this->getFacts($scanned);
       $_throws = $this->getMethods($facts, $class);

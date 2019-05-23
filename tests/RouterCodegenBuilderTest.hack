@@ -29,9 +29,9 @@ final class RouterCodegenBuilderTest extends BaseCodegenTestCase {
   const string CODEGEN_NS =
     "Facebook\\HackRouter\\CodeGen\\Tests\\Generated";
 
-  private function getBuilder(
-  ): RouterCodegenBuilder<GetRequestExampleController> {
-    $parser = FileParser::fromFile(
+  private async function getBuilderAsync(
+  ): Awaitable<RouterCodegenBuilder<GetRequestExampleController>> {
+    $parser = await FileParser::fromFileAsync(
       __DIR__.'/examples/GetRequestExampleController.hack',
     );
     $uri_map_builder = new UriMapBuilder(new ControllerFacts(
@@ -46,8 +46,8 @@ final class RouterCodegenBuilderTest extends BaseCodegenTestCase {
     return $router_builder;
   }
 
-  protected function rebuild(): void {
-    $builder = $this->getBuilder();
+  protected async function rebuildAsync(): Awaitable<void> {
+    $builder = await $this->getBuilderAsync();
     $builder->renderToFile(
       self::CODEGEN_PATH,
       self::CODEGEN_NS,
@@ -69,56 +69,56 @@ final class RouterCodegenBuilderTest extends BaseCodegenTestCase {
     return $class->render();
   }
 
-  public function testMapOnlyContainsUsedMethods(): void {
-    $code = $this->renderToString($this->getBuilder());
+  public async function testMapOnlyContainsUsedMethods(): Awaitable<void> {
+    $code = $this->renderToString(await $this->getBuilderAsync());
     expect($code)->toContain('HttpMethod::GET');
     expect($code)->toNotContain('HttpMethod::POST');
   }
 
-  public function testDefaultGeneratedFrom(): void {
-    $code = $this->renderToString($this->getBuilder());
+  public async function testDefaultGeneratedFrom(): Awaitable<void> {
+    $code = $this->renderToString(await $this->getBuilderAsync());
     expect($code)->toContain('To re-generate this file run');
     expect($code)->toContain('vendor/hhvm/hacktest/bin/hacktest');
   }
 
-  public function testOverriddenGeneratedFrom(): void {
+  public async function testOverriddenGeneratedFrom(): Awaitable<void> {
     $code = $this->renderToString(
-      $this->getBuilder()->setGeneratedFrom(
+        (await $this->getBuilderAsync())->setGeneratedFrom(
         $this->getCodegenFactory()->codegenGeneratedFromClass(self::class),
       ),
     );
     expect($code)->toContain('Generated from '.RouterCodegenBuilder::class);
   }
 
-  public function testCreatesFinalByDefault(): void {
-    $code = $this->renderToString($this->getBuilder());
-    $parser = FileParser::fromData($code);
+  public async function testCreatesFinalByDefault(): Awaitable<void> {
+    $code = $this->renderToString(await $this->getBuilderAsync());
+    $parser = await FileParser::fromDataAsync($code);
     $class = $parser->getClass(MySiteRouter::class);
     expect($class->isFinal())->toBeTrue('should be final');
     expect($class->isAbstract())->toBeFalse('should not be abstract');
   }
 
-  public function testCanCreateAbstract(): void {
+  public async function testCanCreateAbstract(): Awaitable<void> {
     $code = $this->renderToString(
-      $this->getBuilder()->setCreateAbstractClass(true),
+        (await $this->getBuilderAsync())->setCreateAbstractClass(true),
     );
-    $parser = FileParser::fromData($code);
+    $parser = await FileParser::fromDataAsync($code);
     $class = $parser->getClass(MySiteRouter::class);
     expect($class->isAbstract())->toBeTrue('should be abstract');
     expect($class->isFinal())->toBeFalse('should not be final');
   }
 
-  public function testIsStrict(): void {
+  public async function testIsStrict(): Awaitable<void> {
     expect(
       Str\starts_with(
-        $this->renderToString($this->getBuilder()),
+        $this->renderToString(await $this->getBuilderAsync()),
         "<?hh // strict\n",
       ),
     )->toBeTrue();
   }
 
-  public function testSuccessfullyMaps(): void {
-    $this->rebuild();
+  public async function testSuccessfullyMaps(): Awaitable<void> {
+    await $this->rebuildAsync();
     /* HH_IGNORE_ERROR[1002] intentionally using require_once outside of
      * top-level */
     require_once(self::CODEGEN_PATH);

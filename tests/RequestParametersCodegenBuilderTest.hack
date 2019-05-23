@@ -43,7 +43,7 @@ final class RequestParametersCodegenBuilderTest extends BaseCodegenTestCase {
     );
   }
 
-  protected function rebuild(): void {
+  protected async function rebuildAsync(): Awaitable<void> {
     $this->getBuilder()->renderToFile(
       self::CODEGEN_PATH,
       shape(

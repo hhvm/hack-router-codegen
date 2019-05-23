@@ -21,7 +21,7 @@ final class EnumParameterCodegenSpec extends UriParameterCodegenSpec {
       $param->getName(),
       \get_class($param),
     );
-    return $param;
+    return /* HH_FIXME[4110] unsafe generic */ $param;
   }
 
   private static function getType(

@@ -29,8 +29,8 @@ final class UriMapBuilderTest extends \Facebook\HackTest\HackTest {
     ));
   }
 
-  public function testCreatesRoutes(): void {
-    $scanned = FileParser::fromFile(
+  public async function testCreatesRoutes(): Awaitable<void> {
+    $scanned = await FileParser::fromFileAsync(
       __DIR__.'/examples/GetRequestExampleController.hack',
     );
     $class = $scanned->getClass(GetRequestExampleController::class);
@@ -41,8 +41,8 @@ final class UriMapBuilderTest extends \Facebook\HackTest\HackTest {
     );
   }
 
-  public function testNoMapForUnusedMethods(): void {
-    $scanned = FileParser::fromFile(
+  public async function testNoMapForUnusedMethods(): Awaitable<void> {
+    $scanned = await FileParser::fromFileAsync(
       __DIR__.'/examples/GetRequestExampleController.hack',
     );
     $class = $scanned->getClass(GetRequestExampleController::class);

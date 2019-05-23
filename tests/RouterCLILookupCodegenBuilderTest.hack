@@ -23,7 +23,7 @@ final class RouterCLILookupCodegenBuilderTest extends BaseCodegenTestCase {
   const string CODEGEN_NS =
     "Facebook\\HackRouter\\CodeGen\\Tests\\Generated";
 
-  protected function rebuild(): void {
+  protected async function rebuildAsync(): Awaitable<void> {
     (new RouterCLILookupCodegenBuilder(
       $this->getCodegenConfig(),
     ))->renderToFile(
@@ -34,8 +34,8 @@ final class RouterCLILookupCodegenBuilderTest extends BaseCodegenTestCase {
     );
   }
 
-  public function testCanLookupExampleController(): void {
-    $this->rebuild();
+  public async function testCanLookupExampleController(): Awaitable<void> {
+    await $this->rebuildAsync();
 
     $path = GetRequestExampleController::getPath(shape(
       'MyString' => 'foo',
@@ -63,8 +63,8 @@ final class RouterCLILookupCodegenBuilderTest extends BaseCodegenTestCase {
     expect($output)->toMatchRegExp('/^GET:.+GetRequestExampleController$/m');
   }
 
-  public function testCantLookupInvalidPath(): void {
-    $this->rebuild();
+  public async function testCantLookupInvalidPath(): Awaitable<void> {
+    await $this->rebuildAsync();
 
     $exit_code = 0;
     $output = [];

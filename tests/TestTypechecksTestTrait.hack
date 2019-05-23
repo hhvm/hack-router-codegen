@@ -13,10 +13,10 @@ use function Facebook\FBExpect\expect;
 trait TestTypechecksTestTrait {
   require extends \Facebook\HackTest\HackTest;
 
-  abstract protected function rebuild(): void;
+  abstract protected function rebuildAsync(): Awaitable<void>;
 
-  final public function testTypechecks(): void {
-    $this->rebuild();
+  final public async function testTypechecks(): Awaitable<void> {
+    await $this->rebuildAsync();
     $exit_code = 0;
     $out_array = [];
     \exec(

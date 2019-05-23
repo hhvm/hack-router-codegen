@@ -8,11 +8,11 @@
         "facebook/hack-router": "^0.18",
         "facebook/hack-http-request-response-interfaces": "^0.2",
         "facebook/hack-codegen": "^4.1.0",
-        "facebook/definition-finder": "^2.0",
+        "facebook/definition-finder": "^2.7",
         "hhvm/type-assert": "^3.0"
     },
     "require-dev": {
-        "hhvm/hhast": "^4.0",
+        "hhvm/hhast": "^4.6",
         "hhvm/hhvm-autoload": "^2.0",
         "hhvm/hacktest": "^1.1",
         "facebook/fbexpect": "^2.1",
