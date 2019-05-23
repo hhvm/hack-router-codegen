@@ -3,6 +3,7 @@ vendor/
 www.pid
 .DS_Store
 composer.lock
+.*.hhast.*cache
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
