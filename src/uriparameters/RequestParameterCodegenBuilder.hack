@@ -11,9 +11,7 @@ namespace Facebook\HackRouter;
 
 
 use type Facebook\HackCodegen\{
-  IHackCodegenConfig,
-  HackCodegenFactory,
-};
+  HackCodegenFactory, IHackCodegenConfig};
 
 class RequestParameterCodegenBuilder {
   protected HackCodegenFactory $cg;

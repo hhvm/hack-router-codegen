@@ -9,11 +9,13 @@
 
 namespace Facebook\HackRouter;
 
-use type Facebook\HackRouter\CodeGen\Tests\GetRequestExampleController;
+use type Facebook\HackRouter\CodeGen\Tests\{
+  GetRequestExampleController,
+  WebController,
+};
 use function Facebook\FBExpect\expect;
 use type Facebook\HackRouter\CodeGen\Tests\Generated\GetRequestExampleControllerParameters
 ;
-use type Facebook\HackRouter\CodeGen\Tests\WebController;
 use namespace Facebook\TypeAssert;
 
 final class RequestParametersCodegenBuilderTest extends BaseCodegenTestCase {

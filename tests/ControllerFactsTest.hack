@@ -9,9 +9,8 @@
 
 namespace Facebook\HackRouter;
 
-use type Facebook\DefinitionFinder\FileParser;
+use type Facebook\DefinitionFinder\{FileParser, ScannedClass};
 use function Facebook\FBExpect\expect;
-use type Facebook\DefinitionFinder\ScannedClass;
 use type Facebook\HackRouter\HttpMethod;
 use type Facebook\HackRouter\PrivateImpl\{ClassFacts,
   ControllerFacts

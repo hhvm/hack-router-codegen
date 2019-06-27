@@ -14,8 +14,8 @@ use type Facebook\HackCodegen\{
   CodegenFile,
   CodegenFileResult,
   CodegenFileType,
-  CodegenTrait,
   CodegenGeneratedFrom,
+  CodegenTrait,
   HackCodegenFactory,
   IHackCodegenConfig
 };

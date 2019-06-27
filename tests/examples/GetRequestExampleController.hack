@@ -10,11 +10,11 @@
 namespace Facebook\HackRouter\CodeGen\Tests;
 
 use type Facebook\HackRouter\{
-  UriPattern,
   RequestParameter,
   RequestParameters,
   StringRequestParameter,
-  StringRequestParameterSlashes
+  StringRequestParameterSlashes,
+  UriPattern,
 };
 
 enum MyEnum: string {

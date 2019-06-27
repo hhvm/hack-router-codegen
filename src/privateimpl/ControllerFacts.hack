@@ -9,8 +9,7 @@
 
 namespace Facebook\HackRouter\PrivateImpl;
 
-use type Facebook\DefinitionFinder\ScannedClass;
-use type Facebook\DefinitionFinder\ScannedClassish;
+use type Facebook\DefinitionFinder\{ScannedClass, ScannedClassish};
 use type Facebook\HackRouter\{
   HttpMethod,
   IncludeInUriMap,

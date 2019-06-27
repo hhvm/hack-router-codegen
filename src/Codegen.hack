@@ -11,12 +11,11 @@ namespace Facebook\HackRouter;
 
 use type Facebook\HackCodegen\{
   CodegenGeneratedFrom,
-  IHackCodegenConfig,
   HackCodegenConfig,
-  HackCodegenFactory
+  HackCodegenFactory,
+  IHackCodegenConfig,
 };
-use type Facebook\DefinitionFinder\BaseParser;
-use type Facebook\DefinitionFinder\TreeParser;
+use type Facebook\DefinitionFinder\{BaseParser, TreeParser};
 use type Facebook\HackRouter\PrivateImpl\{ClassFacts, ControllerFacts};
 
 final class Codegen {
