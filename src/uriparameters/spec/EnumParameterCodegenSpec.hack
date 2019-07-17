@@ -16,7 +16,7 @@ final class EnumParameterCodegenSpec extends UriParameterCodegenSpec {
     RequestParameter $param,
   ): EnumRequestParameter<T> {
     invariant(
-      $param instanceof EnumRequestParameter,
+      $param is EnumRequestParameter<_>,
       'Expected %s to be an enum parameter, got %s',
       $param->getName(),
       \get_class($param),

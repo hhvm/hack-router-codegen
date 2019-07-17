@@ -42,7 +42,7 @@ final class ControllerFacts<T as IncludeInUriMap> {
   private function isUriMappable(
     ScannedClassish $class
   ): bool {
-    if (!$class instanceof ScannedClass) {
+    if (!$class is ScannedClass) {
       return false;
     }
     if ($class->isAbstract()) {

@@ -36,7 +36,7 @@ final class ClassFacts {
   ): ImmMap<classname<T>, ScannedClass> {
     $mappable = Map { };
     foreach ($this->classes as $class) {
-      if (!$class instanceof ScannedClass) {
+      if (!$class is ScannedClass) {
         continue;
       }
       $name = $this->asClassname($wanted, $class->getName());
