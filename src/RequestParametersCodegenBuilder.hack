@@ -9,6 +9,7 @@
 
 namespace Facebook\HackRouter;
 
+use namespace HH\Lib\C;
 use type Facebook\HackCodegen\{
   CodegenClass,
   CodegenShapeMember,
@@ -43,21 +44,26 @@ final class RequestParametersCodegenBuilder<T as RequestParametersBase>
   protected function getCodegenClass(self::TSpec $spec): CodegenClass {
     $param_builder = $this->parameterBuilder;
     $controller = $spec['controller'];
+    $getParameters = $this->getParameters;
+    $parameters = $getParameters($controller);
 
-    $body = $this->cg
-      ->codegenHackBuilder()
-      ->addAssignment(
+    $body = $this->cg->codegenHackBuilder();
+
+    if (!C\is_empty($parameters)) {
+      // avoid generating an assignment to an unused variable
+      $body->addAssignment(
         '$p',
         '$this->getParameters()',
         HackBuilderValues::literal(),
-      )
+      );
+    }
+
+    $body
       ->addLine('return shape(')
       ->indent();
 
-    $getParameters = $this->getParameters;
     $param_shape = vec[];
-
-    foreach ($getParameters($controller) as $parameter) {
+    foreach ($parameters as $parameter) {
       $param_spec = $parameter['spec'];
       $request_spec = $param_builder::getRequestSpec($param_spec);
       $getter_spec = $request_spec::getGetterSpec($param_spec);

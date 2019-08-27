@@ -33,7 +33,7 @@ final class UriMapBuilderTest extends \Facebook\HackTest\HackTest {
     $scanned = await FileParser::fromFileAsync(
       __DIR__.'/examples/GetRequestExampleController.hack',
     );
-    $class = $scanned->getClass(GetRequestExampleController::class);
+    $scanned->getClass(GetRequestExampleController::class);
     $builder = $this->getBuilder($scanned);
 
     expect($builder->getUriMap()[HttpMethod::GET]->values())->toBePHPEqual(
@@ -45,7 +45,7 @@ final class UriMapBuilderTest extends \Facebook\HackTest\HackTest {
     $scanned = await FileParser::fromFileAsync(
       __DIR__.'/examples/GetRequestExampleController.hack',
     );
-    $class = $scanned->getClass(GetRequestExampleController::class);
+    $scanned->getClass(GetRequestExampleController::class);
     $builder = $this->getBuilder($scanned);
     $map = $builder->getUriMap();
     expect($map->containsKey(HttpMethod::POST))->toBeFalse(
