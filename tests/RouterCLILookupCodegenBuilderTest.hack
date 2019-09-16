@@ -54,8 +54,8 @@ final class RouterCLILookupCodegenBuilderTest extends BaseCodegenTestCase {
           $path,
         })->map($x ==> \escapeshellarg($x)),
       ),
-      &$output,
-      &$exit_code,
+      inout $output,
+      inout $exit_code,
     );
     $output = \implode("\n", $output);
     expect($exit_code)->toBeSame(0);
@@ -76,8 +76,8 @@ final class RouterCLILookupCodegenBuilderTest extends BaseCodegenTestCase {
           self::CODEGEN_PATH,
         })->map($x ==> \escapeshellarg($x)),
       ),
-      &$output,
-      &$exit_code,
+      inout $output,
+      inout $exit_code,
     );
     $output = \implode("\n", $output);
     expect($exit_code)->toBeGreaterThan(0);
