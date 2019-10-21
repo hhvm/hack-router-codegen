@@ -9,9 +9,7 @@
         "facebook/hack-http-request-response-interfaces": "^0.2",
         "facebook/hack-codegen": "^4.1.0",
         "facebook/definition-finder": "^2.7",
-        "hhvm/type-assert": "^3.0",
-        "hhvm/hsl": ">=4.0 <4.25",
-        "hhvm/hsl-experimental": ">=4.0 <4.25"
+        "hhvm/type-assert": "^3.0"
     },
     "require-dev": {
         "hhvm/hhast": "^4.6",
