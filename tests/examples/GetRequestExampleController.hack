@@ -37,9 +37,10 @@ implements
 
   final public static function __getParametersSpec(
   ): ImmVector<shape('spec' => RequestParameter, 'optional' => bool)> {
-    $params = static::getUriPattern()->getParameters()->map(
-      $param ==> shape('spec' => $param, 'optional' => false),
-    )->toVector();
+    $params = new Vector(
+      static::getUriPattern()->getParameters()
+        ->map($param ==> shape('spec' => $param, 'optional' => false)),
+    );
     $params[] = shape(
       'spec' => new StringRequestParameter(
         StringRequestParameterSlashes::WITHOUT_SLASHES,

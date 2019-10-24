@@ -83,8 +83,7 @@ final class RequestParametersCodegenBuilder<T as RequestParametersBase>
             $parameter['optional'] ? 'Optional' : '',
             $getter_spec['accessorSuffix'],
           ),
-          $getter_spec['args']->map($arg ==> $arg->render($param_spec))
-            ->toVector(),
+          $getter_spec['args']->map($arg ==> $arg->render($param_spec)),
           /* semicolon at end = */ false,
         )
         ->add(',');

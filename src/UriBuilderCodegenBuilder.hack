@@ -54,7 +54,7 @@ extends RequestParametersCodegenBuilderBase<UriBuilderCodegenBase<T>> {
               $param,
               \sprintf('$parameters[\'%s\']', $param->getName()),
             ),
-          )->toVector(),
+          ),
           /* semicolon at end = */ false,
         );
     }
