@@ -81,10 +81,10 @@ final class RouterCLILookupCodegenBuilderTest extends BaseCodegenTestCase {
     );
     $output = \implode("\n", $output);
     expect($exit_code)->toBeGreaterThan(0);
-    expect($output)->toNotContain('HEAD');
-    expect($output)->toNotContain('GET');
+    expect($output)->toNotContainSubstring('HEAD');
+    expect($output)->toNotContainSubstring('GET');
     // Brittle - don't care about this string, just that there's a friendly
     // error message rather than a hack error, exception, etc
-    expect($output)->toContain('No controller found');
+    expect($output)->toContainSubstring('No controller found');
   }
 }

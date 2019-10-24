@@ -71,14 +71,14 @@ final class RouterCodegenBuilderTest extends BaseCodegenTestCase {
 
   public async function testMapOnlyContainsUsedMethods(): Awaitable<void> {
     $code = $this->renderToString(await $this->getBuilderAsync());
-    expect($code)->toContain('HttpMethod::GET');
-    expect($code)->toNotContain('HttpMethod::POST');
+    expect($code)->toContainSubstring('HttpMethod::GET');
+    expect($code)->toNotContainSubstring('HttpMethod::POST');
   }
 
   public async function testDefaultGeneratedFrom(): Awaitable<void> {
     $code = $this->renderToString(await $this->getBuilderAsync());
-    expect($code)->toContain('To re-generate this file run');
-    expect($code)->toContain('vendor/hhvm/hacktest/bin/hacktest');
+    expect($code)->toContainSubstring('To re-generate this file run');
+    expect($code)->toContainSubstring('vendor/hhvm/hacktest/bin/hacktest');
   }
 
   public async function testOverriddenGeneratedFrom(): Awaitable<void> {
@@ -87,7 +87,8 @@ final class RouterCodegenBuilderTest extends BaseCodegenTestCase {
         $this->getCodegenFactory()->codegenGeneratedFromClass(self::class),
       ),
     );
-    expect($code)->toContain('Generated from '.RouterCodegenBuilder::class);
+    expect($code)
+      ->toContainSubstring('Generated from '.RouterCodegenBuilder::class);
   }
 
   public async function testCreatesFinalByDefault(): Awaitable<void> {
