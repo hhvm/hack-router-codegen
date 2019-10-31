@@ -131,7 +131,7 @@ final class RouterCodegenBuilderTest extends BaseCodegenTestCase {
     expect($controller)->toBeSame(GetRequestExampleController::class);
     $params = new RequestParameters(
       GetRequestExampleController::getUriPattern()->getParameters(),
-      [],
+      varray[],
       $params,
     );
     expect($params->getString('MyString'))->toBeSame('foo');
