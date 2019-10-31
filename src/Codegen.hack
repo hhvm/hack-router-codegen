@@ -242,10 +242,10 @@ final class Codegen {
     ))
       ->setDiscardChanges(Shapes::idx($this->config ?? shape(), 'discardChanges', false))
       ->setGeneratedFrom($this->getGeneratedFrom());
-    foreach ($config['trait']['requireExtends'] ?? [] as $what) {
+    foreach ($config['trait']['requireExtends'] ?? varray[] as $what) {
       $builder->traitRequireExtends($what);
     }
-    foreach ($config['trait']['requireImplements'] ?? [] as $what) {
+    foreach ($config['trait']['requireImplements'] ?? varray[] as $what) {
       $builder->traitRequireImplements($what);
     }
 

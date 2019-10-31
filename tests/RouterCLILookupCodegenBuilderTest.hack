@@ -44,7 +44,7 @@ final class RouterCLILookupCodegenBuilderTest extends BaseCodegenTestCase {
     ));
 
     $exit_code = null;
-    $output = [];
+    $output = varray[];
     \exec(
       \vsprintf(
         '%s -d hhvm.jit=0 %s %s',
@@ -67,7 +67,7 @@ final class RouterCLILookupCodegenBuilderTest extends BaseCodegenTestCase {
     await $this->rebuildAsync();
 
     $exit_code = 0;
-    $output = [];
+    $output = varray[];
     \exec(
       \vsprintf(
         '%s -d hhvm.jit=0 %s /foo/bar',
