@@ -90,7 +90,6 @@ final class RouterCodegenBuilder<T as IncludeInUriMap> {
       ))
       ->addMethod(
         $this->cg->codegenMethod('getRoutes')
-          ->setIsFinal(true)
           ->setIsOverride(true)
           ->setReturnTypef(
             'ImmMap<\\%s, ImmMap<string, classname<\\%s>>>',
