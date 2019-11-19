@@ -37,7 +37,7 @@ final class EnumParameterCodegenSpec extends UriParameterCodegenSpec {
   }
 
   <<__Override>>
-  final public static function getGetterSpec(
+  public static function getGetterSpec(
     RequestParameter $param,
   ): self::TSpec {
     return shape(
