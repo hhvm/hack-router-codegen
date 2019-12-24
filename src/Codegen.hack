@@ -15,6 +15,7 @@ use type Facebook\HackCodegen\{
   HackCodegenFactory,
   IHackCodegenConfig,
 };
+
 use type Facebook\DefinitionFinder\{BaseParser, TreeParser};
 use type Facebook\HackRouter\PrivateImpl\{ClassFacts, ControllerFacts};
 
