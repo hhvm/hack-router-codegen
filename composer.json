@@ -13,7 +13,7 @@
     },
     "require-dev": {
         "hhvm/hhast": "^4.6",
-        "hhvm/hhvm-autoload": "^2.0",
+        "hhvm/hhvm-autoload": "^2.0|^3.0",
         "hhvm/hacktest": "^2.0",
         "facebook/fbexpect": "^2.6.1",
         "usox/hackttp": "^0.3"
