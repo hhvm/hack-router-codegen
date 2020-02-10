@@ -81,8 +81,10 @@ final class RouterCodegenBuilder<T as IncludeInUriMap> {
 
   private function getCodegenClass(
     string $classname,
-  ): CodegenClass{
-    $class = ($this->cg->codegenClass($classname)
+  ): CodegenClass {
+    return $this->cg->codegenClass($classname)
+      ->setIsAbstract($this->createAbstract)
+      ->setIsFinal(!$this->createAbstract)
       ->setExtends(\sprintf(
         "\\%s<classname<\\%s>>",
         BaseRouter::class,
@@ -90,6 +92,8 @@ final class RouterCodegenBuilder<T as IncludeInUriMap> {
       ))
       ->addMethod(
         $this->cg->codegenMethod('getRoutes')
+          // method should be final only if the class is not already final
+          ->setIsFinal($this->createAbstract)
           ->setIsOverride(true)
           ->setReturnTypef(
             'ImmMap<\\%s, ImmMap<string, classname<\\%s>>>',
@@ -97,13 +101,7 @@ final class RouterCodegenBuilder<T as IncludeInUriMap> {
             $this->responderClass,
           )
           ->setBody($this->getUriMapBody())
-      )
-    );
-
-    $abstract = $this->createAbstract;
-    $class->setIsAbstract($abstract);
-    $class->setIsFinal(!$abstract);
-    return $class;
+      );
   }
 
   private function getUriMapBody(): string {
