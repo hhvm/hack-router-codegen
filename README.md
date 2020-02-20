@@ -16,8 +16,6 @@ Building a Request Router
 
 ```Hack
 <?hh
-require_once(__DIR__.'/../vendor/hh_autoload.php');
-
 use \Facebook\HackRouter\Codegen;
 
 final class UpdateCodegen {
@@ -34,7 +32,7 @@ final class UpdateCodegen {
       ),
     )->build;
   }
-);
+}
 ```
 
 
