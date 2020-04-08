@@ -22,10 +22,10 @@ final class GetRequestExampleControllerParameters
   public function get(): self::TParameters {
     $p = $this->getParameters();
     return shape(
-      "MyString" => $p->getString('MyString'),
-      "MyInt" => $p->getInt('MyInt'),
-      "MyEnum" => $p->getEnum(\Facebook\HackRouter\CodeGen\Tests\MyEnum::class, 'MyEnum'),
-      "MyOptionalParam" => $p->getOptionalString('MyOptionalParam'),
+      'MyString' => $p->getString('MyString'),
+      'MyInt' => $p->getInt('MyInt'),
+      'MyEnum' => $p->getEnum(\Facebook\HackRouter\CodeGen\Tests\MyEnum::class, 'MyEnum'),
+      'MyOptionalParam' => $p->getOptionalString('MyOptionalParam'),
     );
   }
 }
