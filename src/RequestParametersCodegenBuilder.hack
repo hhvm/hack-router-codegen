@@ -76,7 +76,7 @@ final class RequestParametersCodegenBuilder<T as RequestParametersBase>
       $param_shape[] = new CodegenShapeMember($param_spec->getName(), $type);
       $body
         ->ensureNewLine()
-        ->addf('"%s" => ', $param_spec->getName())
+        ->addf("'%s' => ", $param_spec->getName())
         ->addMultilineCall(
           \sprintf(
             '$p->get%s%s',

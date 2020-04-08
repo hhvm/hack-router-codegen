@@ -5,7 +5,7 @@
  * To re-generate this file run vendor/hhvm/hacktest/bin/hacktest
  *
  *
- * @generated SignedSource<<0e9bf7c34daf198ab5439077c13199b2>>
+ * @generated SignedSource<<4722d2f3b9d8e55cf57f34427b0d9e85>>
  */
 namespace Facebook\HackRouter\CodeGen\Tests\Generated;
 
