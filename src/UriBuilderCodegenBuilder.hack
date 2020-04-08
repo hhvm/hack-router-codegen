@@ -88,7 +88,7 @@ extends RequestParametersCodegenBuilderBase<UriBuilderCodegenBase<T>> {
       ->addMethod($method)
       ->setIsAbstract(true)
       ->setIsFinal(true)
-      ->setExtends("\\".$this->base);
+      ->setExtends('\\'.$this->base);
 
     return $common;
   }

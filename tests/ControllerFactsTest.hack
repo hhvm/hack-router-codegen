@@ -55,7 +55,7 @@ final class ControllerFactsTest extends \Facebook\HackTest\HackTest {
     $code =
       "<?hh\n".
       "final class MyController\n".
-      "implements Facebook\HackRouter\IncludeInUriMap {}";
+      'implements Facebook\HackRouter\IncludeInUriMap {}';
     $scanned = await FileParser::fromDataAsync($code, __FUNCTION__);
     $class = $scanned->getClass('MyController');
     $facts = $this->getFacts($scanned);
@@ -89,7 +89,7 @@ final class ControllerFactsTest extends \Facebook\HackTest\HackTest {
     $code =
       "<?hh\n".
       "use \Facebook\HackRouter\IncludeInUriMap;\n".
-      "final class MyController implements IncludeInUriMap {}";
+      'final class MyController implements IncludeInUriMap {}';
     $scanned = await FileParser::fromDataAsync($code, __FUNCTION__);
     $class = $scanned->getClass('MyController');
     $facts = $this->getFacts($scanned);
@@ -100,7 +100,7 @@ final class ControllerFactsTest extends \Facebook\HackTest\HackTest {
     $code =
       "<?hh\n".
       "abstract class MyController\n".
-      "implements Facebook\HackRouter\IncludeInUriMap {}";
+      'implements Facebook\HackRouter\IncludeInUriMap {}';
     $scanned = await FileParser::fromDataAsync($code, __FUNCTION__);
     $class = $scanned->getClass('MyController');
     $facts = $this->getFacts($scanned);
@@ -111,7 +111,7 @@ final class ControllerFactsTest extends \Facebook\HackTest\HackTest {
     expect(async () ==> {
       $code = "<?hh\n".
         "class MyController\n".
-      "implements Facebook\HackRouter\IncludeInUriMap {}";
+      'implements Facebook\HackRouter\IncludeInUriMap {}';
       $scanned = await FileParser::fromDataAsync($code, __FUNCTION__);
       $class = $scanned->getClass('MyController');
       $facts = $this->getFacts($scanned);
@@ -124,7 +124,7 @@ final class ControllerFactsTest extends \Facebook\HackTest\HackTest {
       "<?hh\n".
       "abstract class BaseController\n".
       "implements Facebook\HackRouter\IncludeInUriMap {}\n".
-      "final class MyController extends BaseController {}";
+      'final class MyController extends BaseController {}';
     $scanned = await FileParser::fromDataAsync($code, __FUNCTION__);
     $base = $scanned->getClass('BaseController');
     $final = $scanned->getClass('MyController');
@@ -140,7 +140,7 @@ final class ControllerFactsTest extends \Facebook\HackTest\HackTest {
       "namespace Foo\Bar;\n".
       "abstract class BaseController\n".
       "implements \Facebook\HackRouter\IncludeInUriMap {}\n".
-      "final class MyController extends BaseController {}";
+      'final class MyController extends BaseController {}';
     $scanned = await FileParser::fromDataAsync($code, __FUNCTION__);
     $base = $scanned->getClass('Foo\\Bar\\BaseController');
     $final = $scanned->getClass('Foo\\Bar\\MyController');
@@ -155,7 +155,7 @@ final class ControllerFactsTest extends \Facebook\HackTest\HackTest {
       "<?hh\n".
       "interface IController\n".
       "extends Facebook\HackRouter\IncludeInUriMap {}\n".
-      "final class MyController implements IController {}";
+      'final class MyController implements IController {}';
     $scanned = await FileParser::fromDataAsync($code, __FUNCTION__);
     $class = $scanned->getClass('MyController');
 
@@ -170,7 +170,7 @@ final class ControllerFactsTest extends \Facebook\HackTest\HackTest {
       "implements Facebook\HackRouter\IncludeInUriMap {}\n".
       "final class MyController {\n".
       "  use TController;\n".
-      "}";
+      '}';
     $scanned = await FileParser::fromDataAsync($code, __FUNCTION__);
     $class = $scanned->getClass('MyController');
 
@@ -184,7 +184,7 @@ final class ControllerFactsTest extends \Facebook\HackTest\HackTest {
       "final class MyController implements\n".
       "\Facebook\HackRouter\IncludeInUriMap,\n".
       "\Facebook\HackRouter\SupportsGetRequests {\n".
-      "}";
+      '}';
     $scanned = await FileParser::fromDataAsync($code, __FUNCTION__);
     $class = $scanned->getClass('MyController');
 
@@ -200,7 +200,7 @@ final class ControllerFactsTest extends \Facebook\HackTest\HackTest {
       "final class MyController implements\n".
       "\Facebook\HackRouter\IncludeInUriMap,\n".
       "\Facebook\HackRouter\SupportsPostRequests {\n".
-      "}";
+      '}';
     $scanned = await FileParser::fromDataAsync($code, __FUNCTION__);
     $class = $scanned->getClass('MyController');
 
@@ -217,7 +217,7 @@ final class ControllerFactsTest extends \Facebook\HackTest\HackTest {
       "\Facebook\HackRouter\IncludeInUriMap,\n".
       "\Facebook\HackRouter\SupportsGetRequests,\n".
       "\Facebook\HackRouter\SupportsPostRequests {\n".
-      "}";
+      '}';
       $scanned = await FileParser::fromDataAsync($code, __FUNCTION__);
       $class = $scanned->getClass('MyController');
       $facts = $this->getFacts($scanned);
@@ -230,7 +230,7 @@ final class ControllerFactsTest extends \Facebook\HackTest\HackTest {
       $code = "<?hh\n".
         "final class MyController implements\n".
       "\Facebook\HackRouter\IncludeInUriMap {\n".
-      "}";
+      '}';
       $scanned = await FileParser::fromDataAsync($code, __FUNCTION__);
       $class = $scanned->getClass('MyController');
       $facts = $this->getFacts($scanned);

@@ -64,7 +64,7 @@ final class ClassFacts {
     classname<T> $wanted,
     string $name,
   ): bool {
-    if (\substr($name, 0, 1) === "\\") {
+    if (\substr($name, 0, 1) === '\\') {
       $name = \substr($name, 1);
     }
 

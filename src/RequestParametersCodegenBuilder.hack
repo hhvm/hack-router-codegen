@@ -96,7 +96,7 @@ final class RequestParametersCodegenBuilder<T as RequestParametersBase>
     return $this->cg
       ->codegenClass($spec['class']['name'])
       ->setIsFinal(true)
-      ->setExtends("\\".$this->base)
+      ->setExtends('\\'.$this->base)
       ->addTypeConstant(
         $this->cg
           ->codegenTypeConstant('TParameters')

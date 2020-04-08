@@ -24,6 +24,6 @@ trait TestTypechecksTestTrait {
       inout $out_array,
       inout $exit_code,
     );
-    expect($exit_code)->toBeSame(0, "Typechecker errors found");
+    expect($exit_code)->toBeSame(0, 'Typechecker errors found');
   }
 }

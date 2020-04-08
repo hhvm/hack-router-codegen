@@ -27,7 +27,7 @@ final class EnumParameterCodegenSpec extends UriParameterCodegenSpec {
   private static function getType(
     RequestParameter $param,
   ): string {
-    return "\\".self::cast($param)->getEnumName();
+    return '\\'.self::cast($param)->getEnumName();
   }
 
   private static function getTypeName(

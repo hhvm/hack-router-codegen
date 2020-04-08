@@ -53,7 +53,7 @@ class RequestParameterCodegenBuilder {
     $spec = self::getRequestSpec($param);
     invariant(
       \is_subclass_of($spec, UriParameterCodegenSpec::class),
-      "Expected %s to be a %s",
+      'Expected %s to be a %s',
       $spec,
       UriParameterCodegenSpec::class,
     );
