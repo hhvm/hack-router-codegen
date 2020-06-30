@@ -207,7 +207,7 @@ final class RouterCLILookupCodegenBuilder {
 
   private function getMainMethod(): CodegenMethod {
     return $this->cg->codegenMethod('main')
-      ->addParameter('array<string> $argv')
+      ->addParameter('KeyedContainer<arraykey, string> $argv')
       ->setReturnType('void')
       ->setBody(
         $this->cg->codegenHackBuilder()
