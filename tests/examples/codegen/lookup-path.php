@@ -7,7 +7,7 @@
  * To re-generate this file run vendor/hhvm/hacktest/bin/hacktest
  *
  *
- * @partially-generated SignedSource<<dcbaf7d5f4a45c2c3e92a2b822b556d2>>
+ * @partially-generated SignedSource<<584ccd4103e1cb5ddaa5cdc80ba52017>>
  */
 namespace Facebook\HackRouter\CodeGen\Tests\Generated;
 /* BEGIN MANUAL SECTION init */
@@ -67,7 +67,7 @@ final class MySiteRouterCLILookup {
     }
   }
 
-  public function main(array<string> $argv): void {
+  public function main(KeyedContainer<int, string> $argv): void {
     $path = $argv[1] ?? null;
     if ($path === null) {
       \fprintf(\STDERR, "Usage: %s PATH\n", $argv[0]);
