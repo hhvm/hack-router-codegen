@@ -7,29 +7,37 @@
  * To re-generate this file run vendor/hhvm/hacktest/bin/hacktest
  *
  *
- * @partially-generated SignedSource<<584ccd4103e1cb5ddaa5cdc80ba52017>>
+ * @partially-generated SignedSource<<55a0cefda5ff140be84dcbf0126e4c18>>
  */
 namespace Facebook\HackRouter\CodeGen\Tests\Generated;
-/* BEGIN MANUAL SECTION init */
-$autoloader = null;
-$autoloader_candidates = ImmSet {
-  __DIR__.'/vendor/hh_autoload.php',
-  __DIR__.'/../vendor/hh_autoload.php',
-  __DIR__.'/../../vendor/hh_autoload.php',
-  __DIR__.'/../../../vendor/hh_autoload.php',
-};
-foreach ($autoloader_candidates as $candidate) {
-  if (\file_exists($candidate)) {
-    $autoloader = $candidate;
-    break;
+
+<<__EntryPoint>>
+function main(): void {
+  /* BEGIN MANUAL SECTION init */
+  $autoloader = null;
+  $autoloader_candidates = ImmSet {
+    __DIR__.'/vendor/autoload.hack',
+    __DIR__.'/../vendor/autoload.hack',
+    __DIR__.'/../../vendor/autoload.hack',
+    __DIR__.'/../../../vendor/autoload.hack',
+  };
+  foreach ($autoloader_candidates as $candidate) {
+    if (\file_exists($candidate)) {
+      $autoloader = $candidate;
+      break;
+    }
   }
+  if ($autoloader === null) {
+    \fwrite(\STDERR, "Can't find autoloader.\n");
+    exit(1);
+  }
+  require_once($autoloader);
+  \Facebook\AutoloadMap\initialize();
+  /* END MANUAL SECTION */
+
+  $argv = \Facebook\TypeAssert\matches<KeyedContainer<int, string>>(\HH\global_get('argv'));
+  (new MySiteRouterCLILookup())->main($argv);
 }
-if ($autoloader === null) {
-  \fwrite(\STDERR, "Can't find autoloader.\n");
-  exit(1);
-}
-require_once($autoloader);
-/* END MANUAL SECTION */
 
 final class MySiteRouterCLILookup {
 
@@ -84,5 +92,3 @@ final class MySiteRouterCLILookup {
     }
   }
 }
-
-(new MySiteRouterCLILookup())->main($argv);
