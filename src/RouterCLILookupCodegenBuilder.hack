@@ -74,14 +74,14 @@ final class RouterCLILookupCodegenBuilder {
       ->setGeneratedFrom($this->generatedFrom)
       ->addClass($this->getCodegenClass($router_classname, $utility_classname))
       ->addFunction(
-        $this->cg->codegenFunction('main')
+        $this->cg->codegenFunction('hack_router_cli_lookup_generated_main')
           ->addEmptyUserAttribute('__EntryPoint')
           ->setReturnType('void')
           ->setBodyf(
             "%s\n".
             '$argv = '.
-            '\Facebook\TypeAssert\matches<KeyedContainer<int, string>>('.
-            "\HH\global_get('argv'));\n".
+            '\\Facebook\\TypeAssert\\matches<KeyedContainer<int, string>>('.
+            "\\HH\\global_get('argv'));\n".
             "(new %s())->main(\$argv);\n",
             $this->getInitCode(),
             $utility_classname,
@@ -209,7 +209,7 @@ final class RouterCLILookupCodegenBuilder {
       ->addLine('exit(1);')
       ->endIfBlock()
       ->addLine('require_once($autoloader);')
-      ->addLine('\Facebook\AutoloadMap\initialize();')
+      ->addLine('\\Facebook\\AutoloadMap\\initialize();')
       ->endManualSection()
       ->getCode();
   }

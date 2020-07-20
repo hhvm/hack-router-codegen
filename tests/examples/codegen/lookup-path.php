@@ -7,12 +7,12 @@
  * To re-generate this file run vendor/hhvm/hacktest/bin/hacktest
  *
  *
- * @partially-generated SignedSource<<55a0cefda5ff140be84dcbf0126e4c18>>
+ * @partially-generated SignedSource<<c6a69f51450330c9524afac2290c7b3d>>
  */
 namespace Facebook\HackRouter\CodeGen\Tests\Generated;
 
 <<__EntryPoint>>
-function main(): void {
+function hack_router_cli_lookup_generated_main(): void {
   /* BEGIN MANUAL SECTION init */
   $autoloader = null;
   $autoloader_candidates = ImmSet {
