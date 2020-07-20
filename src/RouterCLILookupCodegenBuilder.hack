@@ -72,11 +72,20 @@ final class RouterCLILookupCodegenBuilder {
       ->setShebangLine('#!/usr/bin/env hhvm')
       ->setFileType(CodegenFileType::HACK_PARTIAL)
       ->setGeneratedFrom($this->generatedFrom)
-      ->setPseudoMainHeader($this->getInitCode())
       ->addClass($this->getCodegenClass($router_classname, $utility_classname))
-      ->setPseudoMainFooterf(
-        '(new %s())->main($argv);',
-        $utility_classname,
+      ->addFunction(
+        $this->cg->codegenFunction('hack_router_cli_lookup_generated_main')
+          ->addEmptyUserAttribute('__EntryPoint')
+          ->setReturnType('void')
+          ->setBodyf(
+            "%s\n".
+            '$argv = '.
+            '\\Facebook\\TypeAssert\\matches<KeyedContainer<int, string>>('.
+            "\\HH\\global_get('argv'));\n".
+            "(new %s())->main(\$argv);\n",
+            $this->getInitCode(),
+            $utility_classname,
+          ),
       );
 
     if ($namespace !== null) {
@@ -165,8 +174,7 @@ final class RouterCLILookupCodegenBuilder {
       '/../',
     };
     $autoloader_files = ImmSet {
-      'hh_autoload.php',
-      'autoload.php',
+      'autoload.hack',
     };
     $full_autoloader_files = Set { };
     foreach ($autoloader_files as $file) {
@@ -201,6 +209,7 @@ final class RouterCLILookupCodegenBuilder {
       ->addLine('exit(1);')
       ->endIfBlock()
       ->addLine('require_once($autoloader);')
+      ->addLine('\\Facebook\\AutoloadMap\\initialize();')
       ->endManualSection()
       ->getCode();
   }
