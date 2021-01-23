@@ -16,7 +16,7 @@
         "hhvm/hhvm-autoload": "^2.0|^3.0",
         "hhvm/hacktest": "^2.0",
         "facebook/fbexpect": "^2.6.1",
-        "usox/hackttp": "dev-master"
+        "usox/hackttp": "^0.5"
     },
     "extra": {
         "branch-alias": {
