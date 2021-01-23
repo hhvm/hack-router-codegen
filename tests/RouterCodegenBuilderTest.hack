@@ -65,7 +65,8 @@ final class RouterCodegenBuilderTest extends BaseCodegenTestCase {
       self::CODEGEN_NS,
       'MySiteRouter',
     );
-    assert($class is \Facebook\HackCodegen\CodegenFile);
+    $class =
+      expect($class)->toBeInstanceOf(\Facebook\HackCodegen\CodegenFile::class);
     return $class->render();
   }
 
