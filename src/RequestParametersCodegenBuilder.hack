@@ -118,7 +118,6 @@ final class RequestParametersCodegenBuilder<T as RequestParametersBase>
     $trait = Shapes::idx($spec, 'trait');
     invariant($trait !== null, "Can't codegen a trait without a trait spec");
 
-
     $trait = $this->cg
       ->codegenTrait($trait['name'])
       ->addMethod(

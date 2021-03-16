@@ -9,7 +9,6 @@
 
 namespace Facebook\HackRouter;
 
-
 final class StringParameterCodegenSpec extends SimpleParameterCodegenSpec {
   <<__Override>>
   protected static function getSimpleSpec(): self::TSimpleSpec {
