@@ -10,4 +10,4 @@ disable_primitive_refinement=true
 disable_static_local_variables = true
 disallow_array_literal = true
 allowed_decl_fixme_codes=2053,4033,4045,4047
-allowed_fixme_codes_strict=2011,2049,2050,2053,4006,4027,4033,4045,4047,4053,4104,4106,4107,4108,4110,4128,4135,4188,4240,4323,4390,4401
+allowed_fixme_codes_strict=2011,2049,2050,2053,4006,4027,4033,4045,4047,4053,4104,4106,4107,4108,4110,4128,4135,4188,4240,4323,4390,4401,4423
