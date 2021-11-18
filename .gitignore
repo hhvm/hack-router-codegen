@@ -1,4 +1,5 @@
 vendor/
+.var
 *.swp
 www.pid
 .DS_Store
