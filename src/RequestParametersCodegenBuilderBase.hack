@@ -67,7 +67,7 @@ abstract class RequestParametersCodegenBuilderBase<TBase> {
     return $this;
   }
 
-  final private function getCodegenFile(
+  private function getCodegenFile(
     string $path,
     self::TSpec $spec,
   ): CodegenFile {
