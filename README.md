@@ -1,5 +1,7 @@
-Hack-Router-Codegen [![Build Status](https://travis-ci.org/hhvm/hack-router-codegen.svg?branch=master)](https://travis-ci.org/hhvm/hack-router-codegen)
+Hack-Router-Codegen
 ===================
+
+[![Continuous Integration](https://github.com/hhvm/hack-router-codegen/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/hhvm/hack-router-codegen/actions/workflows/build-and-test.yml)
 
 Code generation for controller classes using the `UriPattern` system from
 [`hhvm/hack-router`](https://github.com/hhvm/hack-router)
