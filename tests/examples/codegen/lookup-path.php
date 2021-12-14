@@ -1,5 +1,5 @@
 #!/usr/bin/env hhvm
-<?hh // partial
+<?hh // strict
 /**
  * This file is partially generated. Only make modifications between BEGIN
  * MANUAL SECTION and END MANUAL SECTION designators.
@@ -7,7 +7,7 @@
  * To re-generate this file run vendor/hhvm/hacktest/bin/hacktest
  *
  *
- * @partially-generated SignedSource<<c6a69f51450330c9524afac2290c7b3d>>
+ * @partially-generated SignedSource<<cbaefee6b122521b73b4013461591651>>
  */
 namespace Facebook\HackRouter\CodeGen\Tests\Generated;
 
