@@ -70,7 +70,7 @@ final class RouterCLILookupCodegenBuilder {
     $file = $this->cg->codegenFile($path)
       ->setDoClobber($this->discardChanges)
       ->setShebangLine('#!/usr/bin/env hhvm')
-      ->setFileType(CodegenFileType::HACK_PARTIAL)
+      ->setFileType(CodegenFileType::HACK_STRICT)
       ->setGeneratedFrom($this->generatedFrom)
       ->addClass($this->getCodegenClass($router_classname, $utility_classname))
       ->addFunction(
