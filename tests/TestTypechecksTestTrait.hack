@@ -18,7 +18,7 @@ trait TestTypechecksTestTrait {
   final public async function testTypechecks(): Awaitable<void> {
     await $this->rebuildAsync();
     $exit_code = 0;
-    $out_array = varray[];
+    $out_array = vec[];
     \exec(
       'hh_client',
       inout $out_array,
