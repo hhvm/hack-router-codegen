@@ -38,8 +38,9 @@ final class Codegen {
       'type' => string,
       'getter' => string,
     ),
-    'output' =>
-      (function(classname<IncludeInUriMap>): ?self::TUriBuilderOutput),
+    'output' => (function(
+      classname<IncludeInUriMap>,
+    ): ?self::TUriBuilderOutput),
   );
 
   const type TRequestParametersOutput = shape(
@@ -64,8 +65,9 @@ final class Codegen {
       ?'requireExtends' => ImmSet<classname<mixed>>,
       ?'requireImplements' => ImmSet<classname<mixed>>,
     ),
-    'output' =>
-      (function(classname<IncludeInUriMap>): ?self::TRequestParametersOutput),
+    'output' => (function(
+      classname<IncludeInUriMap>,
+    ): ?self::TRequestParametersOutput),
   );
 
   const type TRouterCodegenConfig = shape(
@@ -101,8 +103,8 @@ final class Codegen {
 
   <<__Memoize>>
   private function getGeneratedFrom(): CodegenGeneratedFrom {
-    return $this->config['generatedFrom']
-      ?? $this->getHackCodegenFactory()->codegenGeneratedFromScript();
+    return $this->config['generatedFrom'] ??
+      $this->getHackCodegenFactory()->codegenGeneratedFromScript();
   }
 
   public function build(): void {
@@ -131,10 +133,9 @@ final class Codegen {
     BaseParser $parser,
     private self::TCodegenConfig $config,
   ) {
-    $this->controllerFacts = (new ControllerFacts(
-      $this->getControllerBase(),
-      new ClassFacts($parser),
-    ));
+    $this->controllerFacts = (
+      new ControllerFacts($this->getControllerBase(), new ClassFacts($parser))
+    );
   }
 
   private function buildRouter(): void {
@@ -145,11 +146,13 @@ final class Codegen {
 
     $uri_map = (new UriMapBuilder($this->controllerFacts))->getUriMap();
 
-    (new RouterCodegenBuilder(
-      $this->getHackCodegenConfig(),
-      $this->getControllerBase(),
-      $uri_map,
-    ))
+    (
+      new RouterCodegenBuilder(
+        $this->getHackCodegenConfig(),
+        $this->getControllerBase(),
+        $uri_map,
+      )
+    )
       ->setCreateAbstractClass($config['abstract'])
       ->setGeneratedFrom($this->getGeneratedFrom())
       ->setDiscardChanges($this->config['discardChanges'] ?? false)
@@ -180,21 +183,24 @@ final class Codegen {
       return;
     }
     $base = $config['baseClass'] ?? UriBuilderCodegen::class;
-    $param_builder = $config['parameterCodegenBuilder']
-      ?? new RequestParameterCodegenBuilder($this->getHackCodegenConfig());
+    $param_builder = $config['parameterCodegenBuilder'] ??
+      new RequestParameterCodegenBuilder($this->getHackCodegenConfig());
     $get_output = $config['output'];
-    $return_spec = $config['returnSpec'] ?? shape(
-      'getter' => 'getPath',
-      'type' => 'string',
-    );
+    $return_spec = $config['returnSpec'] ??
+      shape(
+        'getter' => 'getPath',
+        'type' => 'string',
+      );
 
-    $builder = (new UriBuilderCodegenBuilder(
-      $this->getHackCodegenConfig(),
-      $base,
-      $param_builder,
-      $return_spec['getter'],
-      $return_spec['type'],
-    ))
+    $builder = (
+      new UriBuilderCodegenBuilder(
+        $this->getHackCodegenConfig(),
+        $base,
+        $param_builder,
+        $return_spec['getter'],
+        $return_spec['type'],
+      )
+    )
       ->setGeneratedFrom($this->getGeneratedFrom())
       ->setDiscardChanges(
         Shapes::idx($this->config ?? shape(), 'discardChanges', false),
@@ -225,24 +231,27 @@ final class Codegen {
       return;
     }
     $base = $config['baseClass'] ?? RequestParametersCodegen::class;
-    $param_builder = $config['parameterCodegenBuilder']
-      ?? new RequestParameterCodegenBuilder($this->getHackCodegenConfig());
+    $param_builder = $config['parameterCodegenBuilder'] ??
+      new RequestParameterCodegenBuilder($this->getHackCodegenConfig());
     $get_output = $config['output'];
     $getParameters = $config['getParameters'] ??
       (classname<HasUriPattern> $class) ==> {
-        return $class::getUriPattern()->getParameters()->map(
-          $param ==> shape('spec' => $param, 'optional' => false),
-        );
+        return $class::getUriPattern()->getParameters()
+          ->map($param ==> shape('spec' => $param, 'optional' => false));
       };
 
-    $builder = (new RequestParametersCodegenBuilder(
-      $this->getHackCodegenConfig(),
-      $getParameters,
-      $config['trait']['getRawParametersCode'],
-      $base,
-      $param_builder,
-    ))
-      ->setDiscardChanges(Shapes::idx($this->config ?? shape(), 'discardChanges', false))
+    $builder = (
+      new RequestParametersCodegenBuilder(
+        $this->getHackCodegenConfig(),
+        $getParameters,
+        $config['trait']['getRawParametersCode'],
+        $base,
+        $param_builder,
+      )
+    )
+      ->setDiscardChanges(
+        Shapes::idx($this->config ?? shape(), 'discardChanges', false),
+      )
       ->setGeneratedFrom($this->getGeneratedFrom());
     foreach ($config['trait']['requireExtends'] ?? vec[] as $what) {
       $builder->traitRequireExtends($what);

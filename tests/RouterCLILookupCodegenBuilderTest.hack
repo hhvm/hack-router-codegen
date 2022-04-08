@@ -13,20 +13,19 @@ use type Facebook\HackRouter\CodeGen\Tests\Generated\MySiteRouter;
 use function Facebook\FBExpect\expect;
 use type Facebook\HackRouter\CodeGen\Tests\{
   GetRequestExampleController,
-  MyEnum
+  MyEnum,
 };
 
 final class RouterCLILookupCodegenBuilderTest extends BaseCodegenTestCase {
   use TestTypechecksTestTrait;
 
   const string CODEGEN_PATH = __DIR__.'/examples/codegen/lookup-path.php';
-  const string CODEGEN_NS =
-    "Facebook\\HackRouter\\CodeGen\\Tests\\Generated";
+  const string CODEGEN_NS = "Facebook\\HackRouter\\CodeGen\\Tests\\Generated";
 
   protected async function rebuildAsync(): Awaitable<void> {
-    (new RouterCLILookupCodegenBuilder(
-      $this->getCodegenConfig(),
-    ))->renderToFile(
+    (
+      new RouterCLILookupCodegenBuilder($this->getCodegenConfig())
+    )->renderToFile(
       self::CODEGEN_PATH,
       self::CODEGEN_NS,
       MySiteRouter::class,
@@ -48,11 +47,13 @@ final class RouterCLILookupCodegenBuilderTest extends BaseCodegenTestCase {
     \exec(
       \vsprintf(
         '%s -d hhvm.jit=0 %s %s',
-        (ImmSet {
-          \PHP_BINARY,
-          self::CODEGEN_PATH,
-          $path,
-        })->map($x ==> \escapeshellarg($x)),
+        (
+          ImmSet {
+            \PHP_BINARY,
+            self::CODEGEN_PATH,
+            $path,
+          }
+        )->map($x ==> \escapeshellarg($x)),
       ),
       inout $output,
       inout $exit_code,
@@ -71,10 +72,12 @@ final class RouterCLILookupCodegenBuilderTest extends BaseCodegenTestCase {
     \exec(
       \vsprintf(
         '%s -d hhvm.jit=0 %s /foo/bar',
-        (ImmSet {
-          \PHP_BINARY,
-          self::CODEGEN_PATH,
-        })->map($x ==> \escapeshellarg($x)),
+        (
+          ImmSet {
+            \PHP_BINARY,
+            self::CODEGEN_PATH,
+          }
+        )->map($x ==> \escapeshellarg($x)),
       ),
       inout $output,
       inout $exit_code,
