@@ -19,11 +19,7 @@ trait TestTypechecksTestTrait {
     await $this->rebuildAsync();
     $exit_code = 0;
     $out_array = vec[];
-    \exec(
-      'hh_client',
-      inout $out_array,
-      inout $exit_code,
-    );
+    \exec('hh_client', inout $out_array, inout $exit_code);
     expect($exit_code)->toBeSame(0, 'Typechecker errors found');
   }
 }

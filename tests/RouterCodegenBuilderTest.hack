@@ -13,12 +13,10 @@ use type Facebook\DefinitionFinder\FileParser;
 use function Facebook\FBExpect\expect;
 use type Facebook\HackRouter\CodeGen\Tests\{
   GetRequestExampleController,
-  MyEnum
+  MyEnum,
 };
 use type Facebook\HackRouter\CodeGen\Tests\Generated\MySiteRouter;
-use type Facebook\HackRouter\PrivateImpl\{ClassFacts,
-  ControllerFacts
-};
+use type Facebook\HackRouter\PrivateImpl\{ClassFacts, ControllerFacts};
 use namespace HH\Lib\Str;
 
 final class RouterCodegenBuilderTest extends BaseCodegenTestCase {
@@ -26,8 +24,7 @@ final class RouterCodegenBuilderTest extends BaseCodegenTestCase {
   use TestTypechecksTestTrait;
 
   const string CODEGEN_PATH = __DIR__.'/examples/codegen/MySiteRouter.php';
-  const string CODEGEN_NS =
-    "Facebook\\HackRouter\\CodeGen\\Tests\\Generated";
+  const string CODEGEN_NS = "Facebook\\HackRouter\\CodeGen\\Tests\\Generated";
 
   private async function getBuilderAsync(
   ): Awaitable<RouterCodegenBuilder<GetRequestExampleController>> {
@@ -84,7 +81,7 @@ final class RouterCodegenBuilderTest extends BaseCodegenTestCase {
 
   public async function testOverriddenGeneratedFrom(): Awaitable<void> {
     $code = $this->renderToString(
-        (await $this->getBuilderAsync())->setGeneratedFrom(
+      (await $this->getBuilderAsync())->setGeneratedFrom(
         $this->getCodegenFactory()->codegenGeneratedFromClass(self::class),
       ),
     );
@@ -102,7 +99,7 @@ final class RouterCodegenBuilderTest extends BaseCodegenTestCase {
 
   public async function testCanCreateAbstract(): Awaitable<void> {
     $code = $this->renderToString(
-        (await $this->getBuilderAsync())->setCreateAbstractClass(true),
+      (await $this->getBuilderAsync())->setCreateAbstractClass(true),
     );
     $parser = await FileParser::fromDataAsync($code);
     $class = $parser->getClass(MySiteRouter::class);
@@ -125,10 +122,8 @@ final class RouterCodegenBuilderTest extends BaseCodegenTestCase {
      * top-level */
     require_once(self::CODEGEN_PATH);
     $router = new MySiteRouter();
-    list($controller, $params) = $router->routeMethodAndPath(
-      HttpMethod::GET,
-      '/foo/123/derp',
-    );
+    list($controller, $params) =
+      $router->routeMethodAndPath(HttpMethod::GET, '/foo/123/derp');
     expect($controller)->toBeSame(GetRequestExampleController::class);
     $params = new RequestParameters(
       GetRequestExampleController::getUriPattern()->getParameters(),
