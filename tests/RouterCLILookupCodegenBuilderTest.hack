@@ -53,7 +53,7 @@ final class RouterCLILookupCodegenBuilderTest extends BaseCodegenTestCase {
             self::CODEGEN_PATH,
             $path,
           }
-        )->map($x ==> \escapeshellarg($x)),
+        )->map(\escapeshellarg<>),
       ),
       inout $output,
       inout $exit_code,
@@ -77,7 +77,7 @@ final class RouterCLILookupCodegenBuilderTest extends BaseCodegenTestCase {
             \PHP_BINARY,
             self::CODEGEN_PATH,
           }
-        )->map($x ==> \escapeshellarg($x)),
+        )->map(\escapeshellarg<>),
       ),
       inout $output,
       inout $exit_code,
