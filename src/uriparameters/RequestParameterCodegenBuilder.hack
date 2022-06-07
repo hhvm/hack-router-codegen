@@ -12,7 +12,7 @@ namespace Facebook\HackRouter;
 use type Facebook\HackCodegen\{
   HackCodegenFactory, IHackCodegenConfig};
 
-class RequestParameterCodegenBuilder {
+final class RequestParameterCodegenBuilder {
   protected HackCodegenFactory $cg;
 
   public function __construct(
@@ -33,7 +33,7 @@ class RequestParameterCodegenBuilder {
     };
   }
 
-  final public static function getRequestSpec(
+  public static function getRequestSpec(
     RequestParameter $param,
   ): classname<RequestParameterCodegenSpec> {
     $specs = self::getParameterSpecs();
@@ -46,7 +46,7 @@ class RequestParameterCodegenBuilder {
     return $specs->at($type);
   }
 
-  final public static function getUriSpec(
+  public static function getUriSpec(
     UriParameter $param,
   ): classname<UriParameterCodegenSpec> {
     $spec = self::getRequestSpec($param);
