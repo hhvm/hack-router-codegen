@@ -96,9 +96,15 @@ final class Codegen {
     self::TCodegenConfig $config,
   ): Codegen {
     // leaving for now as it's a public API
-    /* HHAST_IGNORE_ERROR[DontUseAsioJoin] fix before final release */
-    return
-      new self(\HH\Asio\join(TreeParser::fromPathAsync($source_root)), $config);
+    /* HHAST_IGNORE_ERROR[DontUseAsioJoin] Kept for backward compatibility. */
+    return \HH\Asio\join(static::forTreeAsync($source_root, $config));
+  }
+
+  public static async function forTreeAsync(
+    string $source_root,
+    self::TCodegenConfig $config,
+  ): Awaitable<Codegen> {
+    return new self(await TreeParser::fromPathAsync($source_root), $config);
   }
 
   <<__Memoize>>

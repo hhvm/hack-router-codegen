@@ -11,9 +11,9 @@ namespace Facebook\HackRouter;
 use function Facebook\FBExpect\expect;
 
 final class CodegenTestCase extends \Facebook\HackTest\HackTest {
-  public function testCanCreateForTree(): void {
+  public async function testCanCreateForTreeAsync(): Awaitable<void> {
     // Just test it parses and we can create an instance
-    $codegen = Codegen::forTree(__DIR__.'/examples/', shape());
+    $codegen = await Codegen::forTreeAsync(__DIR__.'/examples/', shape());
     expect($codegen)->toBeInstanceOf(Codegen::class);
   }
 }
