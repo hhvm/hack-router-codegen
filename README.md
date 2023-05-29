@@ -22,7 +22,7 @@ use \Facebook\HackRouter\Codegen;
 
 final class UpdateCodegen {
   public function main(): void {
-    Codegen::forTree(
+    $codegen = await Codegen::forTree(
       __DIR__.'/../src/',
       shape(
         'controllerBase' => WebController::class,
@@ -32,7 +32,8 @@ final class UpdateCodegen {
           'class' => 'Router',
         ),
       ),
-    )->build;
+    );
+    $codegen->build();
   }
 }
 ```

@@ -7,20 +7,50 @@
  * To re-generate this file run vendor/hhvm/hacktest/bin/hacktest
  *
  *
- * @partially-generated SignedSource<<cbaefee6b122521b73b4013461591651>>
+ * @partially-generated SignedSource<<61e1a0bcff805162c34d005bb526d587>>
  */
 namespace Facebook\HackRouter\CodeGen\Tests\Generated;
 
+/**
+ * A quick way to validate that a path or url routes to the controller you
+ * expect.
+ *
+ * Usage: path/to/this/utility <%path or url%>.
+ * The output will look something like this:
+ *
+ * ```
+ * $ tests/examples/codegen/lookup-path.php /a-string/123/derp
+ * HEAD:    Facebook\HackRouter\CodeGen\Tests\GetRequestExampleController
+ * GET:     Facebook\HackRouter\CodeGen\Tests\GetRequestExampleController
+ * ```
+ *
+ * You may also copy paste the whole url:
+ * ```
+ * $ tests/examples/codegen/lookup-path.php
+ * http://localhost:8080/a-string/123/derp?query=abcd#fragment
+ * HEAD:    Facebook\HackRouter\CodeGen\Tests\GetRequestExampleController
+ * GET:     Facebook\HackRouter\CodeGen\Tests\GetRequestExampleController
+ * ```
+ *
+ * If the given path does not match any controllers, you'll get the following
+ * result:
+ * ```
+ * $ tests/examples/codegen/lookup-path.php /a/b/c
+ * No controller found for '/a/b/c'.
+ * ```
+ *
+ * You can edit the manual sections to change the router and formatter used.
+ */
 <<__EntryPoint>>
 function hack_router_cli_lookup_generated_main(): void {
   /* BEGIN MANUAL SECTION init */
   $autoloader = null;
-  $autoloader_candidates = ImmSet {
+  $autoloader_candidates = vec[
     __DIR__.'/vendor/autoload.hack',
     __DIR__.'/../vendor/autoload.hack',
     __DIR__.'/../../vendor/autoload.hack',
     __DIR__.'/../../../vendor/autoload.hack',
-  };
+  ];
   foreach ($autoloader_candidates as $candidate) {
     if (\file_exists($candidate)) {
       $autoloader = $candidate;
@@ -35,7 +65,7 @@ function hack_router_cli_lookup_generated_main(): void {
   \Facebook\AutoloadMap\initialize();
   /* END MANUAL SECTION */
 
-  $argv = \Facebook\TypeAssert\matches<KeyedContainer<int, string>>(\HH\global_get('argv'));
+  $argv = \Facebook\TypeAssert\matches<vec<string>>(\HH\global_get('argv'));
   (new MySiteRouterCLILookup())->main($argv);
 }
 
@@ -75,12 +105,14 @@ final class MySiteRouterCLILookup {
     }
   }
 
-  public function main(KeyedContainer<int, string> $argv): void {
+  public function main(vec<string> $argv): void {
     $path = $argv[1] ?? null;
     if ($path === null) {
       \fprintf(\STDERR, "Usage: %s PATH\n", $argv[0]);
       exit(1);
     }
+    // The parser is very lenient, `?: $path` is almost never needed.
+    $path = \parse_url($path, \PHP_URL_PATH) ?: $path;
     $controllers = $this->getControllersForPath($path);
     if ($controllers->isEmpty()) {
       \printf("No controller found for '%s'.\n", $path);

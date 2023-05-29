@@ -25,6 +25,34 @@ final class RouterCLILookupCodegenBuilder {
   private CodegenGeneratedFrom $generatedFrom;
   private HackCodegenFactory $cg;
 
+  const string CLI_LOOKUP_UTILITY_DOC_TEXT = <<<'TEXT'
+A quick way to validate that a path or url routes to the controller you expect.
+
+Usage: path/to/this/utility <%path or url%>.
+The output will look something like this:
+
+```
+$ tests/examples/codegen/lookup-path.php /a-string/123/derp
+HEAD:    Facebook\HackRouter\CodeGen\Tests\GetRequestExampleController
+GET:     Facebook\HackRouter\CodeGen\Tests\GetRequestExampleController
+```
+
+You may also copy paste the whole url:
+```
+$ tests/examples/codegen/lookup-path.php http://localhost:8080/a-string/123/derp?query=abcd#fragment
+HEAD:    Facebook\HackRouter\CodeGen\Tests\GetRequestExampleController
+GET:     Facebook\HackRouter\CodeGen\Tests\GetRequestExampleController
+```
+
+If the given path does not match any controllers, you'll get the following result:
+```
+$ tests/examples/codegen/lookup-path.php /a/b/c
+No controller found for '/a/b/c'.
+```
+
+You can edit the manual sections to change the router and formatter used.
+TEXT;
+
   public function __construct(
     private IHackCodegenConfig $codegenConfig,
   ) {
@@ -75,12 +103,13 @@ final class RouterCLILookupCodegenBuilder {
       ->addClass($this->getCodegenClass($router_classname, $utility_classname))
       ->addFunction(
         $this->cg->codegenFunction('hack_router_cli_lookup_generated_main')
+          ->setDocBlock(static::CLI_LOOKUP_UTILITY_DOC_TEXT)
           ->addEmptyUserAttribute('__EntryPoint')
           ->setReturnType('void')
           ->setBodyf(
             "%s\n".
             '$argv = '.
-            '\\Facebook\\TypeAssert\\matches<KeyedContainer<int, string>>('.
+            '\\Facebook\\TypeAssert\\matches<vec<string>>('.
             "\\HH\\global_get('argv'));\n".
             "(new %s())->main(\$argv);\n",
             $this->getInitCode(),
@@ -216,7 +245,7 @@ final class RouterCLILookupCodegenBuilder {
 
   private function getMainMethod(): CodegenMethod {
     return $this->cg->codegenMethod('main')
-      ->addParameter('KeyedContainer<int, string> $argv')
+      ->addParameter('vec<string> $argv')
       ->setReturnType('void')
       ->setBody(
         $this->cg->codegenHackBuilder()
@@ -229,6 +258,8 @@ final class RouterCLILookupCodegenBuilder {
           ->addLine('\\fprintf(\\STDERR, "Usage: %s PATH\n", $argv[0]);')
           ->addLine('exit(1);')
           ->endIfBlock()
+          ->addInlineComment('The parser is very lenient, `?: $path` is almost never needed.')
+          ->addLine('$path = \parse_url($path, \PHP_URL_PATH) ?: $path;')
           ->addAssignment(
             '$controllers',
             '$this->getControllersForPath($path)',
