@@ -91,6 +91,9 @@ final class Codegen {
     ?'discardChanges' => bool,
   );
 
+  /**
+   * @deprecated, use forTreeAsync() instead.
+   */
   public static function forTree(
     string $source_root,
     self::TCodegenConfig $config,
