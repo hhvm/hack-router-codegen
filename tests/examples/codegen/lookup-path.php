@@ -7,7 +7,7 @@
  * To re-generate this file run vendor/hhvm/hacktest/bin/hacktest
  *
  *
- * @partially-generated SignedSource<<cbaefee6b122521b73b4013461591651>>
+ * @partially-generated SignedSource<<4f5a85f07322ab422aee3e53f62a7432>>
  */
 namespace Facebook\HackRouter\CodeGen\Tests\Generated;
 
@@ -15,12 +15,12 @@ namespace Facebook\HackRouter\CodeGen\Tests\Generated;
 function hack_router_cli_lookup_generated_main(): void {
   /* BEGIN MANUAL SECTION init */
   $autoloader = null;
-  $autoloader_candidates = ImmSet {
+  $autoloader_candidates = vec[
     __DIR__.'/vendor/autoload.hack',
     __DIR__.'/../vendor/autoload.hack',
     __DIR__.'/../../vendor/autoload.hack',
     __DIR__.'/../../../vendor/autoload.hack',
-  };
+  ];
   foreach ($autoloader_candidates as $candidate) {
     if (\file_exists($candidate)) {
       $autoloader = $candidate;
@@ -35,7 +35,7 @@ function hack_router_cli_lookup_generated_main(): void {
   \Facebook\AutoloadMap\initialize();
   /* END MANUAL SECTION */
 
-  $argv = \Facebook\TypeAssert\matches<KeyedContainer<int, string>>(\HH\global_get('argv'));
+  $argv = \Facebook\TypeAssert\matches<vec<string>>(\HH\global_get('argv'));
   (new MySiteRouterCLILookup())->main($argv);
 }
 
@@ -75,12 +75,14 @@ final class MySiteRouterCLILookup {
     }
   }
 
-  public function main(KeyedContainer<int, string> $argv): void {
+  public function main(vec<string> $argv): void {
     $path = $argv[1] ?? null;
     if ($path === null) {
       \fprintf(\STDERR, "Usage: %s PATH\n", $argv[0]);
       exit(1);
     }
+    // The parser is very lenient, `?: $path` is almost never needed.
+    $path = \parse_url($path, \PHP_URL_PATH) ?: $path;
     $controllers = $this->getControllersForPath($path);
     if ($controllers->isEmpty()) {
       \printf("No controller found for '%s'.\n", $path);

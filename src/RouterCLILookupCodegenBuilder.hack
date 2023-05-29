@@ -80,7 +80,7 @@ final class RouterCLILookupCodegenBuilder {
           ->setBodyf(
             "%s\n".
             '$argv = '.
-            '\\Facebook\\TypeAssert\\matches<KeyedContainer<int, string>>('.
+            '\\Facebook\\TypeAssert\\matches<vec<string>>('.
             "\\HH\\global_get('argv'));\n".
             "(new %s())->main(\$argv);\n",
             $this->getInitCode(),
@@ -216,7 +216,7 @@ final class RouterCLILookupCodegenBuilder {
 
   private function getMainMethod(): CodegenMethod {
     return $this->cg->codegenMethod('main')
-      ->addParameter('KeyedContainer<int, string> $argv')
+      ->addParameter('vec<string> $argv')
       ->setReturnType('void')
       ->setBody(
         $this->cg->codegenHackBuilder()
@@ -229,6 +229,8 @@ final class RouterCLILookupCodegenBuilder {
           ->addLine('\\fprintf(\\STDERR, "Usage: %s PATH\n", $argv[0]);')
           ->addLine('exit(1);')
           ->endIfBlock()
+          ->addInlineComment('The parser is very lenient, `?: $path` is almost never needed.')
+          ->addLine('$path = \parse_url($path, \PHP_URL_PATH) ?: $path;')
           ->addAssignment(
             '$controllers',
             '$this->getControllersForPath($path)',
