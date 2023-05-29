@@ -7,10 +7,40 @@
  * To re-generate this file run vendor/hhvm/hacktest/bin/hacktest
  *
  *
- * @partially-generated SignedSource<<4f5a85f07322ab422aee3e53f62a7432>>
+ * @partially-generated SignedSource<<61e1a0bcff805162c34d005bb526d587>>
  */
 namespace Facebook\HackRouter\CodeGen\Tests\Generated;
 
+/**
+ * A quick way to validate that a path or url routes to the controller you
+ * expect.
+ *
+ * Usage: path/to/this/utility <%path or url%>.
+ * The output will look something like this:
+ *
+ * ```
+ * $ tests/examples/codegen/lookup-path.php /a-string/123/derp
+ * HEAD:    Facebook\HackRouter\CodeGen\Tests\GetRequestExampleController
+ * GET:     Facebook\HackRouter\CodeGen\Tests\GetRequestExampleController
+ * ```
+ *
+ * You may also copy paste the whole url:
+ * ```
+ * $ tests/examples/codegen/lookup-path.php
+ * http://localhost:8080/a-string/123/derp?query=abcd#fragment
+ * HEAD:    Facebook\HackRouter\CodeGen\Tests\GetRequestExampleController
+ * GET:     Facebook\HackRouter\CodeGen\Tests\GetRequestExampleController
+ * ```
+ *
+ * If the given path does not match any controllers, you'll get the following
+ * result:
+ * ```
+ * $ tests/examples/codegen/lookup-path.php /a/b/c
+ * No controller found for '/a/b/c'.
+ * ```
+ *
+ * You can edit the manual sections to change the router and formatter used.
+ */
 <<__EntryPoint>>
 function hack_router_cli_lookup_generated_main(): void {
   /* BEGIN MANUAL SECTION init */
